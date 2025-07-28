@@ -101,7 +101,14 @@
 // export default Services;
 
 import React from "react";
-import { GiCrystalBall, GiStarsStack, GiStarFormation } from "react-icons/gi";
+import {
+  GiCrystalBall,
+  GiStarsStack,
+  GiStarFormation,
+  GiSpiralLollipop,
+  GiNotebook,
+  GiTalk
+} from "react-icons/gi";
 import { FaStar } from "react-icons/fa";
 
 // DUMMY DATA
@@ -109,24 +116,27 @@ const services = [
   {
     icon: <GiCrystalBall className="text-5xl text-indigo-400 drop-shadow" />,
     title: "Personalized Kundli",
-    desc: "Get detailed birth charts based on your unique data.",
+    desc: "Unlock your destiny with a deeply personalized Kundli based on your exact birth date, time, and location. Get over 200 pages of astrological insights, colorful charts, yogas, doshas, dasha periods, and tailored remedies—all powered by systems like Parashari, KP, and Jaimini. Ideal for self-discovery or professional consultation.",
     cta: "Explore Now",
     img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=100",
     popular: true,
     rating: 4.9,
     votes: 1287,
+    link: "/personal",
   },
   {
     icon: <GiStarsStack className="text-5xl text-purple-400 drop-shadow" />,
     title: "Horoscope Predictions",
-    desc: "Daily, weekly, monthly forecasts to guide your path.",
+    desc: "Navigate life with clarity using daily, weekly, and monthly horoscopes based on planetary transits, dashas, and house positions. Whether you're facing decisions in career, relationships, or health—our precise forecasts give you the cosmic edge, tailored to your Kundli.",
     cta: "See Predictions",
     img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=100",
     popular: true,
     rating: 4.8,
     votes: 1112,
-  },
+    link: "/horoscope",
+  }
 ];
+
 
 export default function Services() {
   return (
@@ -156,7 +166,7 @@ export default function Services() {
           From personalized Kundli to expert horoscope insights—unlock the cosmos with science-backed, accessible astrology for everyone.
         </p>
         <div className="grid gap-12 md:grid-cols-2 grid-cols-1">
-          {services.map(({ icon, title, desc, cta, img, popular, rating, votes }, idx) => (
+          {services.map(({ icon, title, desc, cta, img, popular, rating, votes,link }, idx) => (
             <div
               key={idx}
               className={`group relative bg-white/60 backdrop-blur-[3px] border-2 border-transparent
@@ -169,13 +179,6 @@ export default function Services() {
                 "--tw-gradient-from": "#ffd6eb",
               }}
             >
-              {/* Most Popular badge */}
-              {popular && (
-                <span className="absolute top-4 left-4 bg-gradient-to-r from-fuchsia-400 via-pink-500 to-purple-500 text-white text-[13px] font-bold px-3 py-1 rounded-full shadow-lg z-20 flex items-center gap-1">
-                  <FaStar className="inline text-yellow-300 -mt-0.5" /> Most Popular
-                </span>
-              )}
-
               {/* Card image */}
               <div className="w-full h-[220px] flex items-center justify-center relative overflow-hidden">
                 <img
@@ -193,7 +196,6 @@ export default function Services() {
 
               {/* Card Content */}
               <div className="flex-1 flex flex-col items-center p-8 pb-7 w-full">
-                <div className="mb-4">{icon}</div>
                 <h3 className="text-2xl font-bold text-indigo-900 mb-2 group-hover:text-fuchsia-600 transition-all">
                   {title}
                 </h3>
@@ -209,14 +211,16 @@ export default function Services() {
                     </span>
                   </div>
                 )}
-                <button
-                  className="mt-5 uppercase font-bold text-indigo-800 bg-gradient-to-r from-pink-200 via-purple-100 to-indigo-100 px-8 py-3 rounded-full
+                <a href={link}>
+                  <button
+                    className="mt-5 uppercase font-bold text-indigo-800 bg-gradient-to-r from-pink-200 via-purple-100 to-indigo-100 px-8 py-3 rounded-full
                     shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-200 transition
                     animate-[pulse_2.2s_infinite] hover:scale-105"
-                  style={{ animationDelay: idx * 180 + "ms" }}
-                >
-                  {cta}
-                </button>
+                    style={{ animationDelay: idx * 180 + "ms" }}
+                    >
+                    {cta}
+                  </button>
+                </a>
               </div>
               
               {/* Subtle floating cosmic particles per card */}
