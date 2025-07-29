@@ -4,7 +4,7 @@ const qaItems = [
   {
     question: "Can I create and save unlimited Kundlis?",
     answer:
-      "Absolutely! With Dhruv Astro Software, you're empowered to generate and store **unlimited Kundlis** on the cloud. This means no more paperwork, file clutter, or storage worries. Whether you're managing hundreds of clients or running astrology workshops, your data is automatically saved, backed up, and accessible from anywhere. Perfect for astrologers who want complete freedom, reliability, and zero limitations.",
+      "Absolutely! WithSriastroveda Software, you're empowered to generate and store **unlimited Kundlis** on the cloud. This means no more paperwork, file clutter, or storage worries. Whether you're managing hundreds of clients or running astrology workshops, your data is automatically saved, backed up, and accessible from anywhere. Perfect for astrologers who want complete freedom, reliability, and zero limitations.",
   },
   {
     question: "What do I get in the Kundli reports?",
@@ -74,7 +74,7 @@ const qaItems = [
   {
     question: "Does it support different languages?",
     answer:
-      "Yes, Dhruv Astro Software speaks your language! It’s available in **9 Indian languages**: English, Hindi, Bengali, Marathi, Telugu, Tamil, Kannada, Malayalam, and Gujarati. Serve clients in their native language and make every consultation more personal and impactful.",
+      "Yes,Sriastroveda Software speaks your language! It’s available in **9 Indian languages**: English, Hindi, Bengali, Marathi, Telugu, Tamil, Kannada, Malayalam, and Gujarati. Serve clients in their native language and make every consultation more personal and impactful.",
   },
 ];
 

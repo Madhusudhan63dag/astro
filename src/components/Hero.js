@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-// Place this at the top of your file (or before Hero)
-
-// // SVG visual component
-// const ZodiacVisual = () => (
-//   <svg ...> {/* Your SVG here */} </svg>
-// );
-
+import three from '../assets/8.webp'
+import front from '../assets/3.webp';
 // Features array
 const features = [
   { text: "Unlimited Kundli Creation" },
@@ -42,11 +36,11 @@ const KundliModal = ({ show, onClose }) => {
         >&times;</button>
 
         {/* IMAGE LEFT */}
-        <div className="md:w-[300px] w-full md:min-h-[420px] flex items-center justify-center bg-gradient-to-br from-fuchsia-100 via-indigo-50 to-purple-50 p-0 md:p-6">
+        <div className="md:w-[300px] w-full flex items-center justify-center p-0 md:p-6">
           <img
-            src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=450&q=90"
+            src={three}
             alt="Vedic Kundli Sample"
-            className="object-cover rounded-2xl md:rounded-xl w-full h-60 md:h-full"
+            className="object-contain w-full h-60 md:h-full"
             style={{ maxWidth: 280, boxShadow: "0 8px 28px #bca9ff44" }}
             loading="lazy"
           />
@@ -64,12 +58,6 @@ const KundliModal = ({ show, onClose }) => {
             <p className="text-indigo-800 mb-4">
               Dive deep into your life's cosmic blueprint: <span className="font-semibold text-fuchsia-700">200+ pages</span> of predictions, doshas, remedies, career-personality analysis, and much more. Based on Vedic, KP & Jaimini astrology and <b>customized just for you</b>.
             </p>
-            <ul className="text-indigo-700 space-y-2 mb-6 text-sm pl-4 list-disc">
-              <li>All charts and dasha at a glance</li>
-              <li>Career, marriage, health, wealth forecasts</li>
-              <li>Easy-to-read, includes remedies & strengths</li>
-              <li>Downloadable PDF, English & Indian languages</li>
-            </ul>
           </div>
           <a
             href="/personal"
@@ -132,6 +120,7 @@ const Hero = () => {
         {/* --- Right: Visual --- */}
         <div className="relative z-10 flex-1 flex items-center justify-center my-10 md:my-0">
           {/* <ZodiacVisual /> */}
+          <img src={front} alt="Astrology Visual" className="w-full h-auto max-w-[500px] md:max-w-[600px] object-contain" />
         </div>
       </section>
       {/* Kundli Offer Modal */}

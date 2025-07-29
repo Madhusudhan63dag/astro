@@ -1,105 +1,3 @@
-// import React from "react";
-// import { GiCrystalBall, GiHearts, GiPalm, GiMeditation, GiStarsStack, GiPhone, GiStarFormation } from "react-icons/gi";
-
-// const services = [
-//   {
-//     icon: <GiCrystalBall className="text-4xl text-indigo-400 transition group-hover:rotate-[10deg]" />,
-//     title: "Personalized Kundli",
-//     desc: "Get detailed birth charts based on your unique data.",
-//     cta: "Explore Now",
-//     img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=100",
-//     popular: true,
-//     rating: 4.9,
-//     votes: 1287
-//   },
-//   {
-//     icon: <GiStarsStack className="text-4xl text-purple-300 transition group-hover:-rotate-6" />,
-//     title: "Horoscope Predictions",
-//     desc: "Daily, weekly, monthly forecasts to guide your path.",
-//     cta: "See Predictions",
-//     img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=100",
-//     popular: true
-//   },
-// ];
-
-// function Services() {
-//   return (
-//     <section
-//       id="core-services"
-//       className="py-16 bg-gradient-to-br from-indigo-50 via-pink-50 to-purple-50 relative overflow-x-hidden"
-//     >
-//       {/* Faint zodiac background watermark */}
-//       <div className="absolute top-7 left-1/2 -translate-x-1/2 opacity-10 pointer-events-none z-0">
-//         <GiStarFormation className="text-[340px] text-purple-100" />
-//       </div>
-//       <div className="max-w-7xl mx-auto px-6 relative z-10">
-//         <h2 className="text-3xl md:text-4xl font-bold text-indigo-800 mb-6 text-center tracking-tight">
-//           Our Core Astrology Services
-//         </h2>
-//         <p className="text-lg text-indigo-700 max-w-3xl mx-auto mb-10 text-center">
-//           Navigate life's mysteries with our advanced, science-backed astrology solutions.
-//         </p>
-//         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-//           {services.map(({ icon, title, desc, cta, img, popular, rating, votes }, idx) => (
-//             <div
-//               key={idx}
-//               className={`
-//                 group relative 
-//                 bg-white/85 border border-purple-100
-//                 rounded-2xl p-0 shadow-lg flex flex-col items-center text-center
-//                 transition-all duration-300 hover:-translate-y-2
-//                 hover:shadow-2xl hover:border-fuchsia-300
-//                 ${popular ? "ring-2 ring-pink-200" : ""}
-//               `}
-//               style={{ overflow: 'hidden', minHeight: 500 }}
-//             >
-//               {/* Popular Tag Ribbon */}
-//               {popular && (
-//                 <span className="absolute -top-2 -right-2 bg-pink-400 text-white text-[11px] font-semibold px-3 py-1 rounded-full shadow-md z-10 animate-pulse select-none">
-//                   Most Popular
-//                 </span>
-//               )}
-//               {/* Card Top Image */}
-//               <div className="w-full h-[220px] bg-gradient-to-tr from-purple-50 via-white to-indigo-50 flex items-center justify-center overflow-hidden">
-//                 <img
-//                   src={img}
-//                   alt={title}
-//                   className="w-full h-full object-cover object-center rounded-t-2xl"
-//                   width={500}
-//                   height={500}
-//                   loading="lazy"
-//                 />
-//               </div>
-//               {/* Content */}
-//               <div className="flex-1 flex flex-col items-center p-6 pb-7">
-//                 <div className="mb-3">{icon}</div>
-//                 <h3 className="text-lg font-semibold text-indigo-800 mb-2 group-hover:text-fuchsia-600 transition">{title}</h3>
-//                 <p className="text-indigo-700/90 mb-3">{desc}</p>
-//                 {/* Trust stars for popular */}
-//                 {popular && rating && (
-//                   <div className="flex items-center gap-1 text-yellow-500 text-xs justify-center mb-2">
-//                     <span>★</span>
-//                     <span>{rating}</span>
-//                     <span className="text-slate-400">({votes}+ trust votes)</span>
-//                   </div>
-//                 )}
-//                 <button
-//                   className="uppercase font-bold text-indigo-800 bg-gradient-to-r from-pink-200 via-purple-100 to-indigo-100 px-6 py-2 rounded-full
-//                              shadow hover:shadow-lg transition hover:brightness-105 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200"
-//                 >
-//                   {cta}
-//                 </button>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Services;
-
 import React from "react";
 import {
   GiCrystalBall,
@@ -110,6 +8,8 @@ import {
   GiTalk
 } from "react-icons/gi";
 import { FaStar } from "react-icons/fa";
+import four from '../assets/4.webp';
+import nine from '../assets/9.webp';
 
 // DUMMY DATA
 const services = [
@@ -118,7 +18,7 @@ const services = [
     title: "Personalized Kundli",
     desc: "Unlock your destiny with a deeply personalized Kundli based on your exact birth date, time, and location. Get over 200 pages of astrological insights, colorful charts, yogas, doshas, dasha periods, and tailored remedies—all powered by systems like Parashari, KP, and Jaimini. Ideal for self-discovery or professional consultation.",
     cta: "Explore Now",
-    img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=100",
+    img: four,
     popular: true,
     rating: 4.9,
     votes: 1287,
@@ -129,7 +29,7 @@ const services = [
     title: "Horoscope Predictions",
     desc: "Navigate life with clarity using daily, weekly, and monthly horoscopes based on planetary transits, dashas, and house positions. Whether you're facing decisions in career, relationships, or health—our precise forecasts give you the cosmic edge, tailored to your Kundli.",
     cta: "See Predictions",
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=100",
+    img: nine,
     popular: true,
     rating: 4.8,
     votes: 1112,
@@ -180,11 +80,11 @@ export default function Services() {
               }}
             >
               {/* Card image */}
-              <div className="w-full h-[220px] flex items-center justify-center relative overflow-hidden">
+              <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
                 <img
                   src={img}
                   alt={title}
-                  className="w-full h-full object-cover object-center rounded-t-3xl"
+                  className="w-full h-full object-contain"
                   width={500}
                   height={220}
                   loading="lazy"
