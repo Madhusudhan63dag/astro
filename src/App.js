@@ -10,13 +10,17 @@ import Personal from './pages/Personal';
 import Horoscope from './pages/Horoscope';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import Two from './components/Two';
+import Three from './components/Three';
 
 
 function Home() {
   return (
     <div className="min-h-screen bg-transparent">
       <Hero />
+      <Two />
       <Services />
+      <Three />
       <Four />
       <Five />
     </div>
