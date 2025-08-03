@@ -1,143 +1,18 @@
-// import React, { useEffect, useState } from "react";
-// import bannerBg from '../assets/11.png'; // use your preferred image
-// import three from '../assets/8.webp'
-// import front from '../assets/3.webp';
-
-// const features = [
-//   { text: "Unlimited Kundli Creation" },
-//   { text: "200+ Page Detailed Reports" },
-//   { text: "Horoscope Matching Tools" },
-//   { text: "Cloud Backup & Multi-device Access" },
-//   { text: "Custom Branding Options" },
-//   { text: "Supports 12+ Astrology Systems" },
-// ];
-
-// const KundliModal = ({ show, onClose }) => {
-//   if (!show) return null;
-//   return (
-//     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1b1b28cc] backdrop-blur-[2px] transition-all duration-300">
-//       <div className="bg-white/95 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-w-3xl w-full border border-fuchsia-100 relative animate-fadeIn">
-//         {/* Close X button */}
-//         <button
-//           className="absolute top-3 right-3 text-2xl text-pink-400 hover:text-indigo-800 transition"
-//           onClick={onClose}
-//           aria-label="Close"
-//         >&times;</button>
-
-//         {/* IMAGE LEFT */}
-//         <div className="md:w-[300px] w-full flex items-center justify-center p-0 md:p-6">
-//           <img
-//             src={three}
-//             alt="Vedic Kundli Sample"
-//             className="object-contain w-full h-60 md:h-full"
-//             style={{ maxWidth: 280, boxShadow: "0 8px 28px #bca9ff44" }}
-//             loading="lazy"
-//           />
-//         </div>
-
-//         {/* CONTENT RIGHT */}
-//         <div className="flex-1 flex flex-col justify-between p-6 px-7">
-//           <div>
-//             <div className="mb-2 flex items-center gap-2 text-yellow-400 text-base font-semibold">
-//               <span>★</span> 200+ Pages | Multi-System
-//             </div>
-//             <h3 className="text-2xl md:text-3xl font-extrabold text-indigo-900 mb-2 tracking-tight">
-//               Personalized Kundli Report—<span className="bg-gradient-to-r from-fuchsia-500 via-yellow-300 to-indigo-500 bg-clip-text text-transparent">Most Detailed in India!</span>
-//             </h3>
-//             <p className="text-indigo-800 mb-4">
-//               Dive deep into your life's cosmic blueprint: <span className="font-semibold text-fuchsia-700">200+ pages</span> of predictions, doshas, remedies, career-personality analysis, and much more. Based on Vedic, KP & Jaimini astrology and <b>customized just for you</b>.
-//             </p>
-//           </div>
-//           <a
-//             href="/personal"
-//             className="inline-block w-full bg-gradient-to-r from-yellow-300 via-pink-300 to-indigo-300 text-indigo-900 font-bold shadow-lg rounded-full py-3 text-center text-lg hover:brightness-110 focus:ring-2 focus:ring-yellow-400 animate-pulse"
-//           >
-//             Check Out Sample Kundli Report
-//           </a>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Hero = () => {
-//   const [showKundliModal, setShowKundliModal] = useState(false);
-
-//   // Show modal after 5s (once per mount)
-//   useEffect(() => {
-//     const t = setTimeout(() => setShowKundliModal(true), 5000);
-//     return () => clearTimeout(t);
-//   }, []);
-
-//   return (
-//     <div>
-//       <section
-//         className="relative w-full h-[600px] flex items-center justify-start px-3 md:px-9"
-//         style={{
-//           backgroundImage: `url(${bannerBg})`,
-//           backgroundSize: 'cover',       // cover the whole area
-//           backgroundPosition: 'center',
-//           backgroundRepeat: 'no-repeat',
-//         }}
-//       >
-//         {/* Overlay for darkening/upgrading readability */}
-//         {/* <div className="absolute inset-0 bg-gradient-to-r from-[#1b1b28e6] via-[#181c2e99] to-transparent"></div> */}
-//         {/* Content on one side */}
-//         <div className="relative z-10 text-left">
-//           <h1 className="text-3xl md:text-[2.6rem] font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
-//             All-in-One Astrology Software for&nbsp;
-//             <span className="bg-gradient-to-r from-yellow-300 via-pink-200 to-[#bda4f8] bg-clip-text text-transparent">
-//               Professionals & Passionate Learners
-//             </span>
-//           </h1>
-//           <div className="text-lg md:text-2xl font-medium text-fuchsia-200 mb-7 md:mb-9 drop-shadow text-shadow">
-//             Generate unlimited Kundlis, offer 200+ page reports, perform deep compatibility matching, and manage clients with powerful cloud tools—all from one secure, multi-language platform.
-//           </div>
-//           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center md:justify-start mb-7">
-//             <a
-//               href="/personal"
-//               className="px-8 py-3 text-lg rounded-full font-bold bg-gradient-to-r from-yellow-300 via-fuchsia-200 to-purple-300 text-indigo-900 shadow-lg animate-[pulse_1.6s_infinite] hover:brightness-110 focus:ring-2 focus:ring-yellow-400"
-//               style={{ boxShadow: "0 0 16px #fff4" }}
-//             >
-//               Get My Personalized Report
-//             </a>
-//           </div>
-//           <div className="flex flex-wrap gap-2 items-center justify-center md:justify-start mt-2 mb-5">
-//             {features.map((f, i) => (
-//               <div
-//                 key={i}
-//                 className="flex items-center gap-2 text-slate-200 font-medium text-base bg-indigo-950/80 rounded-full px-4 py-2 shadow border border-slate-700/30"
-//               >
-//                 {f.text}
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//         {/* No right side image/content */}
-//       </section>
-//       {/* Modal code... */}
-//       <KundliModal show={showKundliModal} onClose={() => setShowKundliModal(false)} />
-
-//     </div>
-//   );
-// };
-
-// export default Hero;
-
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import sampleVideo from '../assets/banner.mp4';
-import three from '../assets/8.webp'
-
-
+import three from '../assets/8.webp';
 
 const KundliModal = ({ show, onClose }) => {
+  const { t } = useTranslation();
+  
   if (!show) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1b1b28cc] backdrop-blur-[2px] transition-all duration-300">
-      <div className="bg-white/95 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-w-3xl w-full border border-fuchsia-100 relative animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300">
+      <div className="bg-black/95 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-w-3xl w-full border border-gray-700/50 relative animate-fadeIn">
         {/* Close X button */}
         <button
-          className="absolute top-3 right-3 text-2xl text-pink-400 hover:text-indigo-800 transition"
+          className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-amber-300 transition"
           onClick={onClose}
           aria-label="Close"
         >&times;</button>
@@ -147,8 +22,8 @@ const KundliModal = ({ show, onClose }) => {
           <img
             src={three}
             alt="Vedic Kundli Sample"
-            className="object-contain w-full h-60 md:h-full"
-            style={{ maxWidth: 280, boxShadow: "0 8px 28px #bca9ff44" }}
+            className="object-contain w-full h-60 md:h-full rounded-lg"
+            style={{ maxWidth: 280, boxShadow: "0 8px 28px rgba(251, 191, 36, 0.3)" }}
             loading="lazy"
           />
         </div>
@@ -157,20 +32,20 @@ const KundliModal = ({ show, onClose }) => {
         <div className="flex-1 flex flex-col justify-between p-6 px-7">
           <div>
             <div className="mb-2 flex items-center gap-2 text-yellow-400 text-base font-semibold">
-              <span>★</span> 200+ Pages | Multi-System
+              <span>✦</span> {t('200_pages')} | {t('multi_system')}
             </div>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-indigo-900 mb-2 tracking-tight">
-              Personalized Kundli Report—<span className="bg-gradient-to-r from-fuchsia-500 via-yellow-300 to-indigo-500 bg-clip-text text-transparent">Most Detailed in India!</span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-tight">
+              {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
             </h3>
-            <p className="text-indigo-800 mb-4">
-              Dive deep into your life's cosmic blueprint: <span className="font-semibold text-fuchsia-700">200+ pages</span> of predictions, doshas, remedies, career-personality analysis, and much more. Based on Vedic, KP & Jaimini astrology and <b>customized just for you</b>.
+            <p className="text-gray-300 mb-4">
+              {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
             </p>
           </div>
           <a
-            href="/personal"
-            className="inline-block w-full bg-gradient-to-r from-yellow-300 via-pink-300 to-indigo-300 text-indigo-900 font-bold shadow-lg rounded-full py-3 text-center text-lg hover:brightness-110 focus:ring-2 focus:ring-yellow-400 animate-pulse"
+            href="/form"
+            className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-lg transition-all duration-300 transform hover:scale-105"
           >
-            Check Out Sample Kundli Report
+            {t('check_sample_kundli')}
           </a>
         </div>
       </div>
@@ -179,7 +54,17 @@ const KundliModal = ({ show, onClose }) => {
 };
 
 const Hero = () => {
+  const { t } = useTranslation();
   const [showKundliModal, setShowKundliModal] = useState(false);
+
+  const features = [
+    { text: t('unlimited_kundli') },
+    { text: t('detailed_reports') },
+    { text: t('horoscope_matching') },
+    { text: t('cloud_backup') },
+    { text: t('custom_branding') },
+    { text: t('astrology_systems') },
+  ];
 
   useEffect(() => {
     const t = setTimeout(() => setShowKundliModal(true), 5000);
@@ -201,33 +86,64 @@ const Hero = () => {
           aria-label="Background video"
         />
 
-        {/* Optional: video overlay for readability (uncomment if needed) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1b1b28e6] via-[#181c2e99] to-transparent"></div>
+        {/* Dark overlay for better readability */}
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-gray-900/70 to-black/60"></div> */}
 
-        {/* Content on top */}
-        <div className="relative z-10 text-left w-1/2">
-          <h1 className="text-3xl md:text-[2.6rem] font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
-            All-in-One Astrology Software for&nbsp;
-            <span className="bg-gradient-to-r from-yellow-300 via-pink-200 to-[#bda4f8] bg-clip-text text-transparent">
-              Professionals & Passionate Learners
+        {/* Decorative stars background pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-10 text-6xl text-yellow-400">✦</div>
+          <div className="absolute top-40 right-20 text-4xl text-amber-400">✧</div>
+          <div className="absolute bottom-40 left-20 text-5xl text-yellow-400">✦</div>
+          <div className="absolute bottom-20 right-10 text-3xl text-amber-400">✧</div>
+          <div className="absolute top-1/2 left-1/3 text-2xl text-yellow-300">✦</div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 text-left max-w-3xl">
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-white">
+            {t('unlock_cosmic')} <span className="text-yellow-400">{t('wisdom')}</span>
+            <br />
+            <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
+              {t('personalized_predictions')}
             </span>
           </h1>
-          <div className="text-lg md:text-2xl font-medium text-fuchsia-200 mb-7 md:mb-9 drop-shadow text-shadow">
-            Generate unlimited Kundlis, offer 200+ page reports, perform deep compatibility matching, and manage clients with powerful cloud tools—all from one secure, multi-language platform.
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center md:justify-start mb-7">
+          
+          <p className="text-xl font-medium text-gray-300 mb-8 leading-relaxed">
+            {t('hero_description')}
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 items-start mb-8">
             <a
-              href="/personal"
-              className="px-8 py-3 text-lg rounded-full font-bold bg-gradient-to-r from-yellow-300 via-fuchsia-200 to-purple-300 text-indigo-900 shadow-lg animate-[pulse_1.6s_infinite] hover:brightness-110 focus:ring-2 focus:ring-yellow-400"
-              style={{ boxShadow: "0 0 16px #fff4" }}
+              href="/form"
+              className="px-8 py-4 text-lg rounded-lg font-bold bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
             >
-              Get My Personalized Report
+              {t('get_my_report')} →
             </a>
+            
+            <button
+              onClick={() => setShowKundliModal(true)}
+              className="px-8 py-4 text-lg rounded-lg font-semibold text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
+            >
+              {t('view_sample')}
+            </button>
+          </div>
+          
+          {/* Features grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-2xl">
+            {features.map((feature, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 text-gray-300 text-sm font-medium bg-black/40 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-700/50"
+              >
+                <span className="text-yellow-400 text-xs">✓</span>
+                {feature.text}
+              </div>
+            ))}
           </div>
         </div>
       </section>
       
-      {/* <KundliModal show={showKundliModal} onClose={() => setShowKundliModal(false)} /> */}
+      <KundliModal show={showKundliModal} onClose={() => setShowKundliModal(false)} />
     </div>
   );
 };

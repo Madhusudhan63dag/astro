@@ -1,62 +1,65 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import services from "../assets/services.png";
 
-const service = [
-  {
-    title: "Match Horoscope",
-    desc: "Check marriage compatibility and kundli matching for you and your partner.",
-    cta: "Match Now",
-    link: "/services/match-horoscope",
-  },
-  {
-    title: "Your Life Predictions",
-    desc: "Get a complete overview of your future based on your birth chart.",
-    cta: "View Predictions",
-    link: "/services/life-predictions",
-  },
-  {
-    title: "Ask A Question – ₹299",
-    desc: "Get expert answers to any personal or urgent question.",
-    cta: "Ask Now",
-    link: "/services/ask-question",
-  },
-  {
-    title: "Career",
-    desc: "Discover the right career path and job opportunities based on your stars.",
-    cta: "Explore Career",
-    link: "/services/career",
-  },
-  {
-    title: "Love",
-    desc: "Understand your love life, relationship compatibility, and future romance.",
-    cta: "Check Love Life",
-    link: "/services/love",
-  },
-  {
-    title: "2025 Personalized Report",
-    desc: "Detailed yearly forecast tailored to your birth details.",
-    cta: "Get 2025 Report",
-    link: "/services/2025-personalized",
-  },
-  {
-    title: "Dasha Phal Analysis",
-    desc: "Understand the impact of planetary periods (Dashas) on your life.",
-    cta: "Analyze Now",
-    link: "/services/dasha-phal",
-  },
-  {
-    title: "Sade Sati Life Report",
-    desc: "Find out how Saturn's Sade Sati will affect you and get remedies.",
-    cta: "Check Sade Sati",
-    link: "/services/sade-sati",
-  }
-];
-
 export default function Services() {
+  const { t } = useTranslation();
+
+  const service = [
+    {
+      title: t('match_horoscope'),
+      desc: t('match_horoscope_desc'),
+      cta: t('match_now'),
+      link: "/match-horoscope",
+    },
+    {
+      title: t('your_life_predictions'),
+      desc: t('life_predictions_desc'),
+      cta: t('view_predictions'),
+      link: "/life-predictions",
+    },
+    {
+      title: t('ask_question_price'),
+      desc: t('ask_question_desc'),
+      cta: t('ask_now'),
+      link: "/ask-question",
+    },
+    {
+      title: t('career_guidance'),
+      desc: t('career_desc'),
+      cta: t('explore_career'),
+      link: "/career-report",
+    },
+    {
+      title: t('love_compatibility'),
+      desc: t('love_desc'),
+      cta: t('check_love_life'),
+      link: "/love-report",
+    },
+    {
+      title: t('2025_personalized_report'),
+      desc: t('2025_report_desc'),
+      cta: t('get_2025_report'),
+      link: "/2025-predictions",
+    },
+    {
+      title: t('dasha_phal_analysis'),
+      desc: t('dasha_analysis_desc'),
+      cta: t('analyze_now'),
+      link: "/dasha-analysis",
+    },
+    {
+      title: t('sade_sati_report'),
+      desc: t('sade_sati_desc'),
+      cta: t('check_sade_sati'),
+      link: "/sade-sati",
+    }
+  ];
+
   return (
     <section
       id="core-services"
-      className="bg-gradient-to-br from-[#131229] to-[#22203a] py-16 px-2"
+      className="bg-gradient-to-br from-black via-gray-900 to-slate-900 py-16 px-2"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4">
         {/* Left - First 4 Services */}
@@ -64,7 +67,7 @@ export default function Services() {
           {service.slice(0, 4).map((item) => (
             <div
               key={item.title}
-              className="bg-[#191836] rounded-lg p-4 shadow-xl border-l-4 border-purple-500 hover:border-yellow-400 transition group md:mr-[-16px]"
+              className="bg-black/60 backdrop-blur-md rounded-lg p-4 shadow-xl border-l-4 border-yellow-500 hover:border-yellow-400 transition group md:mr-[-16px] border border-gray-700/50"
             >
               <h3 className="text-lg font-semibold text-white group-hover:text-yellow-200">
                 {item.title}
@@ -72,7 +75,7 @@ export default function Services() {
               <p className="text-sm text-gray-300">{item.desc}</p>
               <a
                 href={item.link}
-                className="inline-block mt-1 text-sm text-purple-300 font-medium group-hover:text-yellow-200 underline"
+                className="inline-block mt-1 text-sm text-yellow-300 font-medium group-hover:text-yellow-200 underline"
               >
                 {item.cta}
               </a>
@@ -85,7 +88,7 @@ export default function Services() {
           <img
             src={services}
             alt="Spiritual Services"
-            className="w-full md:w-[600px] lg:w-full object-contain  p-3"
+            className="w-full md:w-[600px] lg:w-full object-contain p-3"
             loading="lazy"
           />
         </div>
@@ -95,7 +98,7 @@ export default function Services() {
           {service.slice(4, 8).map((item) => (
             <div
               key={item.title}
-              className="bg-[#191836] rounded-lg p-4 shadow-xl border-r-4 border-purple-500 hover:border-yellow-400 transition group md:ml-[-16px]"
+              className="bg-black/60 backdrop-blur-md rounded-lg p-4 shadow-xl border-r-4 border-yellow-500 hover:border-yellow-400 transition group md:ml-[-16px] border border-gray-700/50"
             >
               <h3 className="text-lg font-semibold text-white group-hover:text-yellow-200">
                 {item.title}
@@ -103,7 +106,7 @@ export default function Services() {
               <p className="text-sm text-gray-300">{item.desc}</p>
               <a
                 href={item.link}
-                className="inline-block mt-1 text-sm text-purple-300 font-medium group-hover:text-yellow-200 underline"
+                className="inline-block mt-1 text-sm text-yellow-300 font-medium group-hover:text-yellow-200 underline"
               >
                 {item.cta}
               </a>
