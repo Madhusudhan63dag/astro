@@ -7,51 +7,51 @@ const KundliModal = ({ show, onClose }) => {
   const { t } = useTranslation();
   
   if (!show) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300">
-      <div className="bg-black/95 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-w-3xl w-full border border-gray-700/50 relative animate-fadeIn">
-        {/* Close X button */}
-        <button
-          className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-amber-300 transition"
-          onClick={onClose}
-          aria-label="Close"
-        >&times;</button>
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300">
+        <div className="bg-black/95 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-w-3xl w-full border border-gray-700/50 relative animate-fadeIn">
+          {/* Close X button */}
+          <button
+            className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-amber-300 transition"
+            onClick={onClose}
+            aria-label="Close"
+          >&times;</button>
 
-        {/* IMAGE LEFT */}
-        <div className="md:w-[300px] w-full flex items-center justify-center p-0 md:p-6">
-          <img
-            src={three}
-            alt="Vedic Kundli Sample"
-            className="object-contain w-full h-60 md:h-full rounded-lg"
-            style={{ maxWidth: 280, boxShadow: "0 8px 28px rgba(251, 191, 36, 0.3)" }}
-            loading="lazy"
-          />
-        </div>
-
-        {/* CONTENT RIGHT */}
-        <div className="flex-1 flex flex-col justify-between p-6 px-7">
-          <div>
-            <div className="mb-2 flex items-center gap-2 text-yellow-400 text-base font-semibold">
-              <span>✦</span> {t('200_pages')} | {t('multi_system')}
-            </div>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-tight">
-              {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
-            </h3>
-            <p className="text-gray-300 mb-4">
-              {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
-            </p>
+          {/* IMAGE LEFT */}
+          <div className="md:w-[300px] w-full flex items-center justify-center p-0 md:p-6">
+            <img
+              src={three}
+              alt="Vedic Kundli Sample"
+              className="object-contain w-full h-60 md:h-full rounded-lg"
+              style={{ maxWidth: 280, boxShadow: "0 8px 28px rgba(251, 191, 36, 0.3)" }}
+              loading="lazy"
+            />
           </div>
-          <a
-            href="/form"
-            className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-lg transition-all duration-300 transform hover:scale-105"
-          >
-            {t('check_sample_kundli')}
-          </a>
+
+          {/* CONTENT RIGHT */}
+          <div className="flex-1 flex flex-col justify-between p-6 px-7">
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-yellow-400 text-base font-semibold">
+                <span>✦</span> {t('200_pages')} | {t('multi_system')}
+              </div>
+              <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-tight">
+                {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
+              </h3>
+              <p className="text-gray-300 mb-4">
+                {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
+              </p>
+            </div>
+            <a
+              href="/form"
+              className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-lg transition-all duration-300 transform hover:scale-105"
+            >
+              {t('check_sample_kundli')}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+};  
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -73,30 +73,26 @@ const Hero = () => {
 
   return (
     <div>
-      <section className="relative w-full h-[600px] flex items-center justify-start px-3 md:px-9 overflow-hidden">
+      <section className="relative w-full h-screen flex items-center justify-start px-3 md:px-9 overflow-hidden">
         
-        {/* Background video */}
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          src={sampleVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-label="Background video"
-        />
-
-        {/* Dark overlay for better readability */}
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-gray-900/70 to-black/60"></div> */}
-
-        {/* Decorative stars background pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 text-6xl text-yellow-400">✦</div>
-          <div className="absolute top-40 right-20 text-4xl text-amber-400">✧</div>
-          <div className="absolute bottom-40 left-20 text-5xl text-yellow-400">✦</div>
-          <div className="absolute bottom-20 right-10 text-3xl text-amber-400">✧</div>
-          <div className="absolute top-1/2 left-1/3 text-2xl text-yellow-300">✦</div>
+        {/* Background video container */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <video
+            className="w-full h-full object-cover"
+            src={sampleVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label="Background video"
+            style={{
+              objectPosition: 'center center'
+            }}
+          />
         </div>
+        
+        {/* Dark overlay for better text readability */}
+        {/* <div className="absolute inset-0 bg-black/40 z-5"></div> */}
 
         {/* Content */}
         <div className="relative z-10 text-left max-w-3xl">

@@ -41,7 +41,6 @@ const AstroNavbar = () => {
         { name: t('birth_chart'), href: "/birth-chart" },
         { name: t('match_horoscope'), href: "/match-horoscope" },
         { name: t('ascendant_analysis'), href: "/ascendant" },
-        { name: t('gochar_phal'), href: "/transit-predictions" },
         { name: t('dasha_analysis'), href: "/dasha-analysis" },
         { name: t('nakshatra_report'), href: "/nakshatra" },
         { name: t('numerology'), href: "/numerology" }
@@ -68,8 +67,6 @@ const AstroNavbar = () => {
       icon: "🕉️",
       items: [
         { name: t('lal_kitab'), href: "/lal-kitab" },
-        { name: t('mangal_dosha'), href: "/mangal-dosha" },
-        { name: t('kalsarp_dosh'), href: "/kalsarp-dosh" },
         { name: t('sade_sati'), href: "/sade-sati" },
         { name: t('ask_question'), href: "/ask-question", price: "₹299" },
         { name: t('gemstones_report'), href: "/gemstones" }

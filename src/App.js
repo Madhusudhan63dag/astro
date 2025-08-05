@@ -18,7 +18,6 @@ import Three from './components/Three';
 import BirthChart from './pages/Horoscope/BirthChart';
 import MatchHoroscope from './pages/Horoscope/MatchHoroscope';
 import Ascendant from './pages/Horoscope/Ascendant';
-import TransitPredictions from './pages/Horoscope/TransitPredictions';
 import DashaAnalysis from './pages/Horoscope/DashaAnalysis';
 import Nakshatra from './pages/Horoscope/Nakshatra';
 import Numerology from './pages/Horoscope/Numerology';
@@ -35,8 +34,6 @@ import HealthReport from './pages/Predictions/HealthReport';
 
 // Remedial Solutions Pages
 import LalKitab from './pages/Remedial/LalKitab';
-import MangalDosha from './pages/Remedial/MangalDosha';
-import KalsarpDosh from './pages/Remedial/KalsarpDosh';
 import SadeSati from './pages/Remedial/SadeSati';
 import AskQuestion from './pages/Remedial/AskQuestion';
 import Gemstones from './pages/Remedial/Gemstones';
@@ -83,7 +80,6 @@ function App() {
           <Route path="/birth-chart" element={<BirthChart />} />
           <Route path="/match-horoscope" element={<MatchHoroscope />} />
           <Route path="/ascendant" element={<Ascendant />} />
-          <Route path="/transit-predictions" element={<TransitPredictions />} />
           <Route path="/dasha-analysis" element={<DashaAnalysis />} />
           <Route path="/nakshatra" element={<Nakshatra />} />
           <Route path="/numerology" element={<Numerology />} />
@@ -100,8 +96,7 @@ function App() {
           
           {/* Remedial Solutions Routes */}
           <Route path="/lal-kitab" element={<LalKitab />} />
-          <Route path="/mangal-dosha" element={<MangalDosha />} />
-          <Route path="/kalsarp-dosh" element={<KalsarpDosh />} />
+
           <Route path="/sade-sati" element={<SadeSati />} />
           <Route path="/ask-question" element={<AskQuestion />} />
           <Route path="/gemstones" element={<Gemstones />} />
