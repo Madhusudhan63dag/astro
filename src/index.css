@@ -30,3 +30,55 @@
 .animation-delay-1200 { animation-delay: 1.2s; }
 .animation-delay-2000 { animation-delay: 2s; }
 .animation-delay-4000 { animation-delay: 4s; }
+
+/* Enhanced date/time input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(147, 51, 234, 0.7);
+  cursor: pointer;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(147, 51, 234, 0.7);
+  cursor: pointer;
+}
+
+/* Custom focus states */
+input[type="date"]:focus,
+input[type="time"]:focus {
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+}
+
+/* Improved datetime edit styling */
+input[type="date"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit {
+  color: rgb(243, 244, 246);
+  padding: 0;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-text {
+  color: rgb(156, 163, 175);
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  color: rgb(243, 244, 246);
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus,
+input[type="date"]::-webkit-datetime-edit-year-field:focus,
+input[type="time"]::-webkit-datetime-edit-hour-field:focus,
+input[type="time"]::-webkit-datetime-edit-minute-field:focus,
+input[type="time"]::-webkit-datetime-edit-ampm-field:focus {
+  background: rgba(147, 51, 234, 0.2);
+  outline: none;
+}

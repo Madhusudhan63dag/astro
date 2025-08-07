@@ -24,6 +24,7 @@ import askquestion from './remedial/askquestion';
 import gemstones from './remedial/gemstones';
 import lalkitab from './remedial/lalkitab';
 import sadesati from './remedial/sadesati';
+import kundli from './kundli';
 
 
 export default {
@@ -50,5 +51,6 @@ export default {
   ...askquestion,
   ...gemstones,
   ...lalkitab,
-  ...sadesati
+  ...sadesati,
+  ...kundli
 };

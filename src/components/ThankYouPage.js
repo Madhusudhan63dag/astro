@@ -64,36 +64,7 @@ const ThankYouPage = ({
                 </div>
                 
                 {/* Main Message Card */}
-                <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 border border-purple-400/30 animate-slide-up">
-                  <h2 className="text-2xl md:text-3xl font-semibold text-white mb-6">
-                    {t('analysis_processing') || "Your Analysis is Being Processed!"}
-                  </h2>
-                  <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
-                    {t('delivery_message') || "You will receive your detailed analysis within 12 hours via email and WhatsApp."}
-                  </p>
-                  
-                  {/* Order Details */}
-                  {analysisData && (
-                    <div className="bg-black/50 rounded-xl p-6 mb-6 border border-purple-500/30">
-                      <h3 className="text-lg font-semibold text-purple-400 mb-4">{t('order_details') || "Order Details"}</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm md:text-base">
-                        <div className="text-left">
-                          <p className="text-gray-400 mb-1">{t('order_id') || "Order ID"}:</p>
-                          <p className="text-white font-mono text-xs md:text-sm break-all">{analysisData.requestId}</p>
-                        </div>
-                        <div className="text-left">
-                          <p className="text-gray-400 mb-1">{t('payment_id') || "Payment ID"}:</p>
-                          <p className="text-white font-mono text-xs md:text-sm break-all">{analysisData.paymentId}</p>
-                        </div>
-                        <div className="text-left">
-                          <p className="text-gray-400 mb-1">{t('amount_paid') || "Amount Paid"}:</p>
-                          <p className="text-white text-lg font-semibold">{serviceAmount}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
+                
                 {/* Delivery Information Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-400/30 rounded-xl p-6 animate-slide-up animation-delay-200">
@@ -111,23 +82,6 @@ const ThankYouPage = ({
                     <p className="text-gray-300 text-sm break-all">{userEmail}</p>
                   </div>
                 </div>
-
-                {/* Service Features */}
-                {serviceFeatures.length > 0 && (
-                  <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border border-purple-400/30 rounded-xl p-6 md:p-8 mb-8 animate-slide-up animation-delay-800">
-                    <h3 className="text-xl md:text-2xl font-semibold text-white mb-6">
-                      {t('what_youll_receive') || "What You'll Receive"}
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {serviceFeatures.map((feature, index) => (
-                        <div key={index} className="flex items-center gap-3 text-left">
-                          <span className="text-purple-400 text-xl flex-shrink-0">✓</span>
-                          <span className="text-gray-300">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 animate-slide-up animation-delay-1000">

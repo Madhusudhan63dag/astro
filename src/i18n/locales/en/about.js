@@ -3,34 +3,33 @@ export default {
 
         // Header Section
         "about_sri_astro_veda": "About Sri Astro Veda",
-        "unveiling_cosmic": "Unveiling Cosmic",
-        "mysteries": "Mysteries",
-        "since_generations": "Since Generations",
-        "about_hero_description": "Rooted in the sacred traditions of South Indian astrology, Sri Astro Veda has been illuminating life paths through authentic Vedic wisdom. Our certified Jyotish experts combine ancient knowledge with modern insights to provide accurate predictions and remedial solutions.",
+        "unveiling_cosmic": "Empowering Lives  ",
+        "mysteries": "with Vedic Wisdom",
+        "since_generations": "SriAstroVeda, A Legacy of Generations",
+        "about_hero_description": "Sri Astro Veda draws from the rich heritage of South Indian astrology to guide individuals with time-honored Vedic wisdom. Our experienced and certified astrologers blend age-old traditions with contemporary understanding to deliver precise predictions and effective remedial guidance for every stage of life.",
 
         // Story Section
         "our_story": "Our Story &",
         "our_mission": "Mission",
-        "our_story_description_1": "Founded with a deep reverence for the ancient science of Jyotisha, Sri Astro Veda began as a humble endeavor to preserve and share the profound wisdom of our ancestors. Our journey started with a simple belief - that everyone deserves access to authentic astrological guidance.",
-        "our_story_description_2": "Today, we stand as a bridge between timeless Vedic traditions and contemporary seekers, offering personalized insights that empower individuals to make informed decisions about their life's journey.",
-        "authentic_tradition": "Authentic Tradition",
-        "authentic_tradition_desc": "Preserving 5000+ years of Vedic astrology",
+        "our_story_description_1": "At Sri Astro Veda, our journey began with a deep reverence for the ancient science of Vedic astrology, passed down through generations of learned astrologers from South India. What started as a humble initiative to preserve this sacred knowledge has grown into a trusted platform serving individuals across the globe.",
+        "our_story_description_2": "To empower lives through the timeless wisdom of astrology, guiding people toward clarity, harmony, and purpose. We strive to make authentic astrological guidance accessible, practical, and transformative—blending tradition with modern-day understanding. Every prediction we offer and every remedy we suggest is rooted in genuine Vedic scriptures and interpreted by certified experts dedicated to your spiritual and personal growth.",
 
         // Features
-        "why_choose": "Why Choose",
-        "why_choose_description": "Experience the perfect blend of traditional wisdom and modern precision in every consultation and report we provide.",
+        "why_choose": "Why Choose Sri Astro Veda",
+        "why_choose_description": "Discover the power of authentic Vedic astrology, where age-old South Indian traditions meet modern-day accuracy — offering you trusted guidance, meaningful insights, and effective remedies.",
+
 
         "authentic_vedic_wisdom": "Authentic Vedic Wisdom",
-        "authentic_vedic_wisdom_desc": "Based on traditional South Indian Jyotish practices passed down through generations of learned scholars.",
+        "authentic_vedic_wisdom_desc": "Rooted in classical South Indian Jyotish traditions, our guidance is drawn from generations of Vedic scholarship and spiritual depth.",
 
-        "personalized_approach": "Personalized Approach", 
-        "personalized_approach_desc": "Every reading is tailored to your unique birth details and life circumstances for maximum accuracy.",
+        "personalized_approach": "Personalized & Insightful",
+        "personalized_approach_desc": "Each report and consultation is crafted based on your exact birth details, offering deeply personalized insights tailored to your life path.",
 
-        "comprehensive_analysis": "Comprehensive Analysis",
-        "comprehensive_analysis_desc": "Detailed 200+ page reports covering all aspects of life including career, marriage, health, and remedies.",
+        "comprehensive_analysis": "In-Depth & Holistic Reports",
+        "comprehensive_analysis_desc": "Get access to 200+ page detailed reports covering career, marriage, health, finance, doshas, planetary periods, remedies, and more.",
 
-        "proven_expertise": "Proven Expertise",
-        "proven_expertise_desc": "Over 15 years of experience with thousands of satisfied clients worldwide.",
+        "proven_expertise": "Vast Experience & Trusted Service",
+        "proven_expertise_desc": "With 15+ years of astrological service and a diverse range of offerings, we’ve guided thousands globally through accurate predictions and effective solutions.",
 
         // Gallery Section
         "spiritual_journey": "Spiritual Journey -",

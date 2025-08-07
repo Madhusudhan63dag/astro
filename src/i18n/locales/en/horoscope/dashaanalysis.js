@@ -49,7 +49,7 @@ export default {
     "future_dasha_timeline": "Future Dasha Timeline",
 
     // Actions & Buttons
-    "pay_and_generate_analysis": "Pay & Generate Analysis",
+    "pay_and_generate_chart": "Pay & Generate Analysis",
     "processing_payment": "Processing Payment",
     "processing_request": "Processing Request",
 
@@ -79,7 +79,7 @@ export default {
     "career_finance_predictions": "Career & Finance Predictions",
 
     // Visual Content
-    "sample_dasha_phal_analysis": "Sample Dasha Phal Analysis",
+    "sample_dasha_phal": "Sample Dasha Phal Analysis",
     "sample_dasha_phal_description": "This is how your detailed Dasha Phal analysis will look",
     "major_planetary_periods": "Major Planetary Periods",
 

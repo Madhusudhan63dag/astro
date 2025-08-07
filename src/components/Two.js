@@ -32,17 +32,9 @@ const Two = () => {
 
           {/* Content Section */}
           <div className="lg:w-1/2 w-full flex flex-col justify-center items-start p-8 lg:p-12">
-            {/* Badge */}
-            <div className="mb-6">
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                <span className="mr-2">🕉️</span>
-                {t('authentic_vedic_astrology')}
-              </span>
-            </div>
-
             {/* Main Heading */}
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
-              {t('discover_your')} <span className="text-yellow-400">{t('cosmic_destiny')}</span>
+              <span className="text-yellow-400">{t('cosmic_destiny')}</span>
               <br />
               <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
                 {t('through_ancient_wisdom')}
@@ -74,6 +66,7 @@ const Two = () => {
               </div>
             </div>
 
+
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 w-full">
               <a
@@ -82,25 +75,6 @@ const Two = () => {
               >
                 {t('start_your_journey')} →
               </a>
-              
-              <a
-                href="/about"
-                className="px-8 py-4 text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black font-semibold rounded-lg transition-all duration-300 text-center"
-              >
-                {t('learn_more')}
-              </a>
-            </div>
-
-            {/* Trust Indicator */}
-            <div className="flex items-center gap-4 mt-6 text-gray-400 text-sm">
-              <div className="flex items-center gap-1">
-                <span className="text-yellow-400">⭐⭐⭐⭐⭐</span>
-                <span>{t('rated_by_clients')}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-green-400">🔒</span>
-                <span>{t('confidential_secure')}</span>
-              </div>
             </div>
           </div>
         </div>

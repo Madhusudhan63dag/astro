@@ -1,6 +1,6 @@
 export default {
   // Navigation
-  "home": "Home",
+  "detailed": "Detailed Life Report",
   "about": "About", 
   "contact": "Contact",
   "get_reading": "Get Reading",

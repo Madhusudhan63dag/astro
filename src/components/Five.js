@@ -18,10 +18,6 @@ export default function Five() {
       answer: t('branding_answer'),
     },
     {
-      question: t('horoscope_matching_question'),
-      answer: t('horoscope_matching_answer'),
-    },
-    {
       question: t('saving_notes_question'),
       answer: t('saving_notes_answer'),
     },
@@ -50,17 +46,10 @@ export default function Five() {
       answer: t('customize_charts_answer'),
     },
     {
-      question: t('delivery_perks_question'),
-      answer: t('delivery_perks_answer'),
-    },
-    {
       question: t('discounts_question'),
       answer: t('discounts_answer'),
     },
-    {
-      question: t('affiliate_question'),
-      answer: t('affiliate_answer'),
-    },
+   
     {
       question: t('languages_question'),
       answer: t('languages_answer'),

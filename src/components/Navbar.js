@@ -26,8 +26,6 @@ const AstroNavbar = () => {
     { code: 'te', name: 'Telugu', native: 'తెలుగు' },
     { code: 'hi', name: 'Hindi', native: 'हिंदी' },
     { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
-    // { code: 'mr', name: 'Marathi', native: 'मराठी' },
-    // { code: 'ta', name: 'Tamil', native: 'தமிழ்' }
   ];
 
   const currentLang = languages.find(lang => lang.code === selectedLanguage);
@@ -81,16 +79,18 @@ const AstroNavbar = () => {
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
             <div>
-              <h1 className="text-xl font-bold text-white">
-                SriAstro<span className="text-yellow-400">Veda</span>
-              </h1>
+              <a href="/">
+                <h1 className="text-xl font-bold text-white">
+                  SriAstro<span className="text-yellow-400">Veda</span>
+                </h1>
+              </a>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="/" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
-              {t('home')}
+            <a href="/kundli" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
+              {t('detailed')}
             </a>
 
             {navItems.map((item) => (
@@ -200,8 +200,8 @@ const AstroNavbar = () => {
         {/* Mobile Menu */}
         <div className={`lg:hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
           <div className="py-4 space-y-4 border-t border-gray-700/50">
-            <a href="/" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
-              {t('home')}
+            <a href="/kundli" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
+              {t('detailed')}
             </a>
 
             {navItems.map((item) => (

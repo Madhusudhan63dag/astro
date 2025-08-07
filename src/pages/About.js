@@ -9,22 +9,18 @@ const About = () => {
 
   const features = [
     {
-      icon: "🕉️",
       title: t('authentic_vedic_wisdom'),
       description: t('authentic_vedic_wisdom_desc')
     },
     {
-      icon: "✦",
       title: t('personalized_approach'),
       description: t('personalized_approach_desc')
     },
     {
-      icon: "🔮",
       title: t('comprehensive_analysis'),
       description: t('comprehensive_analysis_desc')
     },
     {
-      icon: "🌟",
       title: t('proven_expertise'),
       description: t('proven_expertise_desc')
     }
@@ -39,25 +35,10 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 text-6xl text-yellow-400">✦</div>
-        <div className="absolute top-40 right-20 text-4xl text-amber-400">✧</div>
-        <div className="absolute bottom-40 left-20 text-5xl text-yellow-400">✦</div>
-        <div className="absolute bottom-20 right-10 text-3xl text-amber-400">✧</div>
-        <div className="absolute top-1/2 left-1/4 text-3xl text-yellow-300">✦</div>
-        <div className="absolute top-1/3 right-1/3 text-2xl text-amber-300">✧</div>
-      </div>
 
       <div className="relative z-10 py-16 px-4">
         {/* Hero Section */}
         <div className="max-w-7xl mx-auto text-center mb-20">
-          <div className="mb-6">
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-              <span className="mr-2">🕉️</span>
-              {t('about_sri_astro_veda')}
-            </span>
-          </div>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
             {t('unveiling_cosmic')} <span className="text-yellow-400">{t('mysteries')}</span>
             <br />
@@ -92,15 +73,6 @@ const About = () => {
               <p className="text-lg text-gray-300 leading-relaxed">
                 {t('our_story_description_2')}
               </p>
-              <div className="flex items-center gap-4 pt-4">
-                <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-yellow-400 text-xl">✦</span>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold">{t('authentic_tradition')}</h4>
-                  <p className="text-gray-400 text-sm">{t('authentic_tradition_desc')}</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -122,7 +94,7 @@ const About = () => {
                 key={index}
                 className="bg-black/60 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 hover:border-yellow-400/50 transition-all duration-300 group text-center"
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                {/* <div className="text-4xl mb-4">{feature.icon}</div> */}
                 <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-yellow-400 transition-colors">
                   {feature.title}
                 </h3>
@@ -149,11 +121,11 @@ const About = () => {
                 alt={t('cosmic_wisdom')}
                 className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
+              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
               <div className="absolute bottom-4 left-4 right-4">
                 <h4 className="text-white font-semibold text-lg">{t('cosmic_wisdom')}</h4>
                 <p className="text-gray-300 text-sm">{t('cosmic_wisdom_desc')}</p>
-              </div>
+              </div> */}
             </div>
 
             <div className="relative group">
@@ -162,11 +134,11 @@ const About = () => {
                 alt={t('ancient_scriptures')}
                 className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
+              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
               <div className="absolute bottom-4 left-4 right-4">
                 <h4 className="text-white font-semibold text-lg">{t('ancient_scriptures')}</h4>
                 <p className="text-gray-300 text-sm">{t('ancient_scriptures_desc')}</p>
-              </div>
+              </div> */}
             </div>
 
             <div className="relative group md:col-span-2 lg:col-span-1">
@@ -175,11 +147,11 @@ const About = () => {
                 alt={t('spiritual_guidance')}
                 className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
+              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
               <div className="absolute bottom-4 left-4 right-4">
                 <h4 className="text-white font-semibold text-lg">{t('spiritual_guidance')}</h4>
                 <p className="text-gray-300 text-sm">{t('spiritual_guidance_desc')}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

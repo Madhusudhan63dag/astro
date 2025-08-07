@@ -46,6 +46,7 @@ import Contact from './pages/Contact';
 
 // Pricing Page
 import Pricing from './pages/Pricing';
+import Kundli from './pages/Kundli';
 
 
 function Home() {
@@ -100,6 +101,8 @@ function App() {
           <Route path="/sade-sati" element={<SadeSati />} />
           <Route path="/ask-question" element={<AskQuestion />} />
           <Route path="/gemstones" element={<Gemstones />} />
+
+          <Route path="/kundli" element={<Kundli />} />
           
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
