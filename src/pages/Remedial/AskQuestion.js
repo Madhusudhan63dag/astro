@@ -15,7 +15,9 @@ const AskQuestion = () => {
     placeOfBirth: '',
     language: 'en',
     email: '',
-    phone: ''
+    phone: '',
+    question: '',
+    questionCategory: ''
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
@@ -77,7 +79,8 @@ const AskQuestion = () => {
             formCompletedAt: formCompletedTime?.toISOString(),
             sessionStartedAt: sessionStartTime?.toISOString(),
             paymentInitiated: paymentInitiated
-          }
+          },
+          specialRequests: formData.question // Add the user's question as special requests
         })
       });
 
@@ -262,7 +265,8 @@ const AskQuestion = () => {
               amount: 399,
               status: 'paid'
             },
-            additionalInfo: `Payment successful. Payment ID: ${paymentId}, Order ID: ${orderId}`
+            additionalInfo: `Payment successful. Payment ID: ${paymentId}, Order ID: ${orderId}`,
+            specialRequests: formData.question // Add the user's question as special requests
           })
         });
 
@@ -345,7 +349,8 @@ const AskQuestion = () => {
             orderId: orderId,
             amount: 399,
             status: 'paid_but_processing_failed'
-          }
+          },
+          specialRequests: formData.question // Add the user's question as special requests
         })
       });
 
@@ -376,7 +381,7 @@ const AskQuestion = () => {
 
   // Utility functions
   const validateFormData = (data) => {
-    return data.name && data.email && data.phone && data.dateOfBirth && data.timeOfBirth && data.placeOfBirth;
+    return data.name && data.email && data.phone && data.dateOfBirth && data.timeOfBirth && data.placeOfBirth && data.question;
   };
 
   const generateSessionId = () => {
@@ -538,6 +543,43 @@ const AskQuestion = () => {
                     />
                     <p className="text-gray-400 text-xs sm:text-sm mt-2">
                       {t('birth_date_question_context')}
+                    </p>
+                  </div>
+
+                  {/* Time of Birth */}
+                  <div>
+                    <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                      {t('time_of_birth')} <span className="text-pink-400">*</span>
+                    </label>
+                    <input
+                      type="time"
+                      name="timeOfBirth"
+                      value={formData.timeOfBirth}
+                      onChange={handleInputChange}
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                      required
+                    />
+                    <p className="text-gray-400 text-xs sm:text-sm mt-2">
+                      {t('birth_time_question_context')}
+                    </p>
+                  </div>
+
+                  {/* Place of Birth */}
+                  <div>
+                    <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                      {t('place_of_birth')} <span className="text-pink-400">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="placeOfBirth"
+                      value={formData.placeOfBirth}
+                      onChange={handleInputChange}
+                      placeholder={t('enter_place_of_birth')}
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                      required
+                    />
+                    <p className="text-gray-400 text-xs sm:text-sm mt-2">
+                      {t('birth_place_question_context')}
                     </p>
                   </div>
 
