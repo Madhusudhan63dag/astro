@@ -80,11 +80,11 @@ const AstroNavbar = () => {
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
             <div>
-              <a href="/">
-                {/* <h1 className="text-xl font-bold text-white">
+              <a href="/" className='flex flex-col items-center justify-center'>
+                <img src={logo} className="h-10" alt="SriAstroVeda Logo" />
+                <h1 className="text-md font-bold text-white">
                   SriAstro<span className="text-yellow-400">Veda</span>
-                </h1> */}
-                <img src={logo} className="h-16" alt="SriAstroVeda Logo" />
+                </h1>
               </a>
             </div>
           </div>

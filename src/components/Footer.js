@@ -14,8 +14,10 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:justify-between gap-8 pb-6 border-b border-slate-700/50">
           {/* Brand and tagline */}
           <div className="flex flex-col items-center lg:items-start lg:max-w-xs">
-            <a href="/" className="font-bold text-2xl bg-gradient-to-r from-indigo-500 via-fuchsia-400 to-yellow-300 bg-clip-text text-transparent tracking-wide mb-1"><img src={logo} alt="SriAstroVeda Logo" /></a>
-            <div className="text-slate-400 text-sm text-center lg:text-left mb-3">{t('footer_tagline')}</div>
+            <a href="/" className="flex flex-col items-center justify-center"><img src={logo} alt="SriAstroVeda Logo" /> <h1 className="text-2xl font-bold text-white">
+                  SriAstro<span className="text-yellow-400">Veda</span>
+                </h1></a>
+            {/* <div className="text-slate-400 text-sm text-center lg:text-left mb-3">{t('footer_tagline')}</div> */}
             <div className="flex space-x-3">
               <a href="https://www.instagram.com/sriastroveda" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-pink-400 transition"><FaInstagram /></a>
               <a href="https://www.facebook.com/profile.php?id=61578760447472" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-blue-400 transition"><FaFacebookF /></a>

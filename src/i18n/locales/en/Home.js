@@ -1,7 +1,7 @@
 const translations = {
     // Hero Section
   "unlock_cosmic": "Unlock the Secrets of",
-  "wisdom": "SriAstroVeda",
+  "wisdom": "SriAstroVeda", 
   "personalized_predictions": "Astrology, Numerology & Life Predictions",
   "hero_description": "Experience the divine power of astrology with SriAstroVeda. From Birth Charts and Numerology to Love Compatibility and Dasha Phal Analysis — get insights guided by certified Jyotish experts.",
   "get_my_report": "Get My Full Report",
