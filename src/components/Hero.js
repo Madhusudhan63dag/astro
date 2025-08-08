@@ -97,7 +97,7 @@ const Hero = () => {
         {/* Content */}
         <div className="relative z-10 text-center lg:text-left max-w-4xl w-full">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
-            {t('unlock_cosmic')} <span className="text-yellow-400">{t('wisdom')}</span>
+            {t('unlock_cosmic')}
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
               {t('personalized_predictions')}
