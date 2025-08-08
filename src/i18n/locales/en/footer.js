@@ -49,6 +49,7 @@ export default {
     "in_india": "in India",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
+    "disclaimer": "Disclaimer"
 
 
 }

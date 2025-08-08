@@ -115,9 +115,11 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <span>{t('made_with')} <span className="text-pink-400">♥</span> {t('in_india')}.</span>
             <span className="hidden md:inline">·</span>
-            <a href="/privacy" className="hover:text-yellow-300 transition">{t('privacy_policy')}</a>
+            <a href="/privacy-policy" className="hover:text-yellow-300 transition">{t('privacy_policy')}</a>
             <span>·</span>
-            <a href="/terms" className="hover:text-yellow-300 transition">{t('terms_of_service')}</a>
+            <a href="/terms-of-service" className="hover:text-yellow-300 transition">{t('terms_of_service')}</a>
+            <span>·</span>
+            <a href="/disclaimer" className="hover:text-yellow-300 transition">{t('disclaimer')}</a>
           </div>
         </div>
       </div>

@@ -48,6 +48,11 @@ import Contact from './pages/Contact';
 import Pricing from './pages/Pricing';
 import Kundli from './pages/Kundli';
 
+//policy
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import Disclaimer from './pages/Disclaimer';
+
 
 function Home() {
   return (
@@ -103,7 +108,11 @@ function App() {
           <Route path="/gemstones" element={<Gemstones />} />
 
           <Route path="/kundli" element={<Kundli />} />
-          
+
+          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/terms-of-service" element={<Terms />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

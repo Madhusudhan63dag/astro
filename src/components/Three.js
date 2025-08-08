@@ -130,12 +130,6 @@ const Three = () => {
 
               {/* Zodiac Details */}
               <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-yellow-400 mb-3">{t('today_horoscope') || 'Today\'s Horoscope'}</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    {t(`${selectedZodiac.name.toLowerCase()}_horoscope`) || 'Your horoscope reading will appear here. The stars have aligned to bring you insights for today.'}
-                  </p>
-                </div>
                 
                 <div>
                   <h3 className="text-xl font-semibold text-yellow-400 mb-3">{t('characteristics') || 'Characteristics'}</h3>
