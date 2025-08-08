@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa";
+import logo from '../assets/logo.png'; // Adjust the path as necessary
+
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -12,7 +14,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:justify-between gap-8 pb-6 border-b border-slate-700/50">
           {/* Brand and tagline */}
           <div className="flex flex-col items-center lg:items-start lg:max-w-xs">
-            <a href="/" className="font-bold text-2xl bg-gradient-to-r from-indigo-500 via-fuchsia-400 to-yellow-300 bg-clip-text text-transparent tracking-wide mb-1">{t('sri_astro_veda')}</a>
+            <a href="/" className="font-bold text-2xl bg-gradient-to-r from-indigo-500 via-fuchsia-400 to-yellow-300 bg-clip-text text-transparent tracking-wide mb-1"><img src={logo} alt="SriAstroVeda Logo" /></a>
             <div className="text-slate-400 text-sm text-center lg:text-left mb-3">{t('footer_tagline')}</div>
             <div className="flex space-x-3">
               <a href="https://www.instagram.com/sriastroveda" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-pink-400 transition"><FaInstagram /></a>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import logo from '../assets/logo.png'; // Adjust the path as necessary
 
 const AstroNavbar = () => {
   const { t, i18n } = useTranslation();
@@ -80,9 +81,10 @@ const AstroNavbar = () => {
           <div className="flex items-center space-x-3">
             <div>
               <a href="/">
-                <h1 className="text-xl font-bold text-white">
+                {/* <h1 className="text-xl font-bold text-white">
                   SriAstro<span className="text-yellow-400">Veda</span>
-                </h1>
+                </h1> */}
+                <img src={logo} className="h-16" alt="SriAstroVeda Logo" />
               </a>
             </div>
           </div>
