@@ -7,11 +7,8 @@ const translations = {
   "view_sample": "View Sample Report",
 
   // Features
-  "unlimited_kundli": "Create Unlimited Kundlis",
   "detailed_reports": "2025 Personalized Life Report",
   "horoscope_matching": "Horoscope & Love Matching",
-  "cloud_backup": "Secure Cloud Backup",
-  "custom_branding": "Custom Branding for Professionals",
   "astrology_systems": "Birth Chart, Numerology, Dasha & More",
 
   // Modal

@@ -58,11 +58,8 @@ const Hero = () => {
   const [showKundliModal, setShowKundliModal] = useState(false);
 
   const features = [
-    { text: t('unlimited_kundli') },
     { text: t('detailed_reports') },
     { text: t('horoscope_matching') },
-    { text: t('cloud_backup') },
-    { text: t('custom_branding') },
     { text: t('astrology_systems') },
   ];
 
@@ -96,7 +93,7 @@ const Hero = () => {
 
         {/* Content */}
         <div className="relative z-10 text-center lg:text-left max-w-4xl w-full">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
+          <h1 className="text-2xl w-2/3 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
             {t('unlock_cosmic')}
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
@@ -104,7 +101,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-base sm:text-lg lg:text-xl font-medium text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto lg:mx-0">
+          <p className="text-base sm:text-lg lg:text-xl w-1/2 font-medium text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto lg:mx-0">
             {t('hero_description')}
           </p>
           
@@ -116,12 +113,6 @@ const Hero = () => {
               {t('get_my_report')} →
             </a>
             
-            <a
-              href="/kundli"
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-lg font-semibold text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
-            >
-              {t('view_sample')}
-            </a>
           </div>
           
           {/* Features grid */}
