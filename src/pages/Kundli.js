@@ -119,7 +119,7 @@ const Kundli = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          service: 'career-guidance',
+          service: 'kundli',
           birthDetails: {
             dateOfBirth: formData.dateOfBirth,
             timeOfBirth: formData.timeOfBirth,
@@ -215,8 +215,8 @@ const Kundli = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          service: 'career-guidance',
-          reportType: 'career-guidance',
+          service: 'kundli',
+          reportType: 'kundli',
           birthDetails: {
             dateOfBirth: formData.dateOfBirth,
             timeOfBirth: formData.timeOfBirth,
