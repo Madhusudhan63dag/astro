@@ -430,14 +430,7 @@ const YearAnalysis = () => {
       ) : (
         <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
           {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 sm:top-20 left-4 sm:left-10 text-4xl sm:text-6xl text-purple-400">✦</div>
-            <div className="absolute top-20 sm:top-40 right-8 sm:right-20 text-3xl sm:text-4xl text-pink-400">✧</div>
-            <div className="absolute bottom-20 sm:bottom-40 left-8 sm:left-20 text-4xl sm:text-5xl text-purple-400">✦</div>
-            <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 text-2xl sm:text-3xl text-pink-400">✧</div>
-            <div className="absolute top-1/2 left-1/4 text-2xl sm:text-3xl text-purple-300">✦</div>
-            <div className="absolute top-1/3 right-1/3 text-xl sm:text-2xl text-pink-300">✧</div>
-          </div>
+         
 
           <div className="relative z-10 py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
             {/* Header Section */}
@@ -701,9 +694,7 @@ const YearAnalysis = () => {
                           <option value="te">{t('telugu')}</option>
                           <option value="kn">{t('kannada')}</option>
                         </select>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('language_note')}
-                        </p>
+                         
                       </div>
 
                       {/* Pricing Information */}
@@ -713,20 +704,11 @@ const YearAnalysis = () => {
                         </label>
                         <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
                           <div className="text-center">
-                            <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_year_analysis_analysis')}</h4>
                             <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">₹599</div>
                             <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('detailed_year_analysis')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
                                 <span>{t('comprehensive_analysis')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('dasha_predictions')}</span>
                               </li>
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
@@ -739,9 +721,7 @@ const YearAnalysis = () => {
                             </ul>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-3 text-center">
-                          {t('single_price_note')}
-                        </p>
+                       
                       </div>
 
                       {/* Generate Button */}
@@ -771,31 +751,6 @@ const YearAnalysis = () => {
                         )}
                       </button>
                     </form>
-
-                    {/* Features List */}
-                    <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-purple-700/50">
-                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">
-                        {t('what_you_get')}:
-                      </h3>
-                      <div className="space-y-2 sm:space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('detailed_planetary_positions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('zodiac_sign_analysis')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('dasha_system_predictions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('remedial_suggestions')}</span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -805,10 +760,6 @@ const YearAnalysis = () => {
                     <>
                       {/* Sample Chart Display */}
                       <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                          <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
-                          {t('sample_year_analysis')}
-                        </h3>
                         <div className="relative">
                           <img
                             src={birthChartImage}
@@ -817,9 +768,6 @@ const YearAnalysis = () => {
                           />
                           <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-xl"></div>
                         </div>
-                        <p className="text-gray-300 mt-3 sm:mt-4 text-center text-sm sm:text-base">
-                          {t('sample_chart_description')}
-                        </p>
                       </div>
 
                       {/* Astrological Symbols */}
@@ -860,7 +808,6 @@ const YearAnalysis = () => {
                     // Generated Chart Result
                     <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
                         {t('your_year_analysis_status')}
                       </h3>
                       <div className="text-center">

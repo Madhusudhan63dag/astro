@@ -443,15 +443,12 @@ const CareerReport = () => {
             {/* Header Section */}
             <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                {t('create_your')} <span className="text-purple-400">{t('career_path')}</span>
+                <span className="text-purple-400">{t('career_path')}</span>
                 <br />
                 <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
                   {t('kundli_analysis')}
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
-                {t('career_path_description')}
-              </p>
             </div>
 
             <div className="max-w-7xl mx-auto">
@@ -701,9 +698,7 @@ const CareerReport = () => {
                           <option value="te">{t('telugu')}</option>
                           <option value="kn">{t('kannada')}</option>
                         </select>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('language_note')}
-                        </p>
+                         
                       </div>
 
                       {/* Pricing Information */}
@@ -713,20 +708,11 @@ const CareerReport = () => {
                         </label>
                         <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
                           <div className="text-center">
-                            <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_career_path_analysis')}</h4>
                             <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">₹599</div>
                             <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('detailed_career_path')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
                                 <span>{t('comprehensive_analysis')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('dasha_predictions')}</span>
                               </li>
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
@@ -739,9 +725,7 @@ const CareerReport = () => {
                             </ul>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-3 text-center">
-                          {t('single_price_note')}
-                        </p>
+                        
                       </div>
 
                       {/* Generate Button */}
@@ -771,31 +755,6 @@ const CareerReport = () => {
                         )}
                       </button>
                     </form>
-
-                    {/* Features List */}
-                    <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-purple-700/50">
-                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">
-                        {t('what_you_get')}:
-                      </h3>
-                      <div className="space-y-2 sm:space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('detailed_planetary_positions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('zodiac_sign_analysis')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('dasha_system_predictions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('remedial_suggestions')}</span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -815,39 +774,7 @@ const CareerReport = () => {
                         </div>
                       </div>
 
-                      {/* Astrological Symbols */}
-                      {/* <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
-                          <span className="text-purple-400 mr-2 sm:mr-3 text-lg">🌟</span>
-                          {t('astrological_elements')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☉</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('sun')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☽</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('moon')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♂</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mars')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☿</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mercury')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♃</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('jupiter')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♀</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('venus')}</div>
-                          </div>
-                        </div>
-                      </div> */}
+                      
                     </>
                   ) : (
                     // Generated Chart Result

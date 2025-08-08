@@ -754,30 +754,7 @@ const Ascendant = () => {
                       </button>
                     </form>
 
-                    {/* Features List */}
-                    <div className="mt-8 pt-6 border-t border-purple-700/50">
-                      <h3 className="text-lg font-semibold text-white mb-4">
-                        {t('what_you_get')}:
-                      </h3>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400">✓</span>
-                          <span className="text-gray-300">{t('your_rising_sign_detailed')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400">✓</span>
-                          <span className="text-gray-300">{t('personality_mask_analysis')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400">✓</span>
-                          <span className="text-gray-300">{t('appearance_and_style_insights')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400">✓</span>
-                          <span className="text-gray-300">{t('life_approach_patterns')}</span>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
 
@@ -787,9 +764,6 @@ const Ascendant = () => {
                     <>
                       {/* Sample Ascendant Display */}
                       <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-purple-700/50">
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-                          {t('sample_ascendant_analysis')}
-                        </h3>
                         <div className="relative">
                           <img
                             src={ascendantImage}

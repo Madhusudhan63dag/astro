@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import aboutImage1 from '../assets/about/1.webp'; // Replace with your actual image paths
 import aboutImage2 from '../assets/about/2.webp';
 import aboutImage3 from '../assets/about/3.webp';
+import aboutImage4 from '../assets/about/4.webp';
 
 const About = () => {
   const { t } = useTranslation();
@@ -119,39 +120,24 @@ const About = () => {
               <img
                 src={aboutImage2}
                 alt={t('cosmic_wisdom')}
-                className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-96  rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
-              <div className="absolute bottom-4 left-4 right-4">
-                <h4 className="text-white font-semibold text-lg">{t('cosmic_wisdom')}</h4>
-                <p className="text-gray-300 text-sm">{t('cosmic_wisdom_desc')}</p>
-              </div> */}
             </div>
 
             <div className="relative group">
               <img
                 src={aboutImage3}
                 alt={t('ancient_scriptures')}
-                className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-96  rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
-              <div className="absolute bottom-4 left-4 right-4">
-                <h4 className="text-white font-semibold text-lg">{t('ancient_scriptures')}</h4>
-                <p className="text-gray-300 text-sm">{t('ancient_scriptures_desc')}</p>
-              </div> */}
             </div>
 
             <div className="relative group md:col-span-2 lg:col-span-1">
               <img
-                src={aboutImage1}
+                src={aboutImage4}
                 alt={t('spiritual_guidance')}
-                className="w-full h-80 object-cover rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-96 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300"
               />
-              {/* <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 rounded-xl transition-colors duration-300"></div>
-              <div className="absolute bottom-4 left-4 right-4">
-                <h4 className="text-white font-semibold text-lg">{t('spiritual_guidance')}</h4>
-                <p className="text-gray-300 text-sm">{t('spiritual_guidance_desc')}</p>
-              </div> */}
             </div>
           </div>
         </div>

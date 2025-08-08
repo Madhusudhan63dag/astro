@@ -42,7 +42,7 @@ const KundliModal = ({ show, onClose }) => {
               </p>
             </div>
             <a
-              href="/form"
+              href="/kundli"
               className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-base sm:text-lg transition-all duration-300 transform hover:scale-105"
             >
               {t('check_sample_kundli')}
@@ -110,18 +110,18 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start mb-6 sm:mb-8">
             <a
-              href="/form"
+              href="/kundli"
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-lg font-bold bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center"
             >
               {t('get_my_report')} →
             </a>
             
-            <button
-              onClick={() => setShowKundliModal(true)}
+            <a
+              href="/kundli"
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-lg font-semibold text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black transition-all duration-300"
             >
               {t('view_sample')}
-            </button>
+            </a>
           </div>
           
           {/* Features grid */}

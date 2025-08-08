@@ -70,7 +70,7 @@ const Two = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 w-full">
               <a
-                href="/form"
+                href="/kundli"
                 className="px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 text-center"
               >
                 {t('start_your_journey')} →

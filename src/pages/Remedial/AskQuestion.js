@@ -17,7 +17,6 @@ const AskQuestion = () => {
     email: '',
     phone: '',
     question: '',
-    questionCategory: ''
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
@@ -413,16 +412,6 @@ const AskQuestion = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-      {/* Background Pattern - AskQuestion symbols */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 text-4xl sm:text-6xl text-purple-400">❓</div>
-        <div className="absolute top-40 right-20 text-2xl sm:text-4xl text-pink-400">💭</div>
-        <div className="absolute bottom-40 left-20 text-3xl sm:text-5xl text-violet-400">❓</div>
-        <div className="absolute bottom-20 right-10 text-xl sm:text-3xl text-indigo-400">💭</div>
-        <div className="absolute top-1/2 left-1/4 text-xl sm:text-3xl text-purple-300">❓</div>
-        <div className="absolute top-1/3 right-1/3 text-lg sm:text-2xl text-pink-300">💭</div>
-      </div>
-
       <div className="relative z-10 py-8 sm:py-16 px-4">
         {/* Header Section */}
         <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
@@ -444,7 +433,6 @@ const AskQuestion = () => {
             <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
               <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-purple-700/50">
                 <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                  <span className="text-purple-400 mr-3">❓</span>
                   {t('enter_details_for_question')}
                 </h2>
 
@@ -599,32 +587,6 @@ const AskQuestion = () => {
                     />
                     <p className="text-gray-400 text-xs sm:text-sm mt-2">
                       {t('question_guidance')}
-                    </p>
-                  </div>
-
-                  {/* Question Category */}
-                  <div>
-                    <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                      {t('question_category')} <span className="text-pink-400">*</span>
-                    </label>
-                    <select
-                      name="questionCategory"
-                      value={formData.questionCategory}
-                      onChange={handleInputChange}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                      required
-                    >
-                      <option value="">{t('select_category')}</option>
-                      <option value="career">{t('career_question')}</option>
-                      <option value="love">{t('love_relationship_question')}</option>
-                      <option value="finance">{t('finance_question')}</option>
-                      <option value="health">{t('health_question')}</option>
-                      <option value="family">{t('family_question')}</option>
-                      <option value="spiritual">{t('spiritual_question')}</option>
-                      <option value="general">{t('general_question')}</option>
-                    </select>
-                    <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                      {t('category_helps_accuracy')}
                     </p>
                   </div>
 
@@ -827,10 +789,6 @@ const AskQuestion = () => {
 
                     {/* What You'll Receive */}
                     <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/30 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
-                      <h4 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4 flex items-center justify-center">
-                        <span className="text-purple-400 mr-2">❓</span>
-                        {t('what_youll_receive')}
-                      </h4>
                       <ul className="text-left space-y-2">
                         <li className="flex items-center gap-2 sm:gap-3">
                           <span className="text-purple-400">✓</span>
@@ -887,7 +845,6 @@ const AskQuestion = () => {
                   {/* Sample Ask Question Display */}
                   <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-purple-700/50">
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                      <span className="text-purple-400 mr-3">❓</span>
                       {t('sample_question_answer')}
                     </h3>
                     <div className="relative">
@@ -942,7 +899,6 @@ const AskQuestion = () => {
                 // Generated Analysis Result
                 <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-purple-700/50">
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                    <span className="text-purple-400 mr-3">❓</span>
                     {t('your_question_status')}
                   </h3>
                   <div className="text-center">

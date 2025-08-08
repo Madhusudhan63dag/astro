@@ -702,9 +702,7 @@ const DashaPhalAnalysis = () => {
                           <option value="te">{t('telugu')}</option>
                           <option value="kn">{t('kannada')}</option>
                         </select>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('language_note')}
-                        </p>
+                         
                       </div>
 
                       {/* Pricing Information */}
@@ -740,9 +738,6 @@ const DashaPhalAnalysis = () => {
                             </ul>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-3 text-center">
-                          {t('single_price_note')}
-                        </p>
                       </div>
 
                       {/* Generate Button */}
@@ -772,31 +767,6 @@ const DashaPhalAnalysis = () => {
                         )}
                       </button>
                     </form>
-
-                    {/* Features List */}
-                    <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-purple-700/50">
-                      <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">
-                        {t('what_you_get')}:
-                      </h3>
-                      <div className="space-y-2 sm:space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('detailed_planetary_positions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('zodiac_sign_analysis')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('dasha_system_predictions')}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="text-purple-400 flex-shrink-0">✓</span>
-                          <span className="text-gray-300 text-xs sm:text-sm">{t('remedial_suggestions')}</span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
