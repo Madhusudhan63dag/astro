@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import aboutImage1 from '../assets/about/1.webp'; // Replace with your actual image paths
 import aboutImage2 from '../assets/about/2.webp';
@@ -7,6 +7,49 @@ import aboutImage4 from '../assets/about/4.webp';
 
 const About = () => {
   const { t } = useTranslation();
+
+  // Helper to parse targets like "10,000+", "98%", "15+"
+  const parseTarget = (str) => {
+    if (!str) return { value: 0, suffix: '' };
+    const match = String(str).match(/([0-9.,]+)([^0-9.,]*)/);
+    if (!match) return { value: 0, suffix: '' };
+    const num = parseFloat(match[1].replace(/,/g, '')) || 0;
+    const suffix = match[2] || '';
+    return { value: num, suffix };
+  };
+
+  const formatWithCommas = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  const CountUp = ({ target, start, duration = 1800 }) => {
+    const [{ value, suffix }] = useState(() => parseTarget(target));
+    const [display, setDisplay] = useState(0);
+    const rafRef = useRef(null);
+    const startTimeRef = useRef(null);
+
+    useEffect(() => {
+      if (!start) return;
+      const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+      const step = (ts) => {
+        if (!startTimeRef.current) startTimeRef.current = ts;
+        const elapsed = ts - startTimeRef.current;
+        const p = Math.min(1, elapsed / duration);
+        const eased = easeOutCubic(p);
+        const current = Math.round(value * eased);
+        setDisplay(current);
+        if (p < 1) {
+          rafRef.current = requestAnimationFrame(step);
+        }
+      };
+      rafRef.current = requestAnimationFrame(step);
+      return () => {
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      };
+    }, [start, value, duration]);
+
+    const text = `${formatWithCommas(display)}${suffix}`;
+    return <>{text}</>;
+  };
 
   const features = [
     {
@@ -33,6 +76,29 @@ const About = () => {
     { number: "50,000+", label: t('kundlis_created') },
     { number: "98%", label: t('accuracy_rate') }
   ];
+
+  // IntersectionObserver to trigger animation when stats enter viewport
+  const statsRef = useRef(null);
+  const [animateStats, setAnimateStats] = useState(false);
+
+  useEffect(() => {
+    if (!statsRef.current) return;
+    let hasAnimated = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            setAnimateStats(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 relative overflow-hidden">
@@ -142,8 +208,8 @@ const About = () => {
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="max-w-7xl mx-auto mb-20">
+  {/* Stats Section */}
+  <div ref={statsRef} className=" mb-20">
           <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 lg:p-12 border border-gray-700/50">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-white mb-4">
@@ -158,7 +224,7 @@ const About = () => {
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-4xl lg:text-5xl font-bold text-yellow-400 mb-2">
-                    {stat.number}
+        <CountUp target={stat.number} start={animateStats} />
                   </div>
                   <div className="text-gray-300 font-medium">
                     {stat.label}
