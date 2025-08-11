@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa";
-import logo from '../assets/logo.png'; // Adjust the path as necessary
+import logo from '../assets/logo.gif'; // Adjust the path as necessary
 
 
 export default function Footer() {
@@ -14,9 +14,10 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:justify-between gap-8 pb-6 border-b border-slate-700/50">
           {/* Brand and tagline */}
           <div className="flex flex-col items-center lg:items-start lg:max-w-xs">
-            <a href="/" className="flex flex-col items-center justify-center"><img src={logo} alt="SriAstroVeda Logo" /> <h1 className="text-2xl font-bold text-white">
-                  SriAstro<span className="text-yellow-400">Veda</span>
-                </h1></a>
+            <a href="/" className="flex flex-col items-center justify-center">
+            <img src={logo} loop alt="SriAstroVeda Logo" /> 
+              {/* <h1 className="text-2xl font-bold text-white">SriAstro<span className="text-yellow-400">Veda</span></h1> */}
+            </a>
             {/* <div className="text-slate-400 text-sm text-center lg:text-left mb-3">{t('footer_tagline')}</div> */}
             <div className="flex space-x-3">
               <a href="https://www.instagram.com/sriastroveda" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-pink-400 transition"><FaInstagram /></a>
@@ -35,7 +36,6 @@ export default function Footer() {
                 <li><a href="/" className="hover:text-yellow-300 transition">{t('home')}</a></li>
                 <li><a href="/about" className="hover:text-yellow-300 transition">{t('about')}</a></li>
                 <li><a href="/contact" className="hover:text-yellow-300 transition">{t('contact')}</a></li>
-                <li><a href="/form" className="hover:text-yellow-300 transition">{t('get_reading')}</a></li>
               </ul>
             </div>
 
