@@ -2,7 +2,7 @@ const translations = {
     // Hero Section
   "unlock_cosmic": "Sri Astro Veda",
   "personalized_predictions": "From Zodiac Signs to Life’s Big Answers",
-  "hero_description": "Experience the divine power of astrology with SriAstroVeda. From Birth Charts and Numerology to Love Compatibility and Dasha Phal Analysis — get insights guided by certified Jyotish experts.",
+  "hero_description": "Experience the divine power of astrology with. From Birth Charts and Numerology to Love Compatibility and Dasha Phal Analysis — get insights guided by certified Jyotish experts.",
   "get_my_report": "Get My Full Report",
   "view_sample": "View Sample Report",
 
