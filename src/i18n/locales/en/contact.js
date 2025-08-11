@@ -6,7 +6,7 @@ export default {
 
     // Contact Info Section
     "email": "Email",
-    "phone_whatsapp": "Phone / WhatsApp",
+    "phone_whatsapp": "WhatsApp",
     "chat_on_whatsapp": "Chat on WhatsApp",
     "follow_us": "Follow Us",
 

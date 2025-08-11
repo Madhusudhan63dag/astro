@@ -92,8 +92,8 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/40 z-5"></div>
 
         {/* Content */}
-        <div className="relative z-10 text-center lg:text-left max-w-4xl w-full">
-          <h1 className="text-2xl w-2/3 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
+        <div className="relative z-10 text-center lg:text-left w-full">
+          <h1 className="text-2xl w-1/2 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
             {t('unlock_cosmic')}
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">

@@ -88,8 +88,8 @@ export default function Footer() {
             <h4 className="text-slate-400 uppercase text-xs font-bold mb-3 tracking-wider">{t('support')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="mailto:customercareproductcenter@gmail.com" className="hover:text-yellow-300 transition">
-                  customercareproductcenter@gmail.com
+                <a href="mailto:sriastroveda@gmail.com" className="hover:text-yellow-300 transition">
+                  sriastroveda@gmail.com
                 </a>
               </li>
               <li>
@@ -121,7 +121,11 @@ export default function Footer() {
             <span className="hidden md:inline">·</span>
             <a href="/privacy-policy" className="hover:text-yellow-300 transition">{t('privacy_policy')}</a>
             <span>·</span>
+            <a href="/cancellation" className="hover:text-yellow-300 transition">{t('cancellation_policy')}</a>
+            <span>·</span>
             <a href="/terms-of-service" className="hover:text-yellow-300 transition">{t('terms_of_service')}</a>
+            <span>·</span>
+            <a href="/shipping-policy" className="hover:text-yellow-300 transition">{t('shipping_policy')}</a>
             <span>·</span>
             <a href="/disclaimer" className="hover:text-yellow-300 transition">{t('disclaimer')}</a>
           </div>

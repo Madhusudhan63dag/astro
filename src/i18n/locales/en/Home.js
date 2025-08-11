@@ -20,7 +20,7 @@ const translations = {
 
   "predictions_doshas_remedies": "Detailed insights on Birth Chart, Dashas, Nakshatras, Numerology, Lal Kitab, Love Compatibility, Career, Health Index, Sade Sati, Remedies & more.",
   "customized_for_you": "A divine report crafted exclusively for you by SriAstroVeda",
-  "check_sample_kundli": "Explore a Sample SriAstroVeda Report",
+  "check_sample_kundli": "Explore Report",
 
 
     // Add to your translation files

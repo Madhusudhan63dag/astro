@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ascendantImage from '../../assets/2.webp'; // Different image for ascendant
 import API_CONFIG from '../api';
@@ -27,20 +27,127 @@ const AskQuestion = () => {
   
   // State variables for tracking
   const [sessionStartTime, setSessionStartTime] = useState(null);
-  const [formCompletedTime, setFormCompletedTime] = useState(null);
   const [paymentInitiated, setPaymentInitiated] = useState(false);
+  const [paymentInProgress, setPaymentInProgress] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [userAbandoned, setUserAbandoned] = useState(false);
 
-  // Track session start time
+  // Manual split fields for DOB and TOB
+  const [dobDay, setDobDay] = useState('');
+  const [dobMonth, setDobMonth] = useState('');
+  const [dobYear, setDobYear] = useState('');
+  const [tobHour, setTobHour] = useState('');
+  const [tobMinute, setTobMinute] = useState('');
+  const [tobMeridiem, setTobMeridiem] = useState('AM');
+
+  // Refs for auto-advance focus
+  const ddRef = useRef(null);
+  const mmRef = useRef(null);
+  const yyyyRef = useRef(null);
+  const hhRef = useRef(null);
+  const minRef = useRef(null);
+
+  // Initialize session tracking
   useEffect(() => {
-    setSessionStartTime(new Date());
+    setSessionStartTime(Date.now());
   }, []);
 
-  // Track form completion
-  useEffect(() => {
-    if (validateFormData(formData) && !formCompletedTime) {
-      setFormCompletedTime(new Date());
+  // Helpers: validation and normalization
+  const clampNum = (num, min, max) => Math.max(min, Math.min(max, num));
+  const isValidDateParts = (d, m, y) => {
+    if (!d || !m || !y || y.length !== 4) return false;
+    const day = parseInt(d, 10);
+    const mon = parseInt(m, 10);
+    const yr = parseInt(y, 10);
+    if (Number.isNaN(day) || Number.isNaN(mon) || Number.isNaN(yr)) return false;
+    if (mon < 1 || mon > 12) return false;
+    const dt = new Date(yr, mon - 1, day);
+    return dt.getFullYear() === yr && dt.getMonth() === mon - 1 && dt.getDate() === day;
+  };
+  
+  const updateDateInForm = (d, m, y) => {
+    if (isValidDateParts(d, m, y)) {
+      const yyyy = y;
+      const mm = String(parseInt(m, 10)).padStart(2, '0');
+      const dd = String(parseInt(d, 10)).padStart(2, '0');
+      setFormData(prev => ({ ...prev, dateOfBirth: `${yyyy}-${mm}-${dd}` }));
+    } else {
+      setFormData(prev => ({ ...prev, dateOfBirth: '' }));
     }
-  }, [formData, formCompletedTime]);
+  };
+  
+  const updateTimeInForm = (h, m, mer) => {
+    if (!h || !m || h.length < 1 || m.length < 2) {
+      setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+      return;
+    }
+    let hh = parseInt(h, 10);
+    const mm = parseInt(m, 10);
+    if (Number.isNaN(hh) || Number.isNaN(mm)) {
+      setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+      return;
+    }
+    // Expect 12-hour input 1-12
+    if (hh < 1) hh = 1;
+    if (hh > 12) hh = 12;
+    const mmClamped = clampNum(mm, 0, 59);
+    // Convert to 24h
+    let hh24 = hh;
+    if (mer === 'AM') {
+      if (hh === 12) hh24 = 0;
+    } else {
+      if (hh !== 12) hh24 = hh + 12;
+    }
+    const norm = `${String(hh24).padStart(2, '0')}:${String(mmClamped).padStart(2, '0')}`;
+    setFormData(prev => ({ ...prev, timeOfBirth: norm }));
+  };
+
+  // Handlers for digit-only inputs with auto-advance
+  const onChangeDigits = (setter, value, maxLen, nextRef) => {
+    const digits = (value || '').replace(/\D/g, '').slice(0, maxLen);
+    setter(digits);
+    if (digits.length === maxLen && nextRef && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+
+  // Auto-update form data when manual inputs change
+  useEffect(() => {
+    if (dobDay && dobMonth && dobYear) {
+      updateDateInForm(dobDay, dobMonth, dobYear);
+    }
+  }, [dobDay, dobMonth, dobYear]);
+
+  useEffect(() => {
+    if (tobHour && tobMinute) {
+      updateTimeInForm(tobHour, tobMinute, tobMeridiem);
+    }
+  }, [tobHour, tobMinute, tobMeridiem]);
+
+  // Initialize split fields from existing formData (if any)
+  useEffect(() => {
+    if (formData.dateOfBirth) {
+      const [y, m, d] = formData.dateOfBirth.split('-');
+      if (y && m && d) {
+        setDobYear(y);
+        setDobMonth(m);
+        setDobDay(d);
+      }
+    }
+    if (formData.timeOfBirth) {
+      const [hhStr, mmStr] = formData.timeOfBirth.split(':');
+      if (hhStr && mmStr) {
+        let h = parseInt(hhStr, 10);
+        let mer = 'AM';
+        if (h === 0) { h = 12; mer = 'AM'; }
+        else if (h === 12) { mer = 'PM'; }
+        else if (h > 12) { h = h - 12; mer = 'PM'; }
+        setTobHour(String(h).padStart(2, '0'));
+        setTobMinute(String(parseInt(mmStr, 10)).padStart(2, '0'));
+        setTobMeridiem(mer);
+      }
+    }
+  }, [formData.dateOfBirth, formData.timeOfBirth]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,50 +155,241 @@ const AskQuestion = () => {
     if (error) setError(null);
   };
 
-  // Function to send abandoned payment email
-  const sendAbandonedPaymentEmail = async (reason = 'User cancelled payment') => {
+  // Send abandonment email
+  const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
+    // Prevent multiple abandonment emails
+    if (userAbandoned || paymentCompleted || showThankYou) return;
+    
+    setUserAbandoned(true);
+    
     try {
-      const timeOnPage = sessionStartTime 
-        ? Math.round((new Date() - sessionStartTime) / 1000) 
-        : 0;
+      const timeOnPage = sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0;
 
-      const response = await fetch(`${API_URL}/abandoned-payment-email`, {
+      const abandonmentData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: 'ask-question',
+        birthDetails: {
+          dateOfBirth: formData.dateOfBirth,
+          timeOfBirth: formData.timeOfBirth,
+          placeOfBirth: formData.placeOfBirth,
+          gender: formData.gender
+        },
+        language: formData.language,
+        abandonmentReason: reason,
+        sessionData: {
+          timeOnPage: timeOnPage,
+          hasUserInteracted: true
+        },
+        specialRequests: formData.question
+      };
+
+      await fetch(`${API_URL}/abandoned-payment-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(abandonmentData)
+      });
+    } catch (error) {
+      console.error('Error sending abandonment email:', error);
+    }
+  }, [formData, paymentCompleted, sessionStartTime, showThankYou, userAbandoned]);
+
+  // Load Razorpay script
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Handle payment success
+  const handlePaymentSuccess = async (paymentData) => {
+    try {
+      setPaymentInProgress(false);
+      setPaymentCompleted(true);
+      setIsProcessingPayment(true);
+
+      // First verify payment
+      const verifyResponse = await fetch(`${API_URL}/verify-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          razorpay_order_id: paymentData.razorpay_order_id,
+          razorpay_payment_id: paymentData.razorpay_payment_id,
+          razorpay_signature: paymentData.razorpay_signature,
+        })
+      });
+
+      const verifyResult = await verifyResponse.json();
+
+      if (verifyResult.success) {
+        // Send astrology service email with CORRECT data format
+        const astroEmailData = {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          service: 'ascendant-analysis',
-          language: formData.language,
+          service: 'ask-question',
+          reportType: 'ask-question',
           birthDetails: {
             dateOfBirth: formData.dateOfBirth,
             timeOfBirth: formData.timeOfBirth,
             placeOfBirth: formData.placeOfBirth,
             gender: formData.gender
           },
-          abandonmentReason: reason,
-          sessionData: {
-            timeOnPage: `${Math.floor(timeOnPage / 60)}m ${timeOnPage % 60}s`,
-            formCompletedAt: formCompletedTime?.toISOString(),
-            sessionStartedAt: sessionStartTime?.toISOString(),
-            paymentInitiated: paymentInitiated
-          },
-          specialRequests: formData.question // Add the user's question as special requests
-        })
-      });
+          language: formData.language,
+          additionalInfo: 'Ask Question Service Request',
+          specialRequests: formData.question,
+          paymentDetails: {
+            status: 'paid',
+            amount: 149,
+            paymentId: paymentData.razorpay_payment_id,
+            orderId: paymentData.razorpay_order_id
+          }
+        };
 
-      const result = await response.json();
-      console.log('Abandoned payment email sent:', result);
+        console.log('Sending astro email data:', astroEmailData); // Debug log
+
+        const emailResponse = await fetch(`${API_URL}/send-astro-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(astroEmailData)
+        });
+
+        if (!emailResponse.ok) {
+          throw new Error(`Email API returned ${emailResponse.status}: ${emailResponse.statusText}`);
+        }
+
+        const emailResult = await emailResponse.json();
+
+        if (emailResult.success) {
+          // Set analysis data for thank you page
+          setAnalysisData({
+            orderId: paymentData.razorpay_order_id,
+            paymentId: paymentData.razorpay_payment_id,
+            requestId: paymentData.razorpay_order_id,
+            service: 'Ask Question Service',
+            amount: '₹149',
+            status: 'completed'
+          });
+
+          // IMPORTANT: Show thank you page
+          setShowThankYou(true);
+          setIsGenerating(false);
+          setIsProcessingPayment(false);
+        } else {
+          throw new Error(emailResult.message || 'Failed to send confirmation email');
+        }
+      } else {
+        throw new Error(verifyResult.message || 'Payment verification failed');
+      }
     } catch (error) {
-      console.error('Failed to send abandoned payment email:', error);
+      console.error('Payment processing error:', error);
+      setError(`Failed to process question service request: ${error.message}`);
+      setIsProcessingPayment(false);
+    }
+  };
+
+  // Handle payment failure/cancellation
+  const handlePaymentFailure = (error) => {
+      console.error('Payment failed:', error);
+      setPaymentInProgress(false);
+      setIsProcessingPayment(false);
+      setIsGenerating(false);
+      
+      let reason = 'Payment failed';
+      if (error.code === 'BAD_REQUEST_ERROR') {
+        reason = 'User cancelled payment';
+      } else if (error.description) {
+        reason = error.description;
+      }
+      
+      // Send abandonment email ONLY for payment failures/cancellations
+      sendAbandonmentEmail(reason);
+      
+      setError(t('payment_failed_message') || 'Payment failed. Please try again or contact support.');
+  };
+
+  // Initialize Razorpay payment
+  const initializePayment = async (orderData) => {
+    const res = await loadRazorpay();
+    if (!res) {
+      setError('Failed to load payment gateway. Please try again.');
+      return;
+    }
+
+    setPaymentInProgress(true);
+
+    const options = {
+      key: orderData.key,
+      amount: orderData.order.amount,
+      currency: orderData.order.currency,
+      name: 'SriAstroVeda',
+      description: 'Ask Question Service - Personalized Answer',
+      image: '/logo192.png',
+      order_id: orderData.order.id,
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone,
+      },
+      theme: {
+        color: '#8B5CF6'
+      },
+      modal: {
+        ondismiss: () => {
+          // Only trigger abandonment if user hasn't completed payment and actually cancels
+          if (paymentInProgress && !paymentCompleted) {
+            setPaymentInProgress(false);
+            setIsProcessingPayment(false);
+            setIsGenerating(false);
+            sendAbandonmentEmail('User closed payment modal without completing payment');
+          }
+        }
+      },
+      handler: handlePaymentSuccess,
+      timeout: 300,
+    };
+
+    const razorpay = new window.Razorpay(options);
+    
+    razorpay.on('payment.failed', handlePaymentFailure);
+    
+    try {
+      razorpay.open();
+    } catch (error) {
+      console.error('Error opening Razorpay:', error);
+      setPaymentInProgress(false);
+      setIsProcessingPayment(false);
+      setIsGenerating(false);
+      sendAbandonmentEmail('Error opening payment gateway');
+      setError('Failed to open payment gateway. Please try again.');
     }
   };
 
   const handleGenerateAnalysis = async (e) => {
     e.preventDefault();
+    
+    // Force update date/time if manual inputs are complete
+    if (dobDay && dobMonth && dobYear && !formData.dateOfBirth) {
+      updateDateInForm(dobDay, dobMonth, dobYear);
+    }
+    if (tobHour && tobMinute && !formData.timeOfBirth) {
+      updateTimeInForm(tobHour, tobMinute, tobMeridiem);
+    }
+    
+    // Add a small delay to ensure state updates
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     setIsGenerating(true);
     setError(null);
 
@@ -111,11 +409,11 @@ const AskQuestion = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: 399, // Different price for ascendant analysis
+          amount: 149,
           currency: 'INR',
-          receipt: `ascendant_analysis_${Date.now()}`,
+          receipt: `ask_question_${Date.now()}`,
           notes: {
-            service: 'ascendant_analysis',
+            service: 'ask_question',
             name: formData.name,
             email: formData.email,
             phone: formData.phone
@@ -130,78 +428,7 @@ const AskQuestion = () => {
       }
 
       // Step 2: Initialize Razorpay payment
-      const options = {
-        key: orderData.key,
-        amount: orderData.order.amount,
-        currency: orderData.order.currency,
-        name: 'SriAstroVeda',
-        description: 'Ascendant Analysis',
-        order_id: orderData.order.id,
-        prefill: {
-          name: formData.name,
-          email: formData.email,
-          contact: formData.phone
-        },
-        theme: {
-          color: '#8B5CF6' // Purple theme for ascendant
-        },
-        handler: async function (response) {
-          try {
-            // Step 3: Verify payment
-            const verificationResponse = await fetch(`${API_URL}/verify-payment`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              })
-            });
-
-            const verificationData = await verificationResponse.json();
-            
-            if (verificationData.success) {
-              // Step 4: Send astro email after successful payment
-              await sendAstroEmailAfterPayment(response.razorpay_payment_id, response.razorpay_order_id);
-            } else {
-              throw new Error('Payment verification failed');
-            }
-          } catch (error) {
-            console.error('Payment verification error:', error);
-            setError('Payment verification failed. Please contact support.');
-          } finally {
-            setIsProcessingPayment(false);
-          }
-        },
-        modal: {
-          ondismiss: function() {
-            console.log('Payment modal dismissed');
-            setIsProcessingPayment(false);
-            setIsGenerating(false);
-            
-            if (validateFormData(formData)) {
-              sendAbandonedPaymentEmail('User closed payment modal');
-            }
-          }
-        }
-      };
-
-      const rzp = new window.Razorpay(options);
-      
-      rzp.on('payment.failed', function (response) {
-        console.log('Payment failed:', response);  
-        setIsProcessingPayment(false);
-        setIsGenerating(false);
-        setError('Payment failed. Please try again.');
-        
-        if (validateFormData(formData)) {
-          sendAbandonedPaymentEmail(`Payment failed: ${response.error.description}`);
-        }
-      });
-
-      rzp.open();
+      await initializePayment(orderData);
 
     } catch (error) {
       setError(error.message);
@@ -210,7 +437,7 @@ const AskQuestion = () => {
       setIsGenerating(false);
       
       if (validateFormData(formData)) {
-        sendAbandonedPaymentEmail(`Error during process: ${error.message}`);
+        sendAbandonmentEmail(`Error during process: ${error.message}`);
       }
     }
   };
@@ -218,8 +445,8 @@ const AskQuestion = () => {
   // Handle page unload
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      if (validateFormData(formData) && !showAnalysis && !showThankYou) {
-        sendAbandonedPaymentEmail('User left page');
+      if (validateFormData(formData) && !showAnalysis && !showThankYou && !userAbandoned && !paymentCompleted) {
+        sendAbandonmentEmail('User left page with filled form details');
       }
     };
 
@@ -228,155 +455,7 @@ const AskQuestion = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [formData, showAnalysis, showThankYou]);
-
-  // Function to send astro email after successful payment
-  const sendAstroEmailAfterPayment = async (paymentId, orderId) => {
-    let emailSent = false;
-    let retryCount = 0;
-    const maxRetries = 3;
-
-    while (!emailSent && retryCount < maxRetries) {
-      try {
-        retryCount++;
-        console.log(`Attempt ${retryCount}: Sending astro email...`);
-
-        const emailResponse = await fetch(`${API_URL}/send-astro-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            service: 'ascendant-analysis',
-            language: formData.language,
-            birthDetails: {
-              dateOfBirth: formData.dateOfBirth,
-              timeOfBirth: formData.timeOfBirth,
-              placeOfBirth: formData.placeOfBirth,
-              gender: formData.gender
-            },
-            paymentDetails: {
-              paymentId: paymentId,
-              orderId: orderId,
-              amount: 399,
-              status: 'paid'
-            },
-            additionalInfo: `Payment successful. Payment ID: ${paymentId}, Order ID: ${orderId}`,
-            specialRequests: formData.question // Add the user's question as special requests
-          })
-        });
-
-        if (!emailResponse.ok) {
-          throw new Error(`Server responded with status: ${emailResponse.status}`);
-        }
-
-        const emailData = await emailResponse.json();
-        
-        if (emailData.success) {
-          emailSent = true;
-          console.log('✅ Email sent successfully!');
-          
-          setAnalysisData({
-            requestId: orderId,
-            paymentId: paymentId,
-            status: 'processing'
-          });
-          
-          setShowThankYou(true);
-          setShowAnalysis(false);
-          
-          saveToUserHistory(formData, {
-            requestId: orderId,
-            paymentId: paymentId,
-            timestamp: new Date().toISOString()
-          });
-          
-          break;
-        } else {
-          throw new Error(emailData.message || 'Email service returned failure');
-        }
-
-      } catch (error) {
-        console.error(`Attempt ${retryCount} failed:`, error.message);
-        
-        if (retryCount >= maxRetries) {
-          console.error('❌ All email attempts failed, sending pending payment notification');
-          
-          try {
-            await sendPendingPaymentEmail(paymentId, orderId);
-            console.log('✅ Pending payment notification sent');
-          } catch (pendingError) {
-            console.error('❌ Failed to send pending payment email:', pendingError);
-            setError(`Payment successful (Order: ${orderId}) but notification failed. Please contact support.`);
-          }
-        } else {
-          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
-        }
-      }
-    }
-
-    setIsGenerating(false);
-  };
-
-  // Function to handle pending payment emails
-  const sendPendingPaymentEmail = async (paymentId, orderId) => {
-    try {
-      console.log('📧 Sending pending payment notification...');
-
-      const response = await fetch(`${API_URL}/pending-payment-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: 'ascendant-analysis',
-          language: formData.language,
-          birthDetails: {
-            dateOfBirth: formData.dateOfBirth,
-            timeOfBirth: formData.timeOfBirth,
-            placeOfBirth: formData.placeOfBirth,
-            gender: formData.gender
-          },
-          paymentDetails: {
-            paymentId: paymentId,
-            orderId: orderId,
-            amount: 399,
-            status: 'paid_but_processing_failed'
-          },
-          specialRequests: formData.question // Add the user's question as special requests
-        })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          setAnalysisData({
-            requestId: orderId,
-            paymentId: paymentId,
-            status: 'pending'
-          });
-          setShowThankYou(true);
-          setError(null);
-          console.log('✅ Pending payment notification sent successfully');
-        }
-      }
-    } catch (error) {
-      console.error('❌ Pending payment email error:', error);
-      setError(`Payment successful (Order: ${orderId}) but there was an issue processing your request. Please contact support with this Order ID.`);
-    }
-  };
-
-  // Function to handle "View Analysis" button
-  const handleViewAnalysis = () => {
-    setShowThankYou(false);
-    setShowAnalysis(true);
-  };
+  }, [formData, showAnalysis, showThankYou, userAbandoned, paymentCompleted, sendAbandonmentEmail]);
 
   // Utility functions
   const validateFormData = (data) => {
@@ -400,11 +479,11 @@ const AskQuestion = () => {
         createdAt: new Date().toISOString()
       };
       
-      const existingHistory = JSON.parse(localStorage.getItem('ascendantHistory') || '[]');
+      const existingHistory = JSON.parse(localStorage.getItem('askQuestionHistory') || '[]');
       existingHistory.unshift(historyItem);
       
       const limitedHistory = existingHistory.slice(0, 10);
-      localStorage.setItem('ascendantHistory', JSON.stringify(limitedHistory));
+      localStorage.setItem('askQuestionHistory', JSON.stringify(limitedHistory));
     } catch (error) {
       console.warn('Failed to save to history:', error);
     }
@@ -516,41 +595,140 @@ const AskQuestion = () => {
                     </select>
                   </div>
 
-                  {/* Date of Birth */}
+                  {/* Date & Time of Birth - Manual split fields */}
                   <div>
-                    <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                      {t('date_of_birth')} <span className="text-pink-400">*</span>
+                    <label className="block text-gray-100 font-semibold text-lg mb-3">
+                      {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                     </label>
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                      required
-                    />
-                    <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                      {t('birth_date_question_context')}
-                    </p>
+                    <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
+                      <div className="flex flex-wrap items-center gap-4">
+                        {/* Date: DD / MM / YYYY */}
+                        <div className="flex items-center gap-2">
+                          <input
+                            ref={ddRef}
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="DD"
+                            value={dobDay}
+                            onChange={(e) => {
+                              onChangeDigits(setDobDay, e.target.value, 2, mmRef);
+                            }}
+                            onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                            className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                          <span className="text-gray-400">/</span>
+                          <input
+                            ref={mmRef}
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="MM"
+                            value={dobMonth}
+                            onChange={(e) => {
+                              onChangeDigits(setDobMonth, e.target.value, 2, yyyyRef);
+                            }}
+                            onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                            className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                          <span className="text-gray-400">/</span>
+                          <input
+                            ref={yyyyRef}
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="YYYY"
+                            value={dobYear}
+                            onChange={(e) => {
+                              onChangeDigits(setDobYear, e.target.value, 4, hhRef);
+                            }}
+                            onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                            className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                        </div>
+
+                        {/* Time: HH : MM and AM/PM */}
+                        <div className="flex items-center gap-2">
+                          <input
+                            ref={hhRef}
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="HH"
+                            value={tobHour}
+                            onChange={(e) => {
+                              onChangeDigits(setTobHour, e.target.value, 2, minRef);
+                            }}
+                            onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                            className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                          <span className="text-gray-400">:</span>
+                          <input
+                            ref={minRef}
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="MM"
+                            value={tobMinute}
+                            onChange={(e) => {
+                              onChangeDigits(setTobMinute, e.target.value, 2);
+                            }}
+                            onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                            className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                        </div>
+
+                        {/* AM/PM toggle */}
+                        <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40">
+                          <button
+                            type="button"
+                            onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
+                            className={`px-3 py-2 text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                          >
+                            {t('am') || 'AM'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
+                            className={`px-3 py-2 text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                          >
+                            {t('pm') || 'PM'}
+                          </button>
+                        </div>
+                      </div>
+                      <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
+                    </div>
+                    <div className="mt-3 flex items-center text-sm">
+                      <div className="flex items-center text-gray-400">
+                        <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {t('birth_date_question_context')}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Time of Birth */}
-                  <div>
-                    <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                      {t('time_of_birth')} <span className="text-pink-400">*</span>
-                    </label>
-                    <input
-                      type="time"
-                      name="timeOfBirth"
-                      value={formData.timeOfBirth}
-                      onChange={handleInputChange}
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                      required
-                    />
-                    <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                      {t('birth_time_question_context')}
-                    </p>
-                  </div>
+                  {/* Time Visualization */}
+                  {formData.timeOfBirth && (
+                    <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
+                      <div className="text-center">
+                        <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
+                          {(() => {
+                            const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                            if (hour >= 5 && hour < 12) return '🌅';
+                            if (hour >= 12 && hour < 17) return '☀️';
+                            if (hour >= 17 && hour < 21) return '🌆';
+                            return '🌙';
+                          })()}
+                        </div>
+                        <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
+                          {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true
+                          })}
+                        </div>
+                        <div className="text-xs sm:text-sm text-gray-400">
+                          {t('birth_time_question_context')}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Place of Birth */}
                   <div>
@@ -664,7 +842,7 @@ const AskQuestion = () => {
                       <span className="flex items-center justify-center">
                         <svg className="animate-spin -ml-1 mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         {t('processing_payment')}...
                       </span>
@@ -672,7 +850,7 @@ const AskQuestion = () => {
                       <span className="flex items-center justify-center">
                         <svg className="animate-spin -ml-1 mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 718-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         {t('processing_request')}...
                       </span>
@@ -944,7 +1122,6 @@ const AskQuestion = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

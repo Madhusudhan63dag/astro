@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './i18n'
 
 // Navigation Components
@@ -52,6 +52,8 @@ import Kundli from './pages/Kundli';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
+import Cancellation from './pages/Cancellation';
+import ShippingPolicy from './pages/ShippingPolicy';
 
 
 function Home() {
@@ -60,8 +62,8 @@ function Home() {
       <Hero />
       <Two />
       <Services />
-      <Three />
-      {/* <Four /> */}
+  <Three />
+  <Four />
       <Five />
     </div>
   );
@@ -112,6 +114,8 @@ function App() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/cancellation" element={<Cancellation />} />
+          <Route path="/shipping-policy" element={<ShippingPolicy />} />
 
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

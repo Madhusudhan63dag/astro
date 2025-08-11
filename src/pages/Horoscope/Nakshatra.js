@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import nakshatraImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { TextField } from '@mui/material';
-import dayjs from 'dayjs';
 
 const API_URL = API_CONFIG.API_URL;
 
@@ -25,8 +19,8 @@ const Nakshatra = () => {
           email: '',
           phone: ''
         });
-        const [isGenerating, setIsGenerating] = useState(false);
-        const [showAnalysis, setShowAnalysis] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showAnalysis] = useState(false);
         const [showThankYou, setShowThankYou] = useState(false);
         const [error, setError] = useState(null);
         const [analysisData, setAnalysisData] = useState(null);
@@ -34,45 +28,98 @@ const Nakshatra = () => {
         
         // State variables for tracking
         const [sessionStartTime, setSessionStartTime] = useState(null);
-        const [formCompletedTime, setFormCompletedTime] = useState(null);
+  // removed formCompletedTime since it's not used in UI/logic
         const [paymentInitiated, setPaymentInitiated] = useState(false);
         const [paymentInProgress, setPaymentInProgress] = useState(false);
         const [paymentCompleted, setPaymentCompleted] = useState(false);
         const [userAbandoned, setUserAbandoned] = useState(false);
+
+  // Split date/time inputs state
+  const [dd, setDd] = useState('');
+  const [mm, setMm] = useState('');
+  const [yyyy, setYyyy] = useState('');
+  const [hh, setHh] = useState(''); // 12-hour
+  const [minute, setMinute] = useState('');
+  const [ampm, setAmpm] = useState('AM');
+
+  // Refs for auto-advance
+  const ddRef = useRef(null);
+  const mmRef = useRef(null);
+  const yyyyRef = useRef(null);
+  const hhRef = useRef(null);
+  const minuteRef = useRef(null);
       
         // Initialize session tracking
         useEffect(() => {
           setSessionStartTime(Date.now());
         }, []);
       
-        const darkTheme = createTheme({
-          palette: {
-            mode: 'dark',
-            primary: {
-              main: '#9333EA', // Purple
-            },
-            background: {
-              paper: 'rgba(31, 41, 55, 0.8)',
-            },
-          },
-          components: {
-            MuiOutlinedInput: {
-              styleOverrides: {
-                root: {
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(147, 51, 234, 0.5)',
-                  },
-                  '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(147, 51, 234, 0.8)',
-                  },
-                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#9333EA',
-                  },
-                },
-              },
-            },
-          },
-        });
+        // Helpers for manual date/time
+        const normalizeDigits = (val, maxLen) => (val || '').replace(/\D/g, '').slice(0, maxLen);
+
+        const clampInRange = (val, min, max) => {
+          if (val === '') return '';
+          const n = parseInt(val, 10);
+          if (isNaN(n)) return '';
+          if (n < min) return String(min);
+          if (n > max) return String(max);
+          return String(n);
+        };
+
+        const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
+
+        const isValidDateParts = (d, m, y) => {
+          const ddNum = parseInt(d, 10);
+          const mmNum = parseInt(m, 10);
+          const yyyyNum = parseInt(y, 10);
+          if (!ddNum || !mmNum || !yyyyNum) return false;
+          if (mmNum < 1 || mmNum > 12) return false;
+          const dim = daysInMonth(mmNum, yyyyNum);
+          return ddNum >= 1 && ddNum <= dim;
+        };
+
+        const buildISODate = (d, m, y) => {
+          if (!isValidDateParts(d, m, y)) return '';
+          return `${y.padStart(4, '0')}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+        };
+
+        const build24hTime = (h12, m2, a) => {
+          if (!h12 || !m2 || !a) return '';
+          let h = parseInt(h12, 10);
+          const mmv = parseInt(m2, 10);
+          if (isNaN(h) || isNaN(mmv)) return '';
+          if (a === 'AM') {
+            if (h === 12) h = 0;
+          } else {
+            if (h !== 12) h += 12;
+          }
+          const hh24 = String(h).padStart(2, '0');
+          const mmStr = String(mmv).padStart(2, '0');
+          return `${hh24}:${mmStr}`;
+        };
+
+        const updateDateInForm = (d, m, y) => {
+          const iso = buildISODate(d, m, y);
+          setFormData(prev => ({ ...prev, dateOfBirth: iso }));
+        };
+
+        const updateTimeInForm = (h12, m2, a) => {
+          const t24 = build24hTime(h12, m2, a);
+          setFormData(prev => ({ ...prev, timeOfBirth: t24 }));
+        };
+
+        const onChangeDigits = (e, maxLen, setter, nextRef, clampMin = null, clampMax = null, onComplete) => {
+          let v = normalizeDigits(e.target.value, maxLen);
+          // Only clamp when fully filled to avoid jumping while typing
+          if (clampMin !== null && clampMax !== null && v.length === maxLen) {
+            v = clampInRange(v, clampMin, clampMax).padStart(maxLen, '0');
+          }
+          setter(v);
+          if (v.length === maxLen && nextRef && nextRef.current) {
+            nextRef.current.focus();
+          }
+          if (onComplete && v.length === maxLen) onComplete();
+        };
       
         // Handle form input changes
         const handleInputChange = (e) => {
@@ -95,7 +142,7 @@ const Nakshatra = () => {
         };
       
         // Send abandonment email
-        const sendAbandonmentEmail = async (reason = 'Payment cancelled by user') => {
+  const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
           // Prevent multiple abandonment emails
           if (userAbandoned || paymentCompleted || showThankYou) return;
           
@@ -131,7 +178,7 @@ const Nakshatra = () => {
           } catch (error) {
             console.error('Error sending abandonment email:', error);
           }
-        };
+  }, [formData, paymentCompleted, sessionStartTime, showThankYou, userAbandoned]);
       
         // Handle payment success
         const handlePaymentSuccess = async (paymentData) => {
@@ -304,30 +351,42 @@ const Nakshatra = () => {
         const handleGenerateAnalysis = async (e) => {
           e.preventDefault();
           
+          // Build candidate with derived date/time first
+          const candidate = { ...formData };
+          if (!candidate.dateOfBirth) {
+            const iso = buildISODate(dd, mm, yyyy);
+            if (iso) candidate.dateOfBirth = iso;
+          }
+          if (!candidate.timeOfBirth) {
+            const t24 = build24hTime(hh, minute, ampm);
+            if (t24) candidate.timeOfBirth = t24;
+          }
+
           // Validate form
-          if (!formData.name || !formData.email || !formData.phone || 
-              !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth) {
+          if (!candidate.name || !candidate.email || !candidate.phone || 
+              !candidate.dateOfBirth || !candidate.timeOfBirth || !candidate.placeOfBirth) {
             setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
             return;
           }
       
           // Validate email format
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(formData.email)) {
+          if (!emailRegex.test(candidate.email)) {
             setError(t('invalid_email_format') || 'Please enter a valid email address.');
             return;
           }
       
           // Validate phone number (basic validation)
-          const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
-          if (!phoneRegex.test(formData.phone)) {
+          const phoneRegex = /^\+?[\d\s()-]{10,}$/;
+          if (!phoneRegex.test(candidate.phone)) {
             setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
             return;
           }
       
           setError(null);
+          // Persist candidate to formData so downstream uses (email) get correct values
+          setFormData(candidate);
           setIsGenerating(true);
-          setFormCompletedTime(Date.now());
           setPaymentInitiated(true);
       
           try {
@@ -407,7 +466,7 @@ const Nakshatra = () => {
               window.removeEventListener('beforeunload', handleBeforeUnload);
               document.removeEventListener('visibilitychange', handleVisibilityChange);
             };
-  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData]);
+  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData, sendAbandonmentEmail, paymentInProgress]);
 
   return (
     <div>
@@ -546,30 +605,37 @@ const Nakshatra = () => {
                         <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3">
                           {t('date_of_birth')} <span className="text-pink-400">*</span>
                         </label>
-                        <div className="relative">
+                        <div className="grid grid-cols-3 gap-3">
                           <input
-                            type="date"
-                            name="dateOfBirth"
-                            value={formData.dateOfBirth}
-                            onChange={handleInputChange}
-                            max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 sm:px-4 py-3 sm:py-4 pl-10 sm:pl-12 rounded-xl bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-lg
-                            [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                            [&::-webkit-datetime-edit]:text-gray-100 [&::-webkit-datetime-edit-fields-wrapper]:text-gray-100"
-                            required
+                            ref={ddRef}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            placeholder="DD"
+                            value={dd}
+                            onChange={(e) => onChangeDigits(e, 2, setDd, mmRef, 1, 31, () => updateDateInForm(e.target.value.padStart(2,'0'), mm, yyyy))}
+                            onBlur={() => updateDateInForm(dd, mm, yyyy)}
+                            className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
                           />
-                          {/* Custom Calendar Icon */}
-                          <div className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                          </div>
-                          {/* Custom Calendar Icon for Picker */}
-                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                          </div>
+                          <input
+                            ref={mmRef}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            placeholder="MM"
+                            value={mm}
+                            onChange={(e) => onChangeDigits(e, 2, setMm, yyyyRef, 1, 12, () => updateDateInForm(dd, e.target.value.padStart(2,'0'), yyyy))}
+                            onBlur={() => updateDateInForm(dd, mm, yyyy)}
+                            className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                          />
+                          <input
+                            ref={yyyyRef}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            placeholder="YYYY"
+                            value={yyyy}
+                            onChange={(e) => onChangeDigits(e, 4, setYyyy, hhRef, 1900, 2100, () => updateDateInForm(dd, mm, e.target.value))}
+                            onBlur={() => updateDateInForm(dd, mm, yyyy)}
+                            className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                          />
                         </div>
                         <div className="mt-2 sm:mt-3 flex items-center text-xs sm:text-sm">
                           <div className="flex items-center text-gray-400">
@@ -588,44 +654,47 @@ const Nakshatra = () => {
                         </label>
                         
                         <div className="space-y-3 sm:space-y-4">
-                          {/* MUI Time Picker */}
-                          <ThemeProvider theme={darkTheme}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <div className="bg-gray-800/80 border border-purple-600/50 rounded-xl p-3 sm:p-4">
-                                <TimePicker
-                                  label="Select Birth Time"
-                                  value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
-                                  onChange={(newValue) => {
-                                    const timeString = newValue ? newValue.format('HH:mm') : '';
-                                    setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
-                                  }}
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      fullWidth
-                                      variant="outlined"
-                                      size="small"
-                                      sx={{
-                                        '& .MuiInputBase-root': {
-                                          borderRadius: '12px',
-                                          backgroundColor: 'rgba(55, 65, 81, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                          color: 'rgba(209, 213, 219, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputBase-input': {
-                                          color: 'rgb(243, 244, 246)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                      }}
-                                    />
-                                  )}
-                                />
+                          <div className="grid grid-cols-5 gap-3 items-center">
+                            <input
+                              ref={hhRef}
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              placeholder="HH"
+                              value={hh}
+                              onChange={(e) => onChangeDigits(e, 2, setHh, minuteRef, 1, 12, () => updateTimeInForm(e.target.value.padStart(2,'0'), minute, ampm))}
+                              onBlur={() => updateTimeInForm(hh, minute, ampm)}
+                              className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                            />
+                            <div className="text-center text-gray-300">:</div>
+                            <input
+                              ref={minuteRef}
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              placeholder="MM"
+                              value={minute}
+                              onChange={(e) => onChangeDigits(e, 2, setMinute, null, 0, 59, () => updateTimeInForm(hh, e.target.value.padStart(2,'0'), ampm))}
+                              onBlur={() => updateTimeInForm(hh, minute, ampm)}
+                              className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                            />
+                            <div className="col-span-2">
+                              <div className="grid grid-cols-2 gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => { setAmpm('AM'); updateTimeInForm(hh, minute, 'AM'); }}
+                                  className={`py-3 rounded-lg border ${ampm === 'AM' ? 'bg-purple-600 text-white border-purple-500' : 'bg-gray-800/80 text-gray-200 border-purple-600/50'}`}
+                                >
+                                  AM
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => { setAmpm('PM'); updateTimeInForm(hh, minute, 'PM'); }}
+                                  className={`py-3 rounded-lg border ${ampm === 'PM' ? 'bg-purple-600 text-white border-purple-500' : 'bg-gray-800/80 text-gray-200 border-purple-600/50'}`}
+                                >
+                                  PM
+                                </button>
                               </div>
-                            </LocalizationProvider>
-                          </ThemeProvider>
+                            </div>
+                          </div>
 
                           {/* Time Visualization */}
                           {formData.timeOfBirth && (
@@ -776,40 +845,6 @@ const Nakshatra = () => {
                           <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-xl"></div>
                         </div>
                       </div>
-
-                      {/* Astrological Symbols */}
-                      {/* <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
-                          <span className="text-purple-400 mr-2 sm:mr-3 text-lg">🌟</span>
-                          {t('astrological_elements')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☉</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('sun')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☽</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('moon')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♂</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mars')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☿</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mercury')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♃</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('jupiter')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♀</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('venus')}</div>
-                          </div>
-                        </div>
-                      </div> */}
                     </>
                   ) : (
                     // Generated Chart Result

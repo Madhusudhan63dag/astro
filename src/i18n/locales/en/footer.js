@@ -1,7 +1,7 @@
 export default {
     
     // Brand and tagline
-    "sri_astro_veda": "Sri Astro Veda",
+    "sri_astro_veda": "Surya Media",
     "footer_tagline": "Astrology & Vastu. Modern, Personal, Trusted.",
 
     // Navigation
@@ -41,7 +41,7 @@ export default {
     // Support
     "support": "Support",
     "whatsapp_support": "WhatsApp Support",
-    "available_24_7": "Available 24/7 for consultations",
+    "available_24_7": "Chat Support",
 
     // Footer bottom
     "all_rights_reserved": "All rights reserved",
@@ -49,7 +49,9 @@ export default {
     "in_india": "in India",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service",
-    "disclaimer": "Disclaimer"
+    "disclaimer": "Disclaimer",
+    "cancellation_policy": "Cancellation Policy",
+    "shipping_policy": "Shipping Policy"
 
 
 }

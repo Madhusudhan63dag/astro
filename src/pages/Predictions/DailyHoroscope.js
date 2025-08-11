@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import birthChartImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { TextField } from '@mui/material';
-import dayjs from 'dayjs';
 
 const API_URL = API_CONFIG.API_URL;
 
@@ -25,7 +19,7 @@ const DailyHoroscope = () => {
       phone: ''
     });
     const [isGenerating, setIsGenerating] = useState(false);
-    const [showAnalysis, setShowAnalysis] = useState(false);
+  const [showAnalysis] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
     const [error, setError] = useState(null);
     const [analysisData, setAnalysisData] = useState(null);
@@ -33,45 +27,91 @@ const DailyHoroscope = () => {
     
     // State variables for tracking
     const [sessionStartTime, setSessionStartTime] = useState(null);
-    const [formCompletedTime, setFormCompletedTime] = useState(null);
+  // Removed unused formCompletedTime tracking to simplify state
     const [paymentInitiated, setPaymentInitiated] = useState(false);
     const [paymentInProgress, setPaymentInProgress] = useState(false);
     const [paymentCompleted, setPaymentCompleted] = useState(false);
     const [userAbandoned, setUserAbandoned] = useState(false);
+
+  // Split date/time manual inputs
+  const [dd, setDd] = useState('');
+  const [mm, setMm] = useState('');
+  const [yyyy, setYyyy] = useState('');
+  const [hh, setHh] = useState('');
+  const [minute, setMinute] = useState('');
+  const [ampm, setAmpm] = useState('AM');
+
+  // Refs for auto-advance focus
+  const ddRef = useRef(null);
+  const mmRef = useRef(null);
+  const yyyyRef = useRef(null);
+  const hhRef = useRef(null);
+  const minuteRef = useRef(null);
   
     // Initialize session tracking
     useEffect(() => {
       setSessionStartTime(Date.now());
     }, []);
   
-    const darkTheme = createTheme({
-      palette: {
-        mode: 'dark',
-        primary: {
-          main: '#9333EA', // Purple
-        },
-        background: {
-          paper: 'rgba(31, 41, 55, 0.8)',
-        },
-      },
-      components: {
-        MuiOutlinedInput: {
-          styleOverrides: {
-            root: {
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'rgba(147, 51, 234, 0.5)',
-              },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'rgba(147, 51, 234, 0.8)',
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#9333EA',
-              },
-            },
-          },
-        },
-      },
-    });
+    // Helpers for manual date/time inputs
+    const normalizeDigits = (val = '') => val.replace(/\D/g, '');
+    const clampInRange = (val, min, max) => {
+      if (val === '') return '';
+      const num = parseInt(val, 10);
+      if (Number.isNaN(num)) return '';
+      return Math.min(Math.max(num, min), max).toString();
+    };
+    const daysInMonth = (m, y) => new Date(y, m, 0).getDate();
+    const isValidDateParts = (d, m, y) => {
+      if (!d || !m || !y) return false;
+      const day = parseInt(d, 10);
+      const month = parseInt(m, 10);
+      const year = parseInt(y, 10);
+      if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) return false;
+      if (year < 1900 || year > new Date().getFullYear()) return false;
+      if (month < 1 || month > 12) return false;
+      if (day < 1 || day > daysInMonth(month, year)) return false;
+      return true;
+    };
+    const buildISODate = (d, m, y) => {
+      if (!isValidDateParts(d, m, y)) return '';
+      const dd2 = d.toString().padStart(2, '0');
+      const mm2 = m.toString().padStart(2, '0');
+      return `${y}-${mm2}-${dd2}`;
+    };
+    const build24hTime = (h, min, period) => {
+      if (h === '' || min === '' || !period) return '';
+      let hour = parseInt(h, 10);
+      let minutes = parseInt(min, 10);
+      if (Number.isNaN(hour) || Number.isNaN(minutes)) return '';
+      hour = Math.max(1, Math.min(12, hour));
+      minutes = Math.max(0, Math.min(59, minutes));
+      if (period === 'PM' && hour !== 12) hour += 12;
+      if (period === 'AM' && hour === 12) hour = 0;
+      return `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    };
+    const updateDateInForm = (d, m, y) => {
+      const iso = buildISODate(d, m, y);
+      if (iso) {
+        setFormData(prev => ({ ...prev, dateOfBirth: iso }));
+      }
+    };
+    const updateTimeInForm = (h, min, period) => {
+      const t = build24hTime(h, min, period);
+      if (t) {
+        setFormData(prev => ({ ...prev, timeOfBirth: t }));
+      }
+    };
+    const onChangeDigits = (e, maxLen, setter, nextRef, clampFn) => {
+      let v = normalizeDigits(e.target.value).slice(0, maxLen);
+      if (clampFn) v = clampFn(v);
+      setter(v);
+      // Auto-advance
+      if (v.length === maxLen && nextRef && nextRef.current) {
+        nextRef.current.focus();
+        nextRef.current.select?.();
+      }
+    };
   
     // Handle form input changes
     const handleInputChange = (e) => {
@@ -94,7 +134,7 @@ const DailyHoroscope = () => {
     };
   
     // Send abandonment email
-    const sendAbandonmentEmail = async (reason = 'Payment cancelled by user') => {
+  const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
       // Prevent multiple abandonment emails
       if (userAbandoned || paymentCompleted || showThankYou) return;
       
@@ -130,7 +170,7 @@ const DailyHoroscope = () => {
       } catch (error) {
         console.error('Error sending abandonment email:', error);
       }
-    };
+  }, [formData, paymentCompleted, sessionStartTime, showThankYou, userAbandoned]);
   
     // Handle payment success
     const handlePaymentSuccess = async (paymentData) => {
@@ -303,10 +343,21 @@ const DailyHoroscope = () => {
     const handleGenerateAnalysis = async (e) => {
       e.preventDefault();
       
-      // Validate form
-      if (!formData.name || !formData.email || !formData.phone || 
-          !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth) {
+      // Build derived values before validation
+      const candidateDate = buildISODate(dd, mm, yyyy) || formData.dateOfBirth;
+      const candidateTime = build24hTime(hh, minute, ampm) || formData.timeOfBirth;
+
+      // Validate form using derived values (prioritize specific messages)
+      if (!formData.name || !formData.email || !formData.phone || !formData.placeOfBirth) {
         setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
+        return;
+      }
+      if (!candidateDate) {
+        setError(t('please_enter_valid_dob') || 'Please enter a valid date of birth (DD/MM/YYYY).');
+        return;
+      }
+      if (!candidateTime) {
+        setError(t('please_enter_valid_tob') || 'Please enter a valid time of birth (HH:MM AM/PM).');
         return;
       }
   
@@ -318,7 +369,7 @@ const DailyHoroscope = () => {
       }
   
       // Validate phone number (basic validation)
-      const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+      const phoneRegex = /^\+?[\d\s()-]{10,}$/;
       if (!phoneRegex.test(formData.phone)) {
         setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
         return;
@@ -326,8 +377,14 @@ const DailyHoroscope = () => {
   
       setError(null);
       setIsGenerating(true);
-      setFormCompletedTime(Date.now());
       setPaymentInitiated(true);
+
+      // Persist derived values for downstream flows
+      setFormData(prev => ({
+        ...prev,
+        dateOfBirth: candidateDate,
+        timeOfBirth: candidateTime,
+      }));
   
       try {
         const orderResponse = await fetch(`${API_URL}/create-order`, {
@@ -406,7 +463,7 @@ const DailyHoroscope = () => {
           window.removeEventListener('beforeunload', handleBeforeUnload);
           document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
-      }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData]);
+  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData, sendAbandonmentEmail, paymentInProgress]);
 
   return (
     <div>
@@ -540,36 +597,63 @@ const DailyHoroscope = () => {
                         </select>
                       </div>
 
-                      {/* Date of Birth */}
+                      {/* Date of Birth - Manual Split Inputs */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3">
                           {t('date_of_birth')} <span className="text-pink-400">*</span>
                         </label>
-                        <div className="relative">
-                          <input
-                            type="date"
-                            name="dateOfBirth"
-                            value={formData.dateOfBirth}
-                            onChange={handleInputChange}
-                            max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 sm:px-4 py-3 sm:py-4 pl-10 sm:pl-12 rounded-xl bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-lg
-                            [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                            [&::-webkit-datetime-edit]:text-gray-100 [&::-webkit-datetime-edit-fields-wrapper]:text-gray-100"
-                            required
-                          />
-                          {/* Custom Calendar Icon */}
-                          <div className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                          </div>
-                          {/* Custom Calendar Icon for Picker */}
-                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2">
+                            <input
+                              ref={ddRef}
+                              inputMode="numeric"
+                              pattern="\\d*"
+                              placeholder="DD"
+                              value={dd}
+                              onChange={(e) => {
+                                onChangeDigits(e, 2, setDd, mmRef, null);
+                                const v = normalizeDigits(e.target.value).slice(0, 2);
+                                updateDateInForm(v, mm, yyyy);
+                              }}
+                              className="w-16 sm:w-20 px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                            <span className="text-gray-400">/</span>
+                            <input
+                              ref={mmRef}
+                              inputMode="numeric"
+                              pattern="\\d*"
+                              placeholder="MM"
+                              value={mm}
+                              onChange={(e) => {
+                                onChangeDigits(e, 2, setMm, yyyyRef, null);
+                                const v = normalizeDigits(e.target.value).slice(0, 2);
+                                updateDateInForm(dd, v, yyyy);
+                              }}
+                              className="w-16 sm:w-20 px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                            <span className="text-gray-400">/</span>
+                            <input
+                              ref={yyyyRef}
+                              inputMode="numeric"
+                              pattern="\\d*"
+                              placeholder="YYYY"
+                              value={yyyy}
+                              onChange={(e) => {
+                                onChangeDigits(e, 4, setYyyy, hhRef, null);
+                                const v = normalizeDigits(e.target.value).slice(0, 4);
+                                updateDateInForm(dd, mm, v);
+                              }}
+                              className="w-24 sm:w-28 px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
                           </div>
                         </div>
+                        {/* Inline invalid date hint */}
+                        {dd && mm && yyyy && !buildISODate(dd, mm, yyyy) && (
+                          <p className="text-red-400 text-xs sm:text-sm mt-2">
+                            {t('please_enter_valid_dob') || 'Please enter a valid date of birth (DD/MM/YYYY).'}
+                          </p>
+                        )}
+
                         <div className="mt-2 sm:mt-3 flex items-center text-xs sm:text-sm">
                           <div className="flex items-center text-gray-400">
                             <svg className="w-3 sm:w-4 h-3 sm:h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -580,51 +664,69 @@ const DailyHoroscope = () => {
                         </div>
                       </div>
 
-                      {/* Time of Birth */}
+                      {/* Time of Birth - Manual Split Inputs with AM/PM */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3">
                           {t('time_of_birth')} <span className="text-pink-400">*</span>
                         </label>
-                        
                         <div className="space-y-3 sm:space-y-4">
-                          {/* MUI Time Picker */}
-                          <ThemeProvider theme={darkTheme}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <div className="bg-gray-800/80 border border-purple-600/50 rounded-xl p-3 sm:p-4">
-                                <TimePicker
-                                  label="Select Birth Time"
-                                  value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
-                                  onChange={(newValue) => {
-                                    const timeString = newValue ? newValue.format('HH:mm') : '';
-                                    setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
-                                  }}
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      fullWidth
-                                      variant="outlined"
-                                      size="small"
-                                      sx={{
-                                        '& .MuiInputBase-root': {
-                                          borderRadius: '12px',
-                                          backgroundColor: 'rgba(55, 65, 81, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                          color: 'rgba(209, 213, 219, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputBase-input': {
-                                          color: 'rgb(243, 244, 246)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                      }}
-                                    />
-                                  )}
-                                />
-                              </div>
-                            </LocalizationProvider>
-                          </ThemeProvider>
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
+                              <input
+                                ref={hhRef}
+                                inputMode="numeric"
+                                pattern="\\d*"
+                                placeholder="HH"
+                                value={hh}
+                                onChange={(e) => {
+                                  onChangeDigits(e, 2, setHh, minuteRef, (v) => clampInRange(v, 1, 12));
+                                  const v = normalizeDigits(e.target.value).slice(0, 2);
+                                  const nextH = clampInRange(v, 1, 12);
+                                  updateTimeInForm(nextH, minute, ampm);
+                                }}
+                                className="w-16 sm:w-20 px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                              <span className="text-gray-400">:</span>
+                              <input
+                                ref={minuteRef}
+                                inputMode="numeric"
+                                pattern="\\d*"
+                                placeholder="MM"
+                                value={minute}
+                                onChange={(e) => {
+                                  onChangeDigits(e, 2, setMinute, null, (v) => clampInRange(v, 0, 59));
+                                  const v = normalizeDigits(e.target.value).slice(0, 2);
+                                  const nextM = clampInRange(v, 0, 59);
+                                  updateTimeInForm(hh, nextM, ampm);
+                                }}
+                                className="w-16 sm:w-20 px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 text-center focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                            </div>
+
+                            {/* AM/PM Toggle */}
+                            <div className="inline-flex rounded-lg overflow-hidden border border-purple-600/50">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setAmpm('AM');
+                                  updateTimeInForm(hh, minute, 'AM');
+                                }}
+                                className={`px-3 py-2 text-sm ${ampm === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-800/80 text-gray-300'}`}
+                              >
+                                AM
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setAmpm('PM');
+                                  updateTimeInForm(hh, minute, 'PM');
+                                }}
+                                className={`px-3 py-2 text-sm ${ampm === 'PM' ? 'bg-pink-600 text-white' : 'bg-gray-800/80 text-gray-300'}`}
+                              >
+                                PM
+                              </button>
+                            </div>
+                          </div>
 
                           {/* Time Visualization */}
                           {formData.timeOfBirth && (
@@ -632,7 +734,7 @@ const DailyHoroscope = () => {
                               <div className="text-center">
                                 <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
                                   {(() => {
-                                    const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                                    const hour = parseInt(formData.timeOfBirth.split(':')[0], 10);
                                     if (hour >= 5 && hour < 12) return '🌅';
                                     if (hour >= 12 && hour < 17) return '☀️';
                                     if (hour >= 17 && hour < 21) return '🌆';
@@ -648,7 +750,7 @@ const DailyHoroscope = () => {
                                 </div>
                                 <div className="text-xs sm:text-sm text-gray-400">
                                   {(() => {
-                                    const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                                    const hour = parseInt(formData.timeOfBirth.split(':')[0], 10);
                                     if (hour >= 5 && hour < 12) return 'Morning Birth';
                                     if (hour >= 12 && hour < 17) return 'Afternoon Birth';
                                     if (hour >= 17 && hour < 21) return 'Evening Birth';

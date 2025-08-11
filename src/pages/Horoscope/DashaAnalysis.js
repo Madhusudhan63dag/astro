@@ -1,414 +1,481 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import dashaPhalImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { TextField } from '@mui/material';
-import dayjs from 'dayjs';
+// Removed MUI TimePicker and dayjs since we use manual inputs now
 
 const API_URL = API_CONFIG.API_URL;
 
 const DashaPhalAnalysis = () => {
-      const { t } = useTranslation();
-      const [formData, setFormData] = useState({
-        name: '',
-        gender: 'male',
-        dateOfBirth: '',
-        timeOfBirth: '',
-        placeOfBirth: '',
-        language: 'en',
-        email: '',
-        phone: ''
-      });
-      const [isGenerating, setIsGenerating] = useState(false);
-      const [showAnalysis, setShowAnalysis] = useState(false);
-      const [showThankYou, setShowThankYou] = useState(false);
-      const [error, setError] = useState(null);
-      const [analysisData, setAnalysisData] = useState(null);
-      const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-      
-      // State variables for tracking
-      const [sessionStartTime, setSessionStartTime] = useState(null);
-      const [formCompletedTime, setFormCompletedTime] = useState(null);
-      const [paymentInitiated, setPaymentInitiated] = useState(false);
-      const [paymentInProgress, setPaymentInProgress] = useState(false);
-      const [paymentCompleted, setPaymentCompleted] = useState(false);
-      const [userAbandoned, setUserAbandoned] = useState(false);
-    
-      // Initialize session tracking
-      useEffect(() => {
-        setSessionStartTime(Date.now());
-      }, []);
-    
-      const darkTheme = createTheme({
-        palette: {
-          mode: 'dark',
-          primary: {
-            main: '#9333EA', // Purple
-          },
-          background: {
-            paper: 'rgba(31, 41, 55, 0.8)',
-          },
-        },
-        components: {
-          MuiOutlinedInput: {
-            styleOverrides: {
-              root: {
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(147, 51, 234, 0.5)',
-                },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(147, 51, 234, 0.8)',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: '#9333EA',
-                },
-              },
-            },
-          },
-        },
-      });
-    
-      // Handle form input changes
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-          ...prev,
-          [name]: value
-        }));
-      };
-    
-      // Load Razorpay script
-      const loadRazorpay = () => {
-        return new Promise((resolve) => {
-          const script = document.createElement('script');
-          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-          script.onload = () => resolve(true);
-          script.onerror = () => resolve(false);
-          document.body.appendChild(script);
-        });
-      };
-    
-      // Send abandonment email
-      const sendAbandonmentEmail = async (reason = 'Payment cancelled by user') => {
-        // Prevent multiple abandonment emails
-        if (userAbandoned || paymentCompleted || showThankYou) return;
-        
-        setUserAbandoned(true);
-        
-        try {
-          const abandonmentData = {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            service: 'dasha-period',
-            birthDetails: {
-              dateOfBirth: formData.dateOfBirth,
-              timeOfBirth: formData.timeOfBirth,
-              placeOfBirth: formData.placeOfBirth,
-              gender: formData.gender
-            },
-            language: formData.language,
-            abandonmentReason: reason,
-            sessionData: {
-              timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
-              hasUserInteracted: true
-            }
-          };
-    
-          await fetch(`${API_URL}/abandoned-payment-email`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(abandonmentData)
-          });
-        } catch (error) {
-          console.error('Error sending abandonment email:', error);
-        }
-      };
-    
-      // Handle payment success
-      const handlePaymentSuccess = async (paymentData) => {
-        try {
-          setPaymentInProgress(false);
-          setPaymentCompleted(true);
-          setIsProcessingPayment(true);
-    
-          // First verify payment
-          const verifyResponse = await fetch(`${API_URL}/verify-payment`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: paymentData.razorpay_order_id,
-              razorpay_payment_id: paymentData.razorpay_payment_id,
-              razorpay_signature: paymentData.razorpay_signature,
-            })
-          });
-    
-          const verifyResult = await verifyResponse.json();
-    
-          if (verifyResult.success) {
-            // Send astrology service email with CORRECT data format
-            const astroEmailData = {
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
-              service: 'dasha-period',
-              reportType: 'dasha-period',
-              birthDetails: {
-                dateOfBirth: formData.dateOfBirth,
-                timeOfBirth: formData.timeOfBirth,
-                placeOfBirth: formData.placeOfBirth,
-                gender: formData.gender
-              },
-              language: formData.language,
-              additionalInfo: 'Complete Birth Chart (Kundli) Analysis Request',
-              paymentDetails: {
-                status: 'paid',
-                amount: 599,
-                paymentId: paymentData.razorpay_payment_id,
-                orderId: paymentData.razorpay_order_id
-              }
-            };
-    
-            console.log('Sending astro email data:', astroEmailData); // Debug log
-    
-            const emailResponse = await fetch(`${API_URL}/send-astro-email`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(astroEmailData)
-            });
-    
-            if (!emailResponse.ok) {
-              throw new Error(`Email API returned ${emailResponse.status}: ${emailResponse.statusText}`);
-            }
-    
-            const emailResult = await emailResponse.json();
-    
-            if (emailResult.success) {
-              // Set analysis data for thank you page
-              setAnalysisData({
-                orderId: paymentData.razorpay_order_id,
-                paymentId: paymentData.razorpay_payment_id,
-                requestId: paymentData.razorpay_order_id,
-                service: 'Birth Chart Analysis',
-                amount: '₹599',
-                status: 'completed'
-              });
-    
-              // IMPORTANT: Show thank you page
-              setShowThankYou(true);
-              setIsGenerating(false);
-              setIsProcessingPayment(false);
-            } else {
-              throw new Error(emailResult.message || 'Failed to send confirmation email');
-            }
-          } else {
-            throw new Error(verifyResult.message || 'Payment verification failed');
-          }
-        } catch (error) {
-          console.error('Payment processing error:', error);
-          setError(`Failed to process astrology service request: ${error.message}`);
-          setIsProcessingPayment(false);
-        }
-      };
-    
-      // Handle payment failure/cancellation
-      const handlePaymentFailure = (error) => {
-          console.error('Payment failed:', error);
-          setPaymentInProgress(false);
-          setIsProcessingPayment(false);
-          setIsGenerating(false);
-          
-          let reason = 'Payment failed';
-          if (error.code === 'BAD_REQUEST_ERROR') {
-            reason = 'User cancelled payment';
-          } else if (error.description) {
-            reason = error.description;
-          }
-          
-          // Send abandonment email ONLY for payment failures/cancellations
-          sendAbandonmentEmail(reason);
-          
-          setError(t('payment_failed_message') || 'Payment failed. Please try again or contact support.');
-      };
+  const { t } = useTranslation();
+  const [formData, setFormData] = useState({
+    name: '',
+    gender: 'male',
+    dateOfBirth: '',
+    timeOfBirth: '',
+    placeOfBirth: '',
+    language: 'en',
+    email: '',
+    phone: ''
+  });
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [error, setError] = useState(null);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   
-      // Initialize Razorpay payment
-      const initializePayment = async (orderData) => {
-        const res = await loadRazorpay();
-        if (!res) {
-          setError('Failed to load payment gateway. Please try again.');
-          return;
-        }
-    
-        setPaymentInProgress(true);
-    
-        const options = {
-          key: orderData.key,
-          amount: orderData.order.amount,
-          currency: orderData.order.currency,
-          name: 'SriAstroVeda',
-          description: 'Birth Chart Analysis - Complete Kundli Report',
-          image: '/logo192.png',
-          order_id: orderData.order.id,
-          prefill: {
-            name: formData.name,
-            email: formData.email,
-            contact: formData.phone,
-          },
-          theme: {
-            color: '#9333EA'
-          },
-          modal: {
-            ondismiss: () => {
-              // Only trigger abandonment if user hasn't completed payment and actually cancels
-              if (paymentInProgress && !paymentCompleted) {
-                setPaymentInProgress(false);
-                setIsProcessingPayment(false);
-                setIsGenerating(false);
-                sendAbandonmentEmail('User closed payment modal without completing payment');
-              }
-            }
-          },
-          handler: handlePaymentSuccess,
-          timeout: 300,
-        };
-    
-        const razorpay = new window.Razorpay(options);
-        
-        razorpay.on('payment.failed', handlePaymentFailure);
-        
-        try {
-          razorpay.open();
-        } catch (error) {
-          console.error('Error opening Razorpay:', error);
-          setPaymentInProgress(false);
-          setIsProcessingPayment(false);
-          setIsGenerating(false);
-          sendAbandonmentEmail('Error opening payment gateway');
-          setError('Failed to open payment gateway. Please try again.');
-        }
-      };
-    
-      // Main form submission handler
-      const handleGenerateAnalysis = async (e) => {
-        e.preventDefault();
-        
-        // Validate form
-        if (!formData.name || !formData.email || !formData.phone || 
-            !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth) {
-          setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
-          return;
-        }
-    
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-          setError(t('invalid_email_format') || 'Please enter a valid email address.');
-          return;
-        }
-    
-        // Validate phone number (basic validation)
-        const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
-        if (!phoneRegex.test(formData.phone)) {
-          setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
-          return;
-        }
-    
-        setError(null);
-        setIsGenerating(true);
-        setFormCompletedTime(Date.now());
-        setPaymentInitiated(true);
-    
-        try {
-          const orderResponse = await fetch(`${API_URL}/create-order`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              amount: 599,
-              currency: 'INR',
-              receipt: `dasha_phal_${Date.now()}`,
-              notes: {
-                service: 'dasha_phal_analysis',
-                customer_name: formData.name,
-                customer_email: formData.email,
-                customer_phone: formData.phone
-              }
-            })
-          });
-    
-          if (!orderResponse.ok) {
-            throw new Error('Failed to create order');
-          }
-    
-          const orderData = await orderResponse.json();
-    
-          if (orderData.success) {
-            setIsProcessingPayment(true);
-            await initializePayment(orderData);
-          } else {
-            throw new Error(orderData.message || 'Failed to create payment order');
-          }
-    
-        } catch (error) {
-          console.error('Order creation error:', error);
-          setError(error.message || 'Failed to initialize payment. Please try again.');
-          setIsGenerating(false);
-          
-          // Send abandonment email ONLY for technical issues that prevent payment
-          sendAbandonmentEmail(`Technical error during order creation: ${error.message}`);
-        }
-      };
-    
-      useEffect(() => {
-          const handleBeforeUnload = (e) => {
-            // Only send abandonment if:
-            // 1. User has filled form and initiated payment
-            // 2. Payment hasn't been completed
-            // 3. User hasn't already abandoned
-            // 4. Not on thank you page
-            if (paymentInitiated && !paymentCompleted && !userAbandoned && !showThankYou) {
-              // Check if form has meaningful data
-              const hasFormData = formData.name && formData.email && formData.phone;
-              if (hasFormData) {
-                sendAbandonmentEmail('User left page with filled form details');
-              }
-            }
-          };
-    
-          const handleVisibilityChange = () => {
-            // Track when user switches tabs during payment process
-            if (document.hidden && paymentInProgress && !paymentCompleted) {
-              // Don't send immediately - user might come back
-              setTimeout(() => {
-                if (document.hidden && paymentInProgress && !paymentCompleted && !userAbandoned) {
-                  sendAbandonmentEmail('User switched away during payment process');
-                }
-              }, 30000); // Wait 30 seconds before considering it abandonment
-            }
-          };
-    
-          window.addEventListener('beforeunload', handleBeforeUnload);
-          document.addEventListener('visibilitychange', handleVisibilityChange);
-          
-          return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-          };
-        }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData]);
-  
+  // State variables for tracking
+  const [sessionStartTime, setSessionStartTime] = useState(null);
+  // Removed unused formCompletedTime state
+  const [paymentInitiated, setPaymentInitiated] = useState(false);
+  const [paymentInProgress, setPaymentInProgress] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [userAbandoned, setUserAbandoned] = useState(false);
 
+  // Manual split fields for DOB and TOB (per requested style)
+  const [dobDay, setDobDay] = useState('');
+  const [dobMonth, setDobMonth] = useState('');
+  const [dobYear, setDobYear] = useState('');
+  const [tobHour, setTobHour] = useState('');
+  const [tobMinute, setTobMinute] = useState('');
+  const [tobMeridiem, setTobMeridiem] = useState('AM');
+
+  // Refs for auto-advance focus
+  const ddRef = useRef(null);
+  const mmRef = useRef(null);
+  const yyyyRef = useRef(null);
+  const hhRef = useRef(null);
+  const minRef = useRef(null);
+
+  // Initialize session tracking
+  useEffect(() => {
+    setSessionStartTime(Date.now());
+  }, []);
+
+  // Helpers: validation and normalization
+  const clampNum = (num, min, max) => Math.max(min, Math.min(max, num));
+  const isValidDateParts = (d, m, y) => {
+    if (!d || !m || !y || y.length !== 4) return false;
+    const day = parseInt(d, 10);
+    const mon = parseInt(m, 10);
+    const yr = parseInt(y, 10);
+    if (Number.isNaN(day) || Number.isNaN(mon) || Number.isNaN(yr)) return false;
+    if (mon < 1 || mon > 12) return false;
+    const dt = new Date(yr, mon - 1, day);
+    return dt.getFullYear() === yr && dt.getMonth() === mon - 1 && dt.getDate() === day;
+  };
+  const updateDateInForm = (d, m, y) => {
+    if (isValidDateParts(d, m, y)) {
+      const yyyy = y;
+      const mm = String(parseInt(m, 10)).padStart(2, '0');
+      const dd = String(parseInt(d, 10)).padStart(2, '0');
+      setFormData(prev => ({ ...prev, dateOfBirth: `${yyyy}-${mm}-${dd}` }));
+    } else {
+      setFormData(prev => ({ ...prev, dateOfBirth: '' }));
+    }
+  };
+  const updateTimeInForm = (h, m, mer) => {
+    if (!h || !m || h.length < 1 || m.length < 2) {
+      setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+      return;
+    }
+    let hh = parseInt(h, 10);
+    const mm = parseInt(m, 10);
+    if (Number.isNaN(hh) || Number.isNaN(mm)) {
+      setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+      return;
+    }
+    // Expect 12-hour input 1-12
+    if (hh < 1) hh = 1;
+    if (hh > 12) hh = 12;
+    const mmClamped = clampNum(mm, 0, 59);
+    // Convert to 24h
+    let hh24 = hh;
+    if (mer === 'AM') {
+      if (hh === 12) hh24 = 0;
+    } else {
+      if (hh !== 12) hh24 = hh + 12;
+    }
+    const norm = `${String(hh24).padStart(2, '0')}:${String(mmClamped).padStart(2, '0')}`;
+    setFormData(prev => ({ ...prev, timeOfBirth: norm }));
+  };
+
+  // Initialize split fields from existing formData (if any)
+  useEffect(() => {
+    if (formData.dateOfBirth) {
+      const [y, m, d] = formData.dateOfBirth.split('-');
+      if (y && m && d) {
+        setDobYear(y);
+        setDobMonth(m);
+        setDobDay(d);
+      }
+    }
+    if (formData.timeOfBirth) {
+      const [hhStr, mmStr] = formData.timeOfBirth.split(':');
+      if (hhStr && mmStr) {
+        let h = parseInt(hhStr, 10);
+        let mer = 'AM';
+        if (h === 0) { h = 12; mer = 'AM'; }
+        else if (h === 12) { mer = 'PM'; }
+        else if (h > 12) { h = h - 12; mer = 'PM'; }
+        setTobHour(String(h).padStart(2, '0'));
+        setTobMinute(String(parseInt(mmStr, 10)).padStart(2, '0'));
+        setTobMeridiem(mer);
+      }
+    }
+  }, [formData.dateOfBirth, formData.timeOfBirth]);
+
+  // Handlers for digit-only inputs with auto-advance
+  const onChangeDigits = (setter, value, maxLen, nextRef) => {
+    const digits = (value || '').replace(/\D/g, '').slice(0, maxLen);
+    setter(digits);
+    if (digits.length === maxLen && nextRef && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Load Razorpay script
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Send abandonment email
+  const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
+    // Prevent multiple abandonment emails
+    if (userAbandoned || paymentCompleted || showThankYou) return;
+    
+    setUserAbandoned(true);
+    
+    try {
+      const abandonmentData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: 'dasha-period',
+        birthDetails: {
+          dateOfBirth: formData.dateOfBirth,
+          timeOfBirth: formData.timeOfBirth,
+          placeOfBirth: formData.placeOfBirth,
+          gender: formData.gender
+        },
+        language: formData.language,
+        abandonmentReason: reason,
+        sessionData: {
+          timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
+          hasUserInteracted: true
+        }
+      };
+
+      await fetch(`${API_URL}/abandoned-payment-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(abandonmentData)
+      });
+    } catch (error) {
+      console.error('Error sending abandonment email:', error);
+    }
+  }, [userAbandoned, paymentCompleted, showThankYou, formData, sessionStartTime]);
+
+  // Handle payment success
+  const handlePaymentSuccess = async (paymentData) => {
+    try {
+      setPaymentInProgress(false);
+      setPaymentCompleted(true);
+      setIsProcessingPayment(true);
+
+      // First verify payment
+      const verifyResponse = await fetch(`${API_URL}/verify-payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          razorpay_order_id: paymentData.razorpay_order_id,
+          razorpay_payment_id: paymentData.razorpay_payment_id,
+          razorpay_signature: paymentData.razorpay_signature,
+        })
+      });
+
+      const verifyResult = await verifyResponse.json();
+
+      if (verifyResult.success) {
+        // Send astrology service email with CORRECT data format
+        const astroEmailData = {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: 'dasha-period',
+          reportType: 'dasha-period',
+          birthDetails: {
+            dateOfBirth: formData.dateOfBirth,
+            timeOfBirth: formData.timeOfBirth,
+            placeOfBirth: formData.placeOfBirth,
+            gender: formData.gender
+          },
+          language: formData.language,
+          additionalInfo: 'Complete Birth Chart (Kundli) Analysis Request',
+          paymentDetails: {
+            status: 'paid',
+            amount: 599,
+            paymentId: paymentData.razorpay_payment_id,
+            orderId: paymentData.razorpay_order_id
+          }
+        };
+
+        console.log('Sending astro email data:', astroEmailData); // Debug log
+
+        const emailResponse = await fetch(`${API_URL}/send-astro-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(astroEmailData)
+        });
+
+        if (!emailResponse.ok) {
+          throw new Error(`Email API returned ${emailResponse.status}: ${emailResponse.statusText}`);
+        }
+
+        const emailResult = await emailResponse.json();
+
+        if (emailResult.success) {
+          // Set analysis data for thank you page
+          setAnalysisData({
+            orderId: paymentData.razorpay_order_id,
+            paymentId: paymentData.razorpay_payment_id,
+            requestId: paymentData.razorpay_order_id,
+            service: 'Birth Chart Analysis',
+            amount: '₹599',
+            status: 'completed'
+          });
+
+          // IMPORTANT: Show thank you page
+          setShowThankYou(true);
+          setIsGenerating(false);
+          setIsProcessingPayment(false);
+        } else {
+          throw new Error(emailResult.message || 'Failed to send confirmation email');
+        }
+      } else {
+        throw new Error(verifyResult.message || 'Payment verification failed');
+      }
+    } catch (error) {
+      console.error('Payment processing error:', error);
+      setError(`Failed to process astrology service request: ${error.message}`);
+      setIsProcessingPayment(false);
+    }
+  };
+
+  // Handle payment failure/cancellation
+  const handlePaymentFailure = (error) => {
+      console.error('Payment failed:', error);
+      setPaymentInProgress(false);
+      setIsProcessingPayment(false);
+      setIsGenerating(false);
+      
+      let reason = 'Payment failed';
+      if (error.code === 'BAD_REQUEST_ERROR') {
+        reason = 'User cancelled payment';
+      } else if (error.description) {
+        reason = error.description;
+      }
+      
+      // Send abandonment email ONLY for payment failures/cancellations
+      sendAbandonmentEmail(reason);
+      
+      setError(t('payment_failed_message') || 'Payment failed. Please try again or contact support.');
+  };
+
+  // Initialize Razorpay payment
+  const initializePayment = async (orderData) => {
+    const res = await loadRazorpay();
+    if (!res) {
+      setError('Failed to load payment gateway. Please try again.');
+      return;
+    }
+
+    setPaymentInProgress(true);
+
+    const options = {
+      key: orderData.key,
+      amount: orderData.order.amount,
+      currency: orderData.order.currency,
+      name: 'SriAstroVeda',
+      description: 'Birth Chart Analysis - Complete Kundli Report',
+      image: '/logo192.png',
+      order_id: orderData.order.id,
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.phone,
+      },
+      theme: {
+        color: '#9333EA'
+      },
+      modal: {
+        ondismiss: () => {
+          // Only trigger abandonment if user hasn't completed payment and actually cancels
+          if (paymentInProgress && !paymentCompleted) {
+            setPaymentInProgress(false);
+            setIsProcessingPayment(false);
+            setIsGenerating(false);
+            sendAbandonmentEmail('User closed payment modal without completing payment');
+          }
+        }
+      },
+      handler: handlePaymentSuccess,
+      timeout: 300,
+    };
+
+    const razorpay = new window.Razorpay(options);
+    
+    razorpay.on('payment.failed', handlePaymentFailure);
+    
+    try {
+      razorpay.open();
+    } catch (error) {
+      console.error('Error opening Razorpay:', error);
+      setPaymentInProgress(false);
+      setIsProcessingPayment(false);
+      setIsGenerating(false);
+      sendAbandonmentEmail('Error opening payment gateway');
+      setError('Failed to open payment gateway. Please try again.');
+    }
+  };
+
+  // Main form submission handler
+  const handleGenerateAnalysis = async (e) => {
+     e.preventDefault();
+      if (!formData.dateOfBirth && dobDay && dobMonth && dobYear) {
+      updateDateInForm(dobDay, dobMonth, dobYear);
+    }
+    if (!formData.timeOfBirth && (tobHour || tobMinute)) {
+      updateTimeInForm(tobHour, tobMinute, tobMeridiem);
+    }
+
+  // Then proceed with existing validation...
+  if (!formData.name || !formData.email || !formData.phone || 
+    !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth){
+    setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
+    return;
+  }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError(t('invalid_email_format') || 'Please enter a valid email address.');
+      return;
+    }
+
+    // Validate phone number (basic validation)
+    const phoneRegex = /^\+?[\d\s()-]{10,}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
+      return;
+    }
+
+    setError(null);
+    setIsGenerating(true);
+    // removed: setFormCompletedTime(Date.now());
+    setPaymentInitiated(true);
+
+    try {
+      const orderResponse = await fetch(`${API_URL}/create-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: 599,
+          currency: 'INR',
+          receipt: `dasha_phal_${Date.now()}`,
+          notes: {
+            service: 'dasha_phal_analysis',
+            customer_name: formData.name,
+            customer_email: formData.email,
+            customer_phone: formData.phone
+          }
+        })
+      });
+
+      if (!orderResponse.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      const orderData = await orderResponse.json();
+
+      if (orderData.success) {
+        setIsProcessingPayment(true);
+        await initializePayment(orderData);
+      } else {
+        throw new Error(orderData.message || 'Failed to create payment order');
+      }
+
+    } catch (error) {
+      console.error('Order creation error:', error);
+      setError(error.message || 'Failed to initialize payment. Please try again.');
+      setIsGenerating(false);
+      
+      // Send abandonment email ONLY for technical issues that prevent payment
+      sendAbandonmentEmail(`Technical error during order creation: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      // Only send abandonment if:
+      // 1. User has filled form and initiated payment
+      // 2. Payment hasn't been completed
+      // 3. User hasn't already abandoned
+      // 4. Not on thank you page
+      if (paymentInitiated && !paymentCompleted && !userAbandoned && !showThankYou) {
+        // Check if form has meaningful data
+        const hasFormData = formData.name && formData.email && formData.phone;
+        if (hasFormData) {
+          sendAbandonmentEmail('User left page with filled form details');
+        }
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      // Track when user switches tabs during payment process
+      if (document.hidden && paymentInProgress && !paymentCompleted) {
+        // Don't send immediately - user might come back
+        setTimeout(() => {
+          if (document.hidden && paymentInProgress && !paymentCompleted && !userAbandoned) {
+            sendAbandonmentEmail('User switched away during payment process');
+          }
+        }, 30000); // Wait 30 seconds before considering it abandonment
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData, paymentInProgress, sendAbandonmentEmail]);
 
   return (
     <div>
@@ -542,129 +609,149 @@ const DashaPhalAnalysis = () => {
                         </select>
                       </div>
 
-                      {/* Date of Birth */}
+                      {/* Date & Time of Birth - Manual split fields */}
                       <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3">
-                          {t('date_of_birth')} <span className="text-pink-400">*</span>
+                        <label className="block text-gray-100 font-semibold text-lg mb-3">
+                          {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                         </label>
-                        <div className="relative">
-                          <input
-                            type="date"
-                            name="dateOfBirth"
-                            value={formData.dateOfBirth}
-                            onChange={handleInputChange}
-                            max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 sm:px-4 py-3 sm:py-4 pl-10 sm:pl-12 rounded-xl bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-lg
-                            [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                            [&::-webkit-datetime-edit]:text-gray-100 [&::-webkit-datetime-edit-fields-wrapper]:text-gray-100"
-                            required
-                          />
-                          {/* Custom Calendar Icon */}
-                          <div className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
+                        <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
+                          <div className="flex flex-wrap items-center gap-4">
+                            {/* Date: DD / MM / YYYY */}
+                            <div className="flex items-center gap-2">
+                              <input
+                                ref={ddRef}
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="DD"
+                                value={dobDay}
+                                onChange={(e) => {
+                                  onChangeDigits(setDobDay, e.target.value, 2, mmRef);
+                                }}
+                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                              <span className="text-gray-400">/</span>
+                              <input
+                                ref={mmRef}
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="MM"
+                                value={dobMonth}
+                                onChange={(e) => {
+                                  onChangeDigits(setDobMonth, e.target.value, 2, yyyyRef);
+                                }}
+                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                              <span className="text-gray-400">/</span>
+                              <input
+                                ref={yyyyRef}
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="YYYY"
+                                value={dobYear}
+                                onChange={(e) => {
+                                  onChangeDigits(setDobYear, e.target.value, 4, hhRef);
+                                }}
+                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                                className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                            </div>
+
+                            {/* Time: HH : MM and AM/PM */}
+                            <div className="flex items-center gap-2">
+                              <input
+                                ref={hhRef}
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="HH"
+                                value={tobHour}
+                                onChange={(e) => {
+                                  onChangeDigits(setTobHour, e.target.value, 2, minRef);
+                                  const v = (e.target.value || '').replace(/\D/g, '');
+                                  if (v.length === 2) updateTimeInForm(tobHour, v, tobMeridiem);
+                                }}
+                                onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                              <span className="text-gray-400">:</span>
+                              <input
+                                ref={minRef}
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="MM"
+                                value={tobMinute}
+                                onChange={(e) => {
+                                  onChangeDigits(setTobMinute, e.target.value, 2);
+                                  const v = (e.target.value || '').replace(/\D/g, '');
+                                  if (v.length === 2) updateTimeInForm(tobHour, v, tobMeridiem);
+                                }}
+                                onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                              />
+                            </div>
+
+                            {/* AM/PM toggle */}
+                            <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40">
+                              <button
+                                type="button"
+                                onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
+                                className={`px-3 py-2 text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                              >
+                                {t('am') || 'AM'}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
+                                className={`px-3 py-2 text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                              >
+                                {t('pm') || 'PM'}
+                              </button>
+                            </div>
                           </div>
-                          {/* Custom Calendar Icon for Picker */}
-                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-400 pointer-events-none">
-                            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                          </div>
+                          <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
                         </div>
-                        <div className="mt-2 sm:mt-3 flex items-center text-xs sm:text-sm">
+                        <div className="mt-3 flex items-center text-sm">
                           <div className="flex items-center text-gray-400">
-                            <svg className="w-3 sm:w-4 h-3 sm:h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            {t('enter_your_birth_date_accurately')}
                           </div>
                         </div>
                       </div>
 
-                      {/* Time of Birth */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3">
-                          {t('time_of_birth')} <span className="text-pink-400">*</span>
-                        </label>
-                        
-                        <div className="space-y-3 sm:space-y-4">
-                          {/* MUI Time Picker */}
-                          <ThemeProvider theme={darkTheme}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <div className="bg-gray-800/80 border border-purple-600/50 rounded-xl p-3 sm:p-4">
-                                <TimePicker
-                                  label="Select Birth Time"
-                                  value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
-                                  onChange={(newValue) => {
-                                    const timeString = newValue ? newValue.format('HH:mm') : '';
-                                    setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
-                                  }}
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      fullWidth
-                                      variant="outlined"
-                                      size="small"
-                                      sx={{
-                                        '& .MuiInputBase-root': {
-                                          borderRadius: '12px',
-                                          backgroundColor: 'rgba(55, 65, 81, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputLabel-root': {
-                                          color: 'rgba(209, 213, 219, 0.8)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                        '& .MuiInputBase-input': {
-                                          color: 'rgb(243, 244, 246)',
-                                          fontSize: { xs: '14px', sm: '16px' }
-                                        },
-                                      }}
-                                    />
-                                  )}
-                                />
-                              </div>
-                            </LocalizationProvider>
-                          </ThemeProvider>
-
-                          {/* Time Visualization */}
-                          {formData.timeOfBirth && (
-                            <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
-                              <div className="text-center">
-                                <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
-                                  {(() => {
-                                    const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                    if (hour >= 5 && hour < 12) return '🌅';
-                                    if (hour >= 12 && hour < 17) return '☀️';
-                                    if (hour >= 17 && hour < 21) return '🌆';
-                                    return '🌙';
-                                  })()}
-                                </div>
-                                <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
-                                  {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    hour12: true
-                                  })}
-                                </div>
-                                <div className="text-xs sm:text-sm text-gray-400">
-                                  {(() => {
-                                    const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                    if (hour >= 5 && hour < 12) return 'Morning Birth';
-                                    if (hour >= 12 && hour < 17) return 'Afternoon Birth';
-                                    if (hour >= 17 && hour < 21) return 'Evening Birth';
-                                    return 'Night Birth';
-                                  })()}
-                                </div>
-                              </div>
+                      {/* Time Visualization */}
+                      {formData.timeOfBirth && (
+                        <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
+                          <div className="text-center">
+                            <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
+                              {(() => {
+                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                                if (hour >= 5 && hour < 12) return '🌅';
+                                if (hour >= 12 && hour < 17) return '☀️';
+                                if (hour >= 17 && hour < 21) return '🌆';
+                                return '🌙';
+                              })()}
                             </div>
-                          )}
+                            <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
+                              {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                              })}
+                            </div>
+                            <div className="text-xs sm:text-sm text-gray-400">
+                              {(() => {
+                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                                if (hour >= 5 && hour < 12) return 'Morning Birth';
+                                if (hour >= 12 && hour < 17) return 'Afternoon Birth';
+                                if (hour >= 17 && hour < 21) return 'Evening Birth';
+                                return 'Night Birth';
+                              })()}
+                            </div>
+                          </div>
                         </div>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('exact_time_note')}
-                        </p>
-                      </div>
+                      )}
 
                       {/* Place of Birth */}
                       <div>
@@ -785,40 +872,6 @@ const DashaPhalAnalysis = () => {
                           <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-xl"></div>
                         </div>
                       </div>
-
-                      {/* Astrological Symbols */}
-                      {/* <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
-                          <span className="text-purple-400 mr-2 sm:mr-3 text-lg">🌟</span>
-                          {t('astrological_elements')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☉</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('sun')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☽</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('moon')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♂</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mars')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☿</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mercury')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♃</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('jupiter')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♀</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('venus')}</div>
-                          </div>
-                        </div>
-                      </div> */}
                     </>
                   ) : (
                     // Generated Chart Result
@@ -872,7 +925,6 @@ const DashaPhalAnalysis = () => {
         </div>
       )}
     </div>
-
   );
 };
 

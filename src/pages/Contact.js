@@ -55,14 +55,13 @@ export default function Contact() {
                   <span className="text-yellow-400 mr-2">✉</span>
                   {t('email')}:
                 </div>
-                <a href="mailto:customercareproductcenter@gmail.com" className="text-yellow-400 hover:text-amber-300 transition-colors duration-300">
-                  customercareproductcenter@gmail.com
+                <a href="mailto:sriastroveda@gmail.com" className="text-yellow-400 hover:text-amber-300 transition-colors duration-300">
+                  sriastroveda@gmail.com
                 </a>
               </div>
               
               <div>
                 <div className="font-bold text-gray-100 mb-2 flex items-center">
-                  <span className="text-yellow-400 mr-2">📞</span>
                   {t('phone_whatsapp')}:
                 </div>
                 <a href="tel:+919392277389" className="text-yellow-400 hover:text-amber-300 transition-colors duration-300 block mb-2">
