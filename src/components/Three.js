@@ -99,7 +99,7 @@ const Three = () => {
       {/* Modal */}
       {isModalOpen && selectedZodiac && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700/50 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
+          <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700/50 rounded-3xl w-full max-h-[90vh] overflow-y-auto relative">
             {/* Close Button */}
             <button
               onClick={closeModal}
