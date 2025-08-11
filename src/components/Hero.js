@@ -88,12 +88,12 @@ const Hero = () => {
           />
         </div>
         
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40 z-5"></div>
+  {/* Dark overlay for better text readability (below content) */}
+  <div className="absolute inset-0 bg-black/40 z-0"></div>
 
         {/* Content */}
         <div className="relative z-10 text-center lg:text-left w-full">
-          <h1 className="text-2xl w-1/2 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-white w-full lg:w-1/2">
             {t('unlock_cosmic')}
             <br />
             <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
@@ -101,7 +101,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-base sm:text-lg lg:text-xl w-1/2 font-medium text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto lg:mx-0">
+          <p className="text-sm sm:text-base lg:text-xl w-full lg:w-1/2 font-medium text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto lg:mx-0">
             {t('hero_description')}
           </p>
           
