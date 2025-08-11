@@ -91,10 +91,15 @@ const AstroNavbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
+            <a href="/about" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
+              {t('about')}
+            </a>
+            
+           
+
             <a href="/kundli" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
               {t('detailed')}
             </a>
-
             {navItems.map((item) => (
               <div 
                 key={item.key} 
@@ -137,10 +142,6 @@ const AstroNavbar = () => {
               </div>
             ))}
 
-            <a href="/about" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
-              {t('about')}
-            </a>
-            
             <a href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium">
               {t('contact')}
             </a>
@@ -202,6 +203,10 @@ const AstroNavbar = () => {
         {/* Mobile Menu */}
         <div className={`lg:hidden transition-all duration-300 ${isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
           <div className="py-4 space-y-4 border-t border-gray-700/50">
+            <a href="/about" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
+              {t('about')}
+            </a>
+
             <a href="/kundli" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
               {t('detailed')}
             </a>
@@ -240,10 +245,6 @@ const AstroNavbar = () => {
               </div>
             ))}
 
-            <a href="/about" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
-              {t('about')}
-            </a>
-            
             <a href="/contact" className="block px-4 py-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300">
               {t('contact')}
             </a>
