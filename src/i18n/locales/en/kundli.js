@@ -92,7 +92,7 @@ export default {
   // Header
   "cosmic_career": "200+ Page Kundli Report",
   "journey": "Your Complete Life Analysis",
-  "discover_professional_destiny": "Get your personalized Vedic astrology report with career, love, health, doshas, and remedies—delivered in 24 hours",
+  "discover_professional_destiny": "Get your personalized Vedic astrology report with career, love, health and remedies—delivered in 24 hours",
 
   // Trust Indicators
   "reports_generated": "15,000+ Reports Delivered",
