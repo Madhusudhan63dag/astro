@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import services from "../assets/services.png";
+import { getFormattedPrice, PRICE_KEYS } from '../config/prices';
 
 export default function Services() {
   const { t } = useTranslation();
@@ -112,6 +113,23 @@ export default function Services() {
               </a>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Example usage: replace hardcoded prices */}
+      <div className="service-card">
+        {/* ...existing code... */}
+        <div className="text-sm font-semibold">
+          {getFormattedPrice(PRICE_KEYS.birthChart)}
+        </div>
+      </div>
+
+      {/* Repeat for each service item */}
+      {/* e.g., match horoscope */}
+      <div className="service-card">
+        {/* ...existing code... */}
+        <div className="text-sm font-semibold">
+          {getFormattedPrice(PRICE_KEYS.matchHoroscope)}
         </div>
       </div>
     </section>

@@ -521,37 +521,35 @@ const Kundli = () => {
     switch (currentStep) {
       case 0: // Personal Details
         return (
-          <div className="space-y-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">{t('who_are_you') || 'Who Are You?'}</h2>
-              <p className="text-slate-400">{t('start_with_basics') || "Let's start with the basics about yourself"}</p>
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('who_are_you') || 'Who Are You?'}</h2>
+              <p className="text-slate-400 text-sm sm:text-base px-2">{t('start_with_basics') || "Let's start with the basics about yourself"}</p>
             </div>
 
-
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-2">
-                <label className="text-white font-medium text-lg">{t('full_name') || 'Full Name'}</label>
+                <label className="text-white font-medium text-base sm:text-lg">{t('full_name') || 'Full Name'}</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder={t('enter_complete_name') || "Enter your complete name"}
-                  className="w-full px-6 py-4 rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-lg"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-base sm:text-lg"
                   required
                 />
               </div>
 
-
               <div className="space-y-2">
-                <label className="text-white font-medium text-lg">{t('gender') || 'Gender'}</label>
-                <div className="grid grid-cols-3 gap-3">
+                <label className="text-white font-medium text-base sm:text-lg">{t('gender') || 'Gender'}</label>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {['male', 'female', 'other'].map((gender) => (
                     <button
                       key={gender}
                       type="button"
                       onClick={() => setFormData(prev => ({ ...prev, gender }))}
-                      className={`py-3 px-4 rounded-xl font-medium transition-all duration-300 ${
+                      className={`py-2 sm:py-3 px-2 sm:px-4 rounded-lg sm:rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
                         formData.gender === gender
                           ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg transform scale-105'
                           : 'bg-slate-800/60 text-slate-300 hover:bg-slate-700/60 border-2 border-slate-600/50'
@@ -564,31 +562,29 @@ const Kundli = () => {
               </div>
             </div>
 
-
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-2">
-                <label className="text-white font-medium text-lg">{t('email_address') || 'Email Address'}</label>
+                <label className="text-white font-medium text-base sm:text-lg">{t('email_address') || 'Email Address'}</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder={t('email_placeholder') || "your@email.com"}
-                  className="w-full px-6 py-4 rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-lg"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-base sm:text-lg"
                   required
                 />
               </div>
 
-
               <div className="space-y-2">
-                <label className="text-white font-medium text-lg">{t('phone_number') || 'Phone Number'}</label>
+                <label className="text-white font-medium text-base sm:text-lg">{t('phone_number') || 'Phone Number'}</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
                   placeholder={t('phone_placeholder') || "+91 9876543210"}
-                  className="w-full px-6 py-4 rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-lg"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-800/60 border-2 border-cyan-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all duration-300 text-base sm:text-lg"
                   required
                 />
               </div>
@@ -599,157 +595,151 @@ const Kundli = () => {
 
       case 1: // Birth Date
         return (
-          <div className="space-y-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">{t('your_birth_date') || 'Your Birth Date'}</h2>
-              <p className="text-slate-400">{t('cosmic_journey_begin') || 'When did your cosmic journey begin?'}</p>
-            </div>
-
-
-            <div className="max-w-md mx-auto">
-              <div className="relative">
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleInputChange}
-                  max={new Date().toISOString().split('T')[0]}
-                  className="w-full px-8 py-6 text-center rounded-3xl bg-gradient-to-r from-slate-800 to-slate-700 border-2 border-blue-500/30 text-white text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-300"
-                  required
-                />
-              </div>
-
-
-              {formData.dateOfBirth && (
-                <div className="mt-8 p-6 bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-2xl border border-blue-400/30">
-                  <div className="text-center">
-                    <div className="text-5xl mb-4">🎂</div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      {new Date(formData.dateOfBirth).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </h3>
-                    <p className="text-slate-300">
-                      {t('age_label') || 'Age'}: {Math.floor((new Date() - new Date(formData.dateOfBirth)) / (365.25 * 24 * 60 * 60 * 1000))} {t('years') || 'years'}
-                    </p>
-                  </div>
+              <div className="space-y-6 sm:space-y-8">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('your_birth_date') || 'Your Birth Date'}</h2>
+                  <p className="text-slate-400 text-sm sm:text-base px-2">{t('cosmic_journey_begin') || 'When did your cosmic journey begin?'}</p>
                 </div>
-              )}
-            </div>
-          </div>
+
+                <div className="max-w-md mx-auto px-4 sm:px-0">
+                  <div className="relative">
+                    <input
+                      type="date"
+                      name="dateOfBirth"
+                      value={formData.dateOfBirth}
+                      onChange={handleInputChange}
+                      max={new Date().toISOString().split('T')[0]}
+                      className="w-full px-4 sm:px-8 py-4 sm:py-6 text-center rounded-2xl sm:rounded-3xl bg-gradient-to-r from-slate-800 to-slate-700 border-2 border-blue-500/30 text-white text-lg sm:text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-300"
+                      required
+                    />
+                  </div>
+
+                  {formData.dateOfBirth && (
+                    <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-xl sm:rounded-2xl border border-blue-400/30">
+                      <div className="text-center">
+                        <div className="text-3xl sm:text-5xl mb-3 sm:mb-4">🎂</div>
+                        <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                          {new Date(formData.dateOfBirth).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </h3>
+                        <p className="text-slate-300 text-sm sm:text-base">
+                          {t('age_label') || 'Age'}: {Math.floor((new Date() - new Date(formData.dateOfBirth)) / (365.25 * 24 * 60 * 60 * 1000))} {t('years') || 'years'}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
         );
 
 
       case 2: // Time & Place
         return (
-          <div className="space-y-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">{t('time_and_place_title') || 'Time & Place'}</h2>
-              <p className="text-slate-400">{t('precise_moment_location') || 'The precise moment and location matter'}</p>
-            </div>
-
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Time Picker */}
-              <div className="space-y-4">
-                <label className="text-white font-medium text-lg">{t('birth_time') || 'Birth Time'}</label>
-                <ThemeProvider theme={modernTheme}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <div className="bg-slate-800/60 border-2 border-purple-500/30 rounded-2xl p-6">
-                      <TimePicker
-                        label={t('select_exact_time') || "Select exact time"}
-                        value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
-                        onChange={(newValue) => {
-                          const timeString = newValue ? newValue.format('HH:mm') : '';
-                          setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            fullWidth
-                            variant="outlined"
-                            sx={{
-                              '& .MuiInputBase-root': {
-                                fontSize: '18px',
-                                fontWeight: 600,
-                              },
-                            }}
-                          />
-                        )}
-                      />
-                    </div>
-                  </LocalizationProvider>
-                </ThemeProvider>
-
-
-                {formData.timeOfBirth && (
-                  <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-2xl p-6 border border-purple-400/30">
-                    <div className="text-center">
-                      <div className="text-4xl mb-3">
-                        {(() => {
-                          const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                          if (hour >= 5 && hour < 12) return t('morning') || '🌅';
-                          if (hour >= 12 && hour < 17) return t('afternoon') || '☀️';
-                          if (hour >= 17 && hour < 21) return t('evening') || '🌆';
-                          return t('night') || '🌙';
-                        })()}
-                      </div>
-                      <div className="text-2xl font-bold text-white">
-                        {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                )}
+            <div className="space-y-6 sm:space-y-8">
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('time_and_place_title') || 'Time & Place'}</h2>
+                <p className="text-slate-400 text-sm sm:text-base px-2">{t('precise_moment_location') || 'The precise moment and location matter'}</p>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                {/* Time Picker */}
+                <div className="space-y-4">
+                  <label className="text-white font-medium text-base sm:text-lg">{t('birth_time') || 'Birth Time'}</label>
+                  <ThemeProvider theme={modernTheme}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <div className="bg-slate-800/60 border-2 border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                        <TimePicker
+                          label={t('select_exact_time') || "Select exact time"}
+                          value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
+                          onChange={(newValue) => {
+                            const timeString = newValue ? newValue.format('HH:mm') : '';
+                            setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              fullWidth
+                              variant="outlined"
+                              sx={{
+                                '& .MuiInputBase-root': {
+                                  fontSize: { xs: '16px', sm: '18px' },
+                                  fontWeight: 600,
+                                },
+                              }}
+                            />
+                          )}
+                        />
+                      </div>
+                    </LocalizationProvider>
+                  </ThemeProvider>
 
-              {/* Place Input */}
-              <div className="space-y-4">
-                <label className="text-white font-medium text-lg">{t('birth_place') || 'Birth Place'}</label>
-                <input
-                  type="text"
-                  name="placeOfBirth"
-                  value={formData.placeOfBirth}
-                  onChange={handleInputChange}
-                  placeholder={t('city_state_country') || "City, State, Country"}
-                  className="w-full px-6 py-4 rounded-2xl bg-slate-800/60 border-2 border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-400 transition-all duration-300 text-lg"
-                  required
-                />
-                <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-2xl p-6 border border-purple-400/30">
-                  <div className="flex items-center gap-3 text-slate-300">
-                    <span className="text-2xl">🌍</span>
-                    <div>
-                      <p className="font-medium">{t('location_accuracy') || 'Location Accuracy'}</p>
-                      <p className="text-sm text-slate-400">{t('exact_birthplace_ensures') || 'Exact birthplace ensures precise planetary calculations'}</p>
+                  {formData.timeOfBirth && (
+                    <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-400/30">
+                      <div className="text-center">
+                        <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">
+                          {(() => {
+                            const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                            if (hour >= 5 && hour < 12) return '🌅';
+                            if (hour >= 12 && hour < 17) return '☀️';
+                            if (hour >= 17 && hour < 21) return '🌆';
+                            return '🌙';
+                          })()}
+                        </div>
+                        <div className="text-xl sm:text-2xl font-bold text-white">
+                          {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Place Input */}
+                <div className="space-y-4">
+                  <label className="text-white font-medium text-base sm:text-lg">{t('birth_place') || 'Birth Place'}</label>
+                  <input
+                    type="text"
+                    name="placeOfBirth"
+                    value={formData.placeOfBirth}
+                    onChange={handleInputChange}
+                    placeholder={t('city_state_country') || "City, State, Country"}
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-800/60 border-2 border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-400 transition-all duration-300 text-base sm:text-lg"
+                    required
+                  />
+                  <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-400/30">
+                    <div className="flex items-start sm:items-center gap-3 text-slate-300">
+                      <span className="text-xl sm:text-2xl">🌍</span>
+                      <div>
+                        <p className="font-medium text-sm sm:text-base">{t('location_accuracy') || 'Location Accuracy'}</p>
+                        <p className="text-xs sm:text-sm text-slate-400">{t('exact_birthplace_ensures') || 'Exact birthplace ensures precise planetary calculations'}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         );
 
 
       case 3: // Preferences
         return (
-          <div className="space-y-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">{t('your_preferences_title') || 'Your Preferences'}</h2>
-              <p className="text-slate-400">{t('customize_astrological_experience') || 'Customize your astrological experience'}</p>
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('your_preferences_title') || 'Your Preferences'}</h2>
+              <p className="text-slate-400 text-sm sm:text-base px-2">{t('customize_astrological_experience') || 'Customize your astrological experience'}</p>
             </div>
 
-
-            <div className="max-w-lg mx-auto space-y-6">
+            <div className="max-w-lg mx-auto space-y-6 px-4 sm:px-0">
               <div className="space-y-3">
-                <label className="text-white font-medium text-lg">{t('preferred_language') || 'Preferred Language'}</label>
-                <div className="grid grid-cols-2 gap-3">
+                <label className="text-white font-medium text-base sm:text-lg">{t('preferred_language') || 'Preferred Language'}</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
                     { value: 'en', label: t('english') || '🇺🇸 English', flag: '🇺🇸' },
                     { value: 'hi', label: t('hindi') || '🇮🇳 हिंदी', flag: '🇮🇳' },
@@ -760,7 +750,7 @@ const Kundli = () => {
                       key={lang.value}
                       type="button"
                       onClick={() => setFormData(prev => ({ ...prev, language: lang.value }))}
-                      className={`py-4 px-4 rounded-xl font-medium transition-all duration-300 ${
+                      className={`py-3 sm:py-4 px-3 sm:px-4 rounded-lg sm:rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
                         formData.language === lang.value
                           ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white shadow-lg transform scale-105'
                           : 'bg-slate-800/60 text-slate-300 hover:bg-slate-700/60 border-2 border-slate-600/50'
@@ -772,12 +762,11 @@ const Kundli = () => {
                 </div>
               </div>
 
-
-              <div className="bg-gradient-to-r from-pink-900/40 to-rose-900/40 rounded-2xl p-6 border border-pink-400/30">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <div className="bg-gradient-to-r from-pink-900/40 to-rose-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-pink-400/30">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
                   <span>📋</span> {t('what_youll_receive') || "What You'll Receive"}
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {[
                     t('detailed_career_path_analysis') || 'Detailed Career Path Analysis',
                     t('planetary_position_interpretations') || 'Planetary Position Interpretations',
@@ -787,7 +776,7 @@ const Kundli = () => {
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <span className="text-pink-400">✨</span>
-                      <span className="text-slate-200">{feature}</span>
+                      <span className="text-slate-200 text-sm sm:text-base">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -799,66 +788,62 @@ const Kundli = () => {
 
       case 4: // Payment
         return (
-          <div className="space-y-8">
-            <div className="text-center mb-8">
-             
-              <h2 className="text-3xl font-bold text-white mb-2">{t('unlock_your_destiny_title') || 'Unlock Your Destiny'}</h2>
-              <p className="text-slate-400">{t('complete_cosmic_journey_desc') || 'Complete your cosmic journey'}</p>
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('unlock_your_destiny_title') || 'Unlock Your Destiny'}</h2>
+              <p className="text-slate-400 text-sm sm:text-base px-2">{t('complete_cosmic_journey_desc') || 'Complete your cosmic journey'}</p>
             </div>
 
-
-            <div className="max-w-lg mx-auto">
-              <div className="bg-gradient-to-br from-slate-800/80 to-slate-700/80 rounded-3xl p-8 border-2 border-orange-500/30 relative overflow-hidden">
+            <div className="max-w-lg mx-auto px-4 sm:px-0">
+              <div className="bg-gradient-to-br from-slate-800/80 to-slate-700/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-orange-500/30 relative overflow-hidden">
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{t('career_path_analysis') || 'Career Path Analysis'}</h3>
-                  <div className="flex items-center justify-center gap-3">
-                    <span className="text-2xl text-slate-500 line-through">₹1,299</span>
-                    <span className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">₹599</span>
-                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">54% {t('off_label') || 'OFF'}</span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{t('career_path_analysis') || 'Career Path Analysis'}</h3>
+                  <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+                    <span className="text-xl sm:text-2xl text-slate-500 line-through">₹1,299</span>
+                    <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">₹599</span>
+                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs sm:text-sm font-bold">54% {t('off_label') || 'OFF'}</span>
                   </div>
                 </div>
 
-
-                <div className="space-y-4 mb-8">
-                  <h4 className="text-lg font-semibold text-white mb-3">{t('summary_of_details') || 'Summary of Your Details:'}:</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">{t('name_label') || 'Name:'}:</span>
-                      <span className="text-white font-medium">{formData.name}</span>
+                <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-3">{t('summary_of_details') || 'Summary of Your Details'}:</h4>
+                  <div className="space-y-2 text-xs sm:text-sm">
+                    <div className="flex justify-between items-start">
+                      <span className="text-slate-400">{t('name_label') || 'Name'}:</span>
+                      <span className="text-white font-medium text-right ml-2">{formData.name}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">{t('birth_date_label') || 'Birth Date:'}:</span>
-                      <span className="text-white font-medium">{formData.dateOfBirth}</span>
+                    <div className="flex justify-between items-start">
+                      <span className="text-slate-400">{t('birth_date_label') || 'Birth Date'}:</span>
+                      <span className="text-white font-medium text-right ml-2">{formData.dateOfBirth}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">{t('birth_time_label') || 'Birth Time:'}:</span>
-                      <span className="text-white font-medium">{formData.timeOfBirth}</span>
+                    <div className="flex justify-between items-start">
+                      <span className="text-slate-400">{t('birth_time_label') || 'Birth Time'}:</span>
+                      <span className="text-white font-medium text-right ml-2">{formData.timeOfBirth}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">{t('birth_place_label') || 'Birth Place:'}:</span>
-                      <span className="text-white font-medium">{formData.placeOfBirth}</span>
+                    <div className="flex justify-between items-start">
+                      <span className="text-slate-400">{t('birth_place_label') || 'Birth Place'}:</span>
+                      <span className="text-white font-medium text-right ml-2 break-words">{formData.placeOfBirth}</span>
                     </div>
                   </div>
                 </div>
-
 
                 <button
                   onClick={handleGenerateAnalysis}
                   disabled={isGenerating || isProcessingPayment}
-                  className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-xl"
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-xl"
                 >
                   {isProcessingPayment ? (
                     <span className="flex items-center justify-center">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3"></div>
-                      {t('processing_payment') || 'Processing Payment...'}
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2 sm:mr-3"></div>
+                      <span className="text-sm sm:text-base">{t('processing_payment') || 'Processing Payment...'}</span>
                     </span>
                   ) : isGenerating ? (
                     <span className="flex items-center justify-center">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3"></div>
-                      {t('preparing_analysis') || 'Preparing Analysis...'}
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2 sm:mr-3"></div>
+                      <span className="text-sm sm:text-base">{t('preparing_analysis') || 'Preparing Analysis...'}</span>
                     </span>
                   ) : (
-                    t('complete_payment_get_report') || '🚀 Complete Payment & Get Report - ₹599'
+                    <span className="text-sm sm:text-base">{t('complete_payment_get_report') || '🚀 Complete Payment & Get Report - ₹599'}</span>
                   )}
                 </button>
               </div>
@@ -928,34 +913,26 @@ const Kundli = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 relative overflow-hidden">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl animate-bounce delay-500"></div>
-      </div>
-
-
-      <div className="relative z-10 py-12 px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl lg:text-7xl font-bold text-white mb-4">
+    <div className="min-h-screen overflow-x-hidden bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 relative overflow-hidden">
+      <div className="relative z-10 py-6 sm:py-12 px-3 sm:px-4">
+        {/* Header - Make text responsive */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-white mb-2 sm:mb-4 leading-tight">
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
               {t('cosmic_career') || 'Cosmic Career'}
             </span>
             <br />
             <span className="text-white">{t('journey') || 'Journey'}</span>
           </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto px-4">
             {t('discover_professional_destiny') || 'Discover your professional destiny through the wisdom of Vedic astrology'}
           </p>
         </div>
 
 
         {/* Main Content Card */}
-        <div className="max-w-4xl mx-auto">
-          <div className={`bg-slate-900/80 backdrop-blur-xl rounded-3xl p-8 border-2 transition-all duration-500 ${
+        <div className="max-w-4xl mx-auto px-2 sm:px-0">
+          <div className={`bg-slate-900/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-8 border-2 transition-all duration-500 ${
             currentStep === 0 ? 'border-cyan-500/30' :
             currentStep === 1 ? 'border-blue-500/30' :
             currentStep === 2 ? 'border-purple-500/30' :
@@ -964,10 +941,10 @@ const Kundli = () => {
           } shadow-2xl`}>
             
             {error && (
-              <div className="mb-6 p-4 bg-red-900/50 border border-red-500/50 rounded-2xl">
-                <div className="flex items-center gap-3">
-                  <span className="text-red-400 text-xl">⚠️</span>
-                  <p className="text-red-300">{error}</p>
+              <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500/50 rounded-xl sm:rounded-2xl">
+                <div className="flex items-start gap-3">
+                  <span className="text-red-400 text-lg sm:text-xl">⚠️</span>
+                  <p className="text-red-300 text-sm sm:text-base leading-relaxed">{error}</p>
                 </div>
               </div>
             )}
@@ -978,16 +955,16 @@ const Kundli = () => {
 
             {/* Navigation */}
             {currentStep < 4 && (
-              <div className="flex justify-between mt-12">
+              <div className="flex flex-col sm:flex-row justify-between items-center mt-8 sm:mt-12 gap-4 sm:gap-0">
                 <button
                   onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
                   disabled={currentStep === 0}
-                  className="px-8 py-3 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-2xl transition-all duration-300 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:text-slate-500 text-white rounded-xl sm:rounded-2xl transition-all duration-300 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {t('previous') || '← Previous'}
                 </button>
                 
-                <div className="text-slate-400 flex items-center">
+                <div className="text-slate-400 flex items-center text-sm sm:text-base order-first sm:order-none">
                   {t('step_of') || 'Step'} {currentStep + 1} {t('of') || 'of'} {steps.length}
                 </div>
                 
@@ -1010,7 +987,7 @@ const Kundli = () => {
                     setError(null);
                     setCurrentStep(prev => Math.min(4, prev + 1));
                   }}
-                  className={`px-8 py-3 bg-gradient-to-r ${steps[currentStep]?.color} text-white rounded-2xl transition-all duration-300 hover:shadow-lg transform hover:scale-105`}
+                  className={`w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r ${steps[currentStep]?.color} text-white rounded-xl sm:rounded-2xl transition-all duration-300 hover:shadow-lg transform hover:scale-105 text-sm sm:text-base`}
                 >
                   {currentStep === 3 ? t('review_and_pay') || 'Review & Pay' : t('next') || 'Next →'}
                 </button>
@@ -1021,8 +998,8 @@ const Kundli = () => {
 
 
         {/* Trust Indicators */}
-        <div className="text-center mt-12">
-          <div className="flex justify-center items-center gap-8 text-slate-400 text-sm">
+        <div className="text-center mt-8 sm:mt-12">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 text-slate-400 text-xs sm:text-sm px-4">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <span>{t('reports_generated') || '15,000+ Reports Generated'}</span>

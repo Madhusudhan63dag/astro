@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next';
 import dashaPhalImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
-// Removed MUI TimePicker and dayjs since we use manual inputs now
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
+
 
 const API_URL = API_CONFIG.API_URL;
 
 const DashaPhalAnalysis = () => {
   const { t } = useTranslation();
+    // Centralized pricing for Birth Chart service
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.birthChart);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.birthChart);
   const [formData, setFormData] = useState({
     name: '',
     gender: 'male',
@@ -28,13 +32,12 @@ const DashaPhalAnalysis = () => {
   
   // State variables for tracking
   const [sessionStartTime, setSessionStartTime] = useState(null);
-  // Removed unused formCompletedTime state
   const [paymentInitiated, setPaymentInitiated] = useState(false);
   const [paymentInProgress, setPaymentInProgress] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [userAbandoned, setUserAbandoned] = useState(false);
 
-  // Manual split fields for DOB and TOB (per requested style)
+  // Manual split fields for DOB and TOB
   const [dobDay, setDobDay] = useState('');
   const [dobMonth, setDobMonth] = useState('');
   const [dobYear, setDobYear] = useState('');
@@ -66,6 +69,7 @@ const DashaPhalAnalysis = () => {
     const dt = new Date(yr, mon - 1, day);
     return dt.getFullYear() === yr && dt.getMonth() === mon - 1 && dt.getDate() === day;
   };
+
   const updateDateInForm = (d, m, y) => {
     if (isValidDateParts(d, m, y)) {
       const yyyy = y;
@@ -76,6 +80,7 @@ const DashaPhalAnalysis = () => {
       setFormData(prev => ({ ...prev, dateOfBirth: '' }));
     }
   };
+
   const updateTimeInForm = (h, m, mer) => {
     if (!h || !m || h.length < 1 || m.length < 2) {
       setFormData(prev => ({ ...prev, timeOfBirth: '' }));
@@ -87,11 +92,9 @@ const DashaPhalAnalysis = () => {
       setFormData(prev => ({ ...prev, timeOfBirth: '' }));
       return;
     }
-    // Expect 12-hour input 1-12
     if (hh < 1) hh = 1;
     if (hh > 12) hh = 12;
     const mmClamped = clampNum(mm, 0, 59);
-    // Convert to 24h
     let hh24 = hh;
     if (mer === 'AM') {
       if (hh === 12) hh24 = 0;
@@ -102,7 +105,7 @@ const DashaPhalAnalysis = () => {
     setFormData(prev => ({ ...prev, timeOfBirth: norm }));
   };
 
-  // Initialize split fields from existing formData (if any)
+  // Initialize split fields from existing formData
   useEffect(() => {
     if (formData.dateOfBirth) {
       const [y, m, d] = formData.dateOfBirth.split('-');
@@ -158,7 +161,6 @@ const DashaPhalAnalysis = () => {
 
   // Send abandonment email
   const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
-    // Prevent multiple abandonment emails
     if (userAbandoned || paymentCompleted || showThankYou) return;
     
     setUserAbandoned(true);
@@ -202,7 +204,6 @@ const DashaPhalAnalysis = () => {
       setPaymentCompleted(true);
       setIsProcessingPayment(true);
 
-      // First verify payment
       const verifyResponse = await fetch(`${API_URL}/verify-payment`, {
         method: 'POST',
         headers: {
@@ -218,7 +219,6 @@ const DashaPhalAnalysis = () => {
       const verifyResult = await verifyResponse.json();
 
       if (verifyResult.success) {
-        // Send astrology service email with CORRECT data format
         const astroEmailData = {
           name: formData.name,
           email: formData.email,
@@ -232,16 +232,14 @@ const DashaPhalAnalysis = () => {
             gender: formData.gender
           },
           language: formData.language,
-          additionalInfo: 'Complete Birth Chart (Kundli) Analysis Request',
+          additionalInfo: 'Dasha Phal Analysis Request',
           paymentDetails: {
             status: 'paid',
-            amount: 599,
+            amount: BC_PRICE_NUMBER,
             paymentId: paymentData.razorpay_payment_id,
             orderId: paymentData.razorpay_order_id
           }
         };
-
-        console.log('Sending astro email data:', astroEmailData); // Debug log
 
         const emailResponse = await fetch(`${API_URL}/send-astro-email`, {
           method: 'POST',
@@ -258,17 +256,15 @@ const DashaPhalAnalysis = () => {
         const emailResult = await emailResponse.json();
 
         if (emailResult.success) {
-          // Set analysis data for thank you page
           setAnalysisData({
             orderId: paymentData.razorpay_order_id,
             paymentId: paymentData.razorpay_payment_id,
             requestId: paymentData.razorpay_order_id,
-            service: 'Birth Chart Analysis',
-            amount: '₹599',
+            service: 'Dasha Phal Analysis',
+            amount: BC_PRICE_FORMATTED,
             status: 'completed'
           });
 
-          // IMPORTANT: Show thank you page
           setShowThankYou(true);
           setIsGenerating(false);
           setIsProcessingPayment(false);
@@ -287,22 +283,20 @@ const DashaPhalAnalysis = () => {
 
   // Handle payment failure/cancellation
   const handlePaymentFailure = (error) => {
-      console.error('Payment failed:', error);
-      setPaymentInProgress(false);
-      setIsProcessingPayment(false);
-      setIsGenerating(false);
-      
-      let reason = 'Payment failed';
-      if (error.code === 'BAD_REQUEST_ERROR') {
-        reason = 'User cancelled payment';
-      } else if (error.description) {
-        reason = error.description;
-      }
-      
-      // Send abandonment email ONLY for payment failures/cancellations
-      sendAbandonmentEmail(reason);
-      
-      setError(t('payment_failed_message') || 'Payment failed. Please try again or contact support.');
+    console.error('Payment failed:', error);
+    setPaymentInProgress(false);
+    setIsProcessingPayment(false);
+    setIsGenerating(false);
+    
+    let reason = 'Payment failed';
+    if (error.code === 'BAD_REQUEST_ERROR') {
+      reason = 'User cancelled payment';
+    } else if (error.description) {
+      reason = error.description;
+    }
+    
+    sendAbandonmentEmail(reason);
+    setError(t('payment_failed_message') || 'Payment failed. Please try again or contact support.');
   };
 
   // Initialize Razorpay payment
@@ -320,7 +314,7 @@ const DashaPhalAnalysis = () => {
       amount: orderData.order.amount,
       currency: orderData.order.currency,
       name: 'SriAstroVeda',
-      description: 'Birth Chart Analysis - Complete Kundli Report',
+      description: 'Dasha Phal Analysis - Complete Report',
       image: '/logo192.png',
       order_id: orderData.order.id,
       prefill: {
@@ -333,7 +327,6 @@ const DashaPhalAnalysis = () => {
       },
       modal: {
         ondismiss: () => {
-          // Only trigger abandonment if user hasn't completed payment and actually cancels
           if (paymentInProgress && !paymentCompleted) {
             setPaymentInProgress(false);
             setIsProcessingPayment(false);
@@ -364,29 +357,27 @@ const DashaPhalAnalysis = () => {
 
   // Main form submission handler
   const handleGenerateAnalysis = async (e) => {
-     e.preventDefault();
-      if (!formData.dateOfBirth && dobDay && dobMonth && dobYear) {
+    e.preventDefault();
+    
+    if (!formData.dateOfBirth && dobDay && dobMonth && dobYear) {
       updateDateInForm(dobDay, dobMonth, dobYear);
     }
     if (!formData.timeOfBirth && (tobHour || tobMinute)) {
       updateTimeInForm(tobHour, tobMinute, tobMeridiem);
     }
 
-  // Then proceed with existing validation...
-  if (!formData.name || !formData.email || !formData.phone || 
-    !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth){
-    setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
-    return;
-  }
+    if (!formData.name || !formData.email || !formData.phone || 
+        !formData.dateOfBirth || !formData.timeOfBirth || !formData.placeOfBirth) {
+      setError(t('please_fill_required_fields') || 'Please fill in all required fields.');
+      return;
+    }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError(t('invalid_email_format') || 'Please enter a valid email address.');
       return;
     }
 
-    // Validate phone number (basic validation)
     const phoneRegex = /^\+?[\d\s()-]{10,}$/;
     if (!phoneRegex.test(formData.phone)) {
       setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
@@ -395,7 +386,6 @@ const DashaPhalAnalysis = () => {
 
     setError(null);
     setIsGenerating(true);
-    // removed: setFormCompletedTime(Date.now());
     setPaymentInitiated(true);
 
     try {
@@ -405,7 +395,7 @@ const DashaPhalAnalysis = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: 599,
+          amount: BC_PRICE_NUMBER,
           currency: 'INR',
           receipt: `dasha_phal_${Date.now()}`,
           notes: {
@@ -434,21 +424,13 @@ const DashaPhalAnalysis = () => {
       console.error('Order creation error:', error);
       setError(error.message || 'Failed to initialize payment. Please try again.');
       setIsGenerating(false);
-      
-      // Send abandonment email ONLY for technical issues that prevent payment
       sendAbandonmentEmail(`Technical error during order creation: ${error.message}`);
     }
   };
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      // Only send abandonment if:
-      // 1. User has filled form and initiated payment
-      // 2. Payment hasn't been completed
-      // 3. User hasn't already abandoned
-      // 4. Not on thank you page
       if (paymentInitiated && !paymentCompleted && !userAbandoned && !showThankYou) {
-        // Check if form has meaningful data
         const hasFormData = formData.name && formData.email && formData.phone;
         if (hasFormData) {
           sendAbandonmentEmail('User left page with filled form details');
@@ -457,14 +439,12 @@ const DashaPhalAnalysis = () => {
     };
 
     const handleVisibilityChange = () => {
-      // Track when user switches tabs during payment process
       if (document.hidden && paymentInProgress && !paymentCompleted) {
-        // Don't send immediately - user might come back
         setTimeout(() => {
           if (document.hidden && paymentInProgress && !paymentCompleted && !userAbandoned) {
             sendAbandonmentEmail('User switched away during payment process');
           }
-        }, 30000); // Wait 30 seconds before considering it abandonment
+        }, 30000);
       }
     };
 
@@ -484,9 +464,9 @@ const DashaPhalAnalysis = () => {
           userName={formData.name}
           userEmail={formData.email}
           chartData={analysisData}
-          serviceAmount="₹599"
+          serviceAmount={BC_PRICE_FORMATTED}
           serviceFeatures={[
-            t('detailed_dasha_phal_pdf') || "Detailed Birth Chart (PDF)",
+            t('detailed_dasha_phal_pdf') || "Detailed Dasha Phal Analysis (PDF)",
             t('comprehensive_astrological_analysis') || "Comprehensive Astrological Analysis",
             t('planetary_positions_interpretations') || "Planetary Positions & Interpretations",
             t('dasha_system_predictions') || "Dasha System Predictions",
@@ -497,68 +477,69 @@ const DashaPhalAnalysis = () => {
         />
       ) : (
         <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-          {/* Background Pattern */}
+          {/* Background Pattern - Mobile Responsive */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 sm:top-20 left-4 sm:left-10 text-4xl sm:text-6xl text-purple-400">✦</div>
-            <div className="absolute top-20 sm:top-40 right-8 sm:right-20 text-3xl sm:text-4xl text-pink-400">✧</div>
-            <div className="absolute bottom-20 sm:bottom-40 left-8 sm:left-20 text-4xl sm:text-5xl text-purple-400">✦</div>
-            <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 text-2xl sm:text-3xl text-pink-400">✧</div>
-            <div className="absolute top-1/2 left-1/4 text-2xl sm:text-3xl text-purple-300">✦</div>
-            <div className="absolute top-1/3 right-1/3 text-xl sm:text-2xl text-pink-300">✧</div>
+            <div className="absolute top-4 sm:top-10 lg:top-20 left-2 sm:left-4 lg:left-10 text-2xl sm:text-4xl lg:text-6xl text-purple-400">✦</div>
+            <div className="absolute top-8 sm:top-20 lg:top-40 right-4 sm:right-8 lg:right-20 text-xl sm:text-3xl lg:text-4xl text-pink-400">✧</div>
+            <div className="absolute bottom-8 sm:bottom-20 lg:bottom-40 left-4 sm:left-8 lg:left-20 text-2xl sm:text-4xl lg:text-5xl text-purple-400">✦</div>
+            <div className="absolute bottom-4 sm:bottom-10 lg:bottom-20 right-2 sm:right-4 lg:right-10 text-lg sm:text-2xl lg:text-3xl text-pink-400">✧</div>
+            <div className="absolute top-1/2 left-1/4 text-lg sm:text-2xl lg:text-3xl text-purple-300">✦</div>
+            <div className="absolute top-1/3 right-1/3 text-base sm:text-xl lg:text-2xl text-pink-300">✧</div>
           </div>
 
-          <div className="relative z-10 py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
-            {/* Header Section */}
-            <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
-              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+          <div className="relative z-10 py-6 sm:py-12 lg:py-16 px-3 sm:px-4 lg:px-8 max-w-7xl mx-auto">
+            {/* Header Section - Mobile Responsive */}
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+              <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {t('create_your')} <span className="text-purple-400">{t('dasha_phal')}</span>
                 <br />
                 <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
                   {t('kundli_analysis')}
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
                 {t('dasha_phal_description')}
               </p>
             </div>
 
-            <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
-                {/* Left Side - Form */}
-                <div className="space-y-6 sm:space-y-8">
-                  <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                      <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📝</span>
-                      {t('enter_birth_details')}
-                    </h2>
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
+              {/* Left Side - Form - Mobile Responsive */}
+              <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
+                <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
+                    <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📝</span>
+                    {t('enter_birth_details')}
+                  </h2>
 
-                    {/* Error Display */}
-                    {error && (
-                      <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500/50 rounded-lg">
-                        <p className="text-red-300 flex items-center text-sm sm:text-base">
-                          <span className="mr-2">⚠️</span>
-                          {error}
-                        </p>
-                      </div>
-                    )}
+                  {/* Error Display */}
+                  {error && (
+                    <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500/50 rounded-lg">
+                      <p className="text-red-300 flex items-start text-sm sm:text-base">
+                        <span className="mr-2 flex-shrink-0">⚠️</span>
+                        <span>{error}</span>
+                      </p>
+                    </div>
+                  )}
 
-                    <form onSubmit={handleGenerateAnalysis} className="space-y-4 sm:space-y-6">
-                      {/* Name Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('full_name')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          placeholder={t('enter_full_name')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                      </div>
+                  <form onSubmit={handleGenerateAnalysis} className="space-y-4 sm:space-y-6">
+                    {/* Name Field */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                        {t('full_name')} <span className="text-pink-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder={t('enter_full_name')}
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                        required
+                      />
+                    </div>
 
+                    {/* Email & Phone - Stack on mobile */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                       {/* Email Field */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
@@ -570,7 +551,7 @@ const DashaPhalAnalysis = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder={t('enter_email_address')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
                           required
                         />
                       </div>
@@ -586,37 +567,40 @@ const DashaPhalAnalysis = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder={t('enter_phone_number')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
                           required
                         />
                       </div>
+                    </div>
 
-                      {/* Gender Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('gender')} <span className="text-pink-400">*</span>
-                        </label>
-                        <select
-                          name="gender"
-                          value={formData.gender}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        >
-                          <option value="male">{t('male')}</option>
-                          <option value="female">{t('female')}</option>
-                          <option value="other">{t('other')}</option>
-                        </select>
-                      </div>
+                    {/* Gender Field */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                        {t('gender')} <span className="text-pink-400">*</span>
+                      </label>
+                      <select
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleInputChange}
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                        required
+                      >
+                        <option value="male">{t('male')}</option>
+                        <option value="female">{t('female')}</option>
+                        <option value="other">{t('other')}</option>
+                      </select>
+                    </div>
 
-                      {/* Date & Time of Birth - Manual split fields */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-lg mb-3">
-                          {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
-                        </label>
-                        <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
-                          <div className="flex flex-wrap items-center gap-4">
-                            {/* Date: DD / MM / YYYY */}
+                    {/* Date & Time of Birth - Mobile Responsive */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2 sm:mb-3">
+                        {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                      </label>
+                      <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-3 sm:p-4">
+                        <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
+                          {/* Date: DD / MM / YYYY - Mobile Stack */}
+                          <div className="w-full sm:w-auto">
+                            <div className="text-xs sm:text-sm text-gray-400 mb-2">{t('date_label') || 'Date'}</div>
                             <div className="flex items-center gap-2">
                               <input
                                 ref={ddRef}
@@ -628,7 +612,7 @@ const DashaPhalAnalysis = () => {
                                   onChangeDigits(setDobDay, e.target.value, 2, mmRef);
                                 }}
                                 onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-12 sm:w-16 text-center px-2 sm:px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                               />
                               <span className="text-gray-400">/</span>
                               <input
@@ -641,7 +625,7 @@ const DashaPhalAnalysis = () => {
                                   onChangeDigits(setDobMonth, e.target.value, 2, yyyyRef);
                                 }}
                                 onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-12 sm:w-16 text-center px-2 sm:px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                               />
                               <span className="text-gray-400">/</span>
                               <input
@@ -654,11 +638,14 @@ const DashaPhalAnalysis = () => {
                                   onChangeDigits(setDobYear, e.target.value, 4, hhRef);
                                 }}
                                 onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-16 sm:w-24 text-center px-2 sm:px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                               />
                             </div>
+                          </div>
 
-                            {/* Time: HH : MM and AM/PM */}
+                          {/* Time: HH : MM and AM/PM - Mobile Stack */}
+                          <div className="w-full sm:w-auto">
+                            <div className="text-xs sm:text-sm text-gray-400 mb-2">{t('time_label') || 'Time'}</div>
                             <div className="flex items-center gap-2">
                               <input
                                 ref={hhRef}
@@ -668,11 +655,9 @@ const DashaPhalAnalysis = () => {
                                 value={tobHour}
                                 onChange={(e) => {
                                   onChangeDigits(setTobHour, e.target.value, 2, minRef);
-                                  const v = (e.target.value || '').replace(/\D/g, '');
-                                  if (v.length === 2) updateTimeInForm(tobHour, v, tobMeridiem);
                                 }}
                                 onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-12 sm:w-16 text-center px-2 sm:px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                               />
                               <span className="text-gray-400">:</span>
                               <input
@@ -687,238 +672,241 @@ const DashaPhalAnalysis = () => {
                                   if (v.length === 2) updateTimeInForm(tobHour, v, tobMeridiem);
                                 }}
                                 onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="w-12 sm:w-16 text-center px-2 sm:px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                               />
-                            </div>
 
-                            {/* AM/PM toggle */}
-                            <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40">
-                              <button
-                                type="button"
-                                onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
-                                className={`px-3 py-2 text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
-                              >
-                                {t('am') || 'AM'}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
-                                className={`px-3 py-2 text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
-                              >
-                                {t('pm') || 'PM'}
-                              </button>
+                              {/* AM/PM toggle */}
+                              <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40 ml-2">
+                                <button
+                                  type="button"
+                                  onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
+                                  className={`px-2 sm:px-3 py-2 text-xs sm:text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                                >
+                                  {t('am') || 'AM'}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
+                                  className={`px-2 sm:px-3 py-2 text-xs sm:text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                                >
+                                  {t('pm') || 'PM'}
+                                </button>
+                              </div>
                             </div>
                           </div>
-                          <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
                         </div>
-                        <div className="mt-3 flex items-center text-sm">
+                        <p className="text-gray-400 text-xs sm:text-sm mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
+                        <div className="mt-2 sm:mt-3 flex items-center text-xs sm:text-sm">
                           <div className="flex items-center text-gray-400">
-                            <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 sm:w-4 h-3 sm:h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                           </div>
                         </div>
                       </div>
+                    </div>
 
-                      {/* Time Visualization */}
-                      {formData.timeOfBirth && (
-                        <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
-                          <div className="text-center">
-                            <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
-                              {(() => {
-                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                if (hour >= 5 && hour < 12) return '🌅';
-                                if (hour >= 12 && hour < 17) return '☀️';
-                                if (hour >= 17 && hour < 21) return '🌆';
-                                return '🌙';
-                              })()}
-                            </div>
-                            <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
-                              {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true
-                              })}
-                            </div>
-                            <div className="text-xs sm:text-sm text-gray-400">
-                              {(() => {
-                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                if (hour >= 5 && hour < 12) return 'Morning Birth';
-                                if (hour >= 12 && hour < 17) return 'Afternoon Birth';
-                                if (hour >= 17 && hour < 21) return 'Evening Birth';
-                                return 'Night Birth';
-                              })()}
-                            </div>
+                    {/* Time Visualization */}
+                    {formData.timeOfBirth && (
+                      <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
+                        <div className="text-center">
+                          <div className="text-4xl sm:text-6xl mb-2 sm:mb-4">
+                            {(() => {
+                              const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                              if (hour >= 5 && hour < 12) return '🌅';
+                              if (hour >= 12 && hour < 17) return '☀️';
+                              if (hour >= 17 && hour < 21) return '🌆';
+                              return '🌙';
+                            })()}
                           </div>
-                        </div>
-                      )}
-
-                      {/* Place of Birth */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('place_of_birth')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="placeOfBirth"
-                          value={formData.placeOfBirth}
-                          onChange={handleInputChange}
-                          placeholder={t('place_of_birth_placeholder')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('place_birth_note')}
-                        </p>
-                      </div>
-
-                      {/* Language Selection */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('preferred_language')} <span className="text-pink-400">*</span>
-                        </label>
-                        <select
-                          name="language"
-                          value={formData.language}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        >
-                          <option value="en">{t('english')}</option>
-                          <option value="hi">{t('hindi')}</option>
-                          <option value="te">{t('telugu')}</option>
-                          <option value="kn">{t('kannada')}</option>
-                        </select>
-                         
-                      </div>
-
-                      {/* Pricing Information */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-4">
-                          {t('service_price')}
-                        </label>
-                        <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
-                          <div className="text-center">
-                            <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_dasha_phal_analysis')}</h4>
-                            <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">₹599</div>
-                            <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('detailed_dasha_phal')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('comprehensive_analysis')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('dasha_predictions')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('remedial_suggestions')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('pdf_download')}</span>
-                              </li>
-                            </ul>
+                          <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
+                            {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              hour12: true
+                            })}
+                          </div>
+                          <div className="text-xs sm:text-sm text-gray-400">
+                            {(() => {
+                              const hour = parseInt(formData.timeOfBirth.split(':')[0]);
+                              if (hour >= 5 && hour < 12) return 'Morning Birth';
+                              if (hour >= 12 && hour < 17) return 'Afternoon Birth';
+                              if (hour >= 17 && hour < 21) return 'Evening Birth';
+                              return 'Night Birth';
+                            })()}
                           </div>
                         </div>
                       </div>
+                    )}
 
-                      {/* Generate Button */}
-                      <button
-                        type="submit"
-                        disabled={isGenerating || isProcessingPayment}
-                        className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 sm:py-4 rounded-lg text-base sm:text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100"
+                    {/* Place of Birth */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                        {t('place_of_birth')} <span className="text-pink-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="placeOfBirth"
+                        value={formData.placeOfBirth}
+                        onChange={handleInputChange}
+                        placeholder={t('place_of_birth_placeholder')}
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                        required
+                      />
+                      <p className="text-gray-400 text-xs sm:text-sm mt-2">
+                        {t('place_birth_note')}
+                      </p>
+                    </div>
+
+                    {/* Language Selection */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                        {t('preferred_language')} <span className="text-pink-400">*</span>
+                      </label>
+                      <select
+                        name="language"
+                        value={formData.language}
+                        onChange={handleInputChange}
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
+                        required
                       >
-                        {isProcessingPayment ? (
-                          <span className="flex items-center justify-center">
-                            <svg className="animate-spin -ml-1 mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            {t('processing_payment')}...
-                          </span>
-                        ) : isGenerating ? (
-                          <span className="flex items-center justify-center">
-                            <svg className="animate-spin -ml-1 mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            {t('processing_request')}...
-                          </span>
-                        ) : (
-                          `${t('pay_and_generate_chart')} - ₹599`
-                        )}
-                      </button>
-                    </form>
-                  </div>
-                </div>
+                        <option value="en">{t('english')}</option>
+                        <option value="hi">{t('hindi')}</option>
+                        <option value="te">{t('telugu')}</option>
+                        <option value="kn">{t('kannada')}</option>
+                      </select>
+                    </div>
 
-                {/* Right Side - Visual Content */}
-                <div className="space-y-6 sm:space-y-8">
-                  {!showAnalysis ? (
-                    <>
-                      {/* Sample Chart Display */}
-                      <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <div className="relative">
-                          <img
-                            src={dashaPhalImage}
-                            alt={t('sample_dasha_phal')}
-                            className="w-full rounded-xl shadow-lg"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-xl"></div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    // Generated Chart Result
-                    <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
-                        {t('your_dasha_phal_status')}
-                      </h3>
-                      <div className="text-center">
-                        <div className="bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-xl p-6 sm:p-8 mb-4 sm:mb-6">
-                          <div className="text-4xl sm:text-6xl text-purple-400 mb-3 sm:mb-4">⏳</div>
-                          <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">
-                            {t('processing_your_chart')}
-                          </h4>
-                          <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">
-                            {t('chart_processing_message')}
-                          </p>
-                          {analysisData && (
-                            <div className="mt-3 sm:mt-4 text-left bg-black/30 rounded-lg p-3 sm:p-4">
-                              <p className="text-gray-400 text-xs sm:text-sm mb-1">
-                                <span className="font-semibold text-white">{t('request_id')}:</span> {analysisData.requestId}
-                              </p>
-                              <p className="text-gray-400 text-xs sm:text-sm">
-                                <span className="font-semibold text-white">{t('status')}:</span> {analysisData.status === 'processing' ? t('processing') : t('pending')}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="space-y-3 sm:space-y-4">
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-blue-400 text-lg flex-shrink-0">📧</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('email_notification_sent')}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-blue-400 text-lg flex-shrink-0">📱</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('whatsapp_update_coming')}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-purple-400 text-lg flex-shrink-0">⏰</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('delivery_within_12_hours')}</span>
-                          </div>
+                    {/* Pricing Information - Mobile Responsive */}
+                    <div>
+                      <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-3 sm:mb-4">
+                        {t('service_price')}
+                      </label>
+                      <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
+                        <div className="text-center">
+                          <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_dasha_phal_analysis')}</h4>
+                          <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
+                          <ul className="text-gray-300 text-xs sm:text-sm space-y-1 sm:space-y-2 text-left max-w-sm mx-auto">
+                            <li className="flex items-center gap-2">
+                              <span className="text-purple-400 flex-shrink-0">✓</span>
+                              <span>{t('detailed_dasha_phal')}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="text-purple-400 flex-shrink-0">✓</span>
+                              <span>{t('comprehensive_analysis')}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="text-purple-400 flex-shrink-0">✓</span>
+                              <span>{t('dasha_predictions')}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="text-purple-400 flex-shrink-0">✓</span>
+                              <span>{t('remedial_suggestions')}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <span className="text-purple-400 flex-shrink-0">✓</span>
+                              <span>{t('pdf_download')}</span>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
-                  )}
+
+                    {/* Generate Button - Mobile Responsive */}
+                    <button
+                      type="submit"
+                      disabled={isGenerating || isProcessingPayment}
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 sm:py-4 rounded-lg text-sm sm:text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-xl"
+                    >
+                      {isProcessingPayment ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span className="text-xs sm:text-base">{t('processing_payment')}...</span>
+                        </span>
+                      ) : isGenerating ? (
+                        <span className="flex items-center justify-center">
+                          <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span className="text-xs sm:text-base">{t('processing_request')}...</span>
+                        </span>
+                      ) : (
+                        <span className="text-xs sm:text-base">{`${t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`}</span>
+                      )}
+                    </button>
+                  </form>
                 </div>
+              </div>
+
+              {/* Right Side - Visual Content - Mobile Responsive */}
+              <div className="space-y-6 sm:space-y-8 order-1 lg:order-2">
+                {!showAnalysis ? (
+                  <>
+                    {/* Sample Chart Display */}
+                    <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
+                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
+                        {t('sample_dasha_phal')}
+                      </h3>
+                      <div className="relative">
+                        <img
+                          src={dashaPhalImage}
+                          alt={t('sample_dasha_phal')}
+                          className="w-full rounded-lg sm:rounded-xl shadow-lg"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-lg sm:rounded-xl"></div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  // Generated Analysis Result
+                  <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
+                      <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
+                      {t('your_dasha_phal_status')}
+                    </h3>
+                    <div className="text-center">
+                      <div className="bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-xl p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6">
+                        <div className="text-4xl sm:text-6xl text-purple-400 mb-2 sm:mb-4">⏳</div>
+                        <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">
+                          {t('processing_your_chart')}
+                        </h4>
+                        <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">
+                          {t('chart_processing_message')}
+                        </p>
+                        {analysisData && (
+                          <div className="mt-3 sm:mt-4 text-left bg-black/30 rounded-lg p-3 sm:p-4">
+                            <p className="text-gray-400 text-xs sm:text-sm mb-1">
+                              <span className="font-semibold text-white">{t('request_id')}:</span> {analysisData.requestId}
+                            </p>
+                            <p className="text-gray-400 text-xs sm:text-sm">
+                              <span className="font-semibold text-white">{t('status')}:</span> {analysisData.status === 'processing' ? t('processing') : t('pending')}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="space-y-2 sm:space-y-4">
+                        <div className="flex items-center gap-2 sm:gap-3 text-left">
+                          <span className="text-blue-400 text-base sm:text-lg flex-shrink-0">📧</span>
+                          <span className="text-gray-300 text-xs sm:text-sm">{t('email_notification_sent')}</span>
+                        </div>
+                        <div className="flex items-center gap-2 sm:gap-3 text-left">
+                          <span className="text-blue-400 text-base sm:text-lg flex-shrink-0">📱</span>
+                          <span className="text-gray-300 text-xs sm:text-sm">{t('whatsapp_update_coming')}</span>
+                        </div>
+                        <div className="flex items-center gap-2 sm:gap-3 text-left">
+                          <span className="text-purple-400 text-base sm:text-lg flex-shrink-0">⏰</span>
+                          <span className="text-gray-300 text-xs sm:text-sm">{t('delivery_within_12_hours')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

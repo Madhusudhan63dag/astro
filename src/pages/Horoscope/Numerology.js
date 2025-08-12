@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next';
 import numerologyImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
+
 
 const API_URL = API_CONFIG.API_URL;
 
 
 const Numerology = () => {
         const { t } = useTranslation();
+        const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.birthChart);
+        const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.birthChart);
         const [formData, setFormData] = useState({
           name: '',
           gender: 'male',
