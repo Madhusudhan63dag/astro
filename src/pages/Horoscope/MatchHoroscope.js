@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import API_CONFIG from '../api';
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
 
 const API_URL = API_CONFIG.API_URL;
 
 const MatchHoroscope = () => {
   const { t } = useTranslation();
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.matchHoroscope);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.matchHoroscope);
   const [formData, setFormData] = useState({
     // Partner 1 (Male/Primary)
     partner1: {
@@ -384,7 +387,7 @@ const MatchHoroscope = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: 599,
+          amount: BC_PRICE_NUMBER,
           currency: 'INR',
           receipt: `horoscope_match_${Date.now()}`,
           notes: {
@@ -530,7 +533,7 @@ const MatchHoroscope = () => {
         language: 'English',
         paymentDetails: {
           status: 'paid',
-          amount: 599,
+          amount: BC_PRICE_NUMBER,
           paymentId,
           orderId,
           idempotencyKey: paymentId || orderId
@@ -780,7 +783,7 @@ const MatchHoroscope = () => {
                 <div className="bg-gradient-to-r from-yellow-400/10 to-amber-400/10 border-2 border-yellow-400/50 rounded-lg p-6">
                   <div className="text-center">
                     <h4 className="text-xl font-semibold text-white mb-2">Complete Horoscope Matching Analysis</h4>
-                    <div className="text-4xl font-bold text-yellow-400 mb-4">₹599</div>
+                    <div className="text-4xl font-bold text-yellow-400 mb-4">{BC_PRICE_FORMATTED}</div>
                     <ul className="text-gray-300 text-sm space-y-2 text-left max-w-sm mx-auto">
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
@@ -1034,7 +1037,7 @@ const MatchHoroscope = () => {
                         Processing Payment...
                       </span>
                     ) : (
-                      'Pay & Match Horoscopes - ₹599'
+                      `Pay & Match Horoscopes - ${BC_PRICE_FORMATTED}`
                     )}
                   </button>
                 </form>

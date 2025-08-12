@@ -60,9 +60,9 @@ export default function Services() {
   return (
     <section
       id="core-services"
-      className="bg-gradient-to-br from-black via-gray-900 to-slate-900 py-16 px-2"
+      className="bg-gradient-to-br from-black via-gray-900 to-slate-900 pb-16 px-2"
     >
-      <div className=" flex flex-col md:flex-row items-center justify-between">
+      <div className=" flex flex-col md:flex-row items-end justify-between">
         {/* Left - First 4 Services */}
         <div className="flex flex-col gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
           {service.slice(0, 4).map((item) => (

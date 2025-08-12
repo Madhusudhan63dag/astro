@@ -11,8 +11,8 @@ const API_URL = API_CONFIG.API_URL;
 
 const Nakshatra = () => {
         const { t } = useTranslation();
-        const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.birthChart);
-        const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.birthChart);
+        const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.nakshatra);
+        const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.nakshatra);
         const [formData, setFormData] = useState({
           name: '',
           gender: 'male',

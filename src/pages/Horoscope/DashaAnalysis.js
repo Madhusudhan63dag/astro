@@ -11,8 +11,8 @@ const API_URL = API_CONFIG.API_URL;
 const DashaPhalAnalysis = () => {
   const { t } = useTranslation();
     // Centralized pricing for Birth Chart service
-  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.birthChart);
-  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.birthChart);
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.dashaAnalysis);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.dashaAnalysis);
   const [formData, setFormData] = useState({
     name: '',
     gender: 'male',

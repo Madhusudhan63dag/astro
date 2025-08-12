@@ -40,7 +40,6 @@ const testimonials = [
   }
 ]
 
-
 const Four = () => {
   const items = useMemo(() => testimonials, [])
   const [index, setIndex] = useState(0) // starting card index

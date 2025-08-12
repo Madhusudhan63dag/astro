@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next';
 import career_pathImage from '../../assets/2.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
-
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
 const API_URL = API_CONFIG.API_URL;
 
 
 const CareerReport = () => {
         const { t } = useTranslation();
+        const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.careerReport);
+        const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.careerReport);
         const [formData, setFormData] = useState({
           name: '',
           gender: 'male',
@@ -219,7 +221,7 @@ const CareerReport = () => {
                 additionalInfo: 'Complete Career Path Guidance (Kundli) Analysis Request',
                 paymentDetails: {
                   status: 'paid',
-                  amount: 599,
+                  amount: BC_PRICE_NUMBER,
                   paymentId: paymentData.razorpay_payment_id,
                   orderId: paymentData.razorpay_order_id
                 }
@@ -248,7 +250,7 @@ const CareerReport = () => {
                   paymentId: paymentData.razorpay_payment_id,
                   requestId: paymentData.razorpay_order_id,
                   service: 'Birth Chart Analysis',
-                  amount: '₹599',
+                  amount: BC_PRICE_FORMATTED,
                   status: 'completed'
                 });
       
@@ -395,7 +397,7 @@ const CareerReport = () => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                amount: 599,
+                amount: BC_PRICE_NUMBER,
                 currency: 'INR',
                 receipt: `career_path_${Date.now()}`,
                 notes: {
@@ -474,7 +476,7 @@ const CareerReport = () => {
           userName={formData.name}
           userEmail={formData.email}
           chartData={analysisData}
-          serviceAmount="₹599"
+          serviceAmount={BC_PRICE_FORMATTED}
           serviceFeatures={[
             t('detailed_career_path_pdf') || "Detailed Career Path Guidance (PDF)",
             t('comprehensive_astrological_analysis') || "Comprehensive Astrological Analysis",
@@ -776,7 +778,7 @@ const CareerReport = () => {
                         </label>
                         <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
                           <div className="text-center">
-                            <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">₹599</div>
+                            <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
                             <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
@@ -819,7 +821,7 @@ const CareerReport = () => {
                             {t('processing_request')}...
                           </span>
                         ) : (
-                          `${t('pay_and_generate_chart')} - ₹599`
+                          `${t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`
                         )}
                       </button>
                     </form>

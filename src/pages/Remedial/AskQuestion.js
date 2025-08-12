@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ascendantImage from '../../assets/2.webp'; // Different image for ascendant
 import API_CONFIG from '../api';
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
 
 const API_URL = API_CONFIG.API_URL;
 
 const AskQuestion = () => {
   const { t } = useTranslation();
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.askQuestion);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.askQuestion);
   const [formData, setFormData] = useState({
     name: '',
     gender: 'male',
@@ -249,7 +252,7 @@ const AskQuestion = () => {
           specialRequests: formData.question,
           paymentDetails: {
             status: 'paid',
-            amount: 149,
+            amount: BC_PRICE_NUMBER,
             paymentId: paymentData.razorpay_payment_id,
             orderId: paymentData.razorpay_order_id
           }
@@ -278,7 +281,7 @@ const AskQuestion = () => {
             paymentId: paymentData.razorpay_payment_id,
             requestId: paymentData.razorpay_order_id,
             service: 'Ask Question Service',
-            amount: '₹149',
+            amount: BC_PRICE_FORMATTED,
             status: 'completed'
           });
 
@@ -409,7 +412,7 @@ const AskQuestion = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: 149,
+          amount: BC_PRICE_NUMBER,
           currency: 'INR',
           receipt: `ask_question_${Date.now()}`,
           notes: {
@@ -798,7 +801,7 @@ const AskQuestion = () => {
                     <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
                       <div className="text-center">
                         <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('personalized_question_answer')}</h4>
-                        <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">₹149</div>
+                        <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
                         <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
                           <li className="flex items-center gap-2">
                             <span className="text-purple-400">✓</span>
@@ -855,7 +858,7 @@ const AskQuestion = () => {
                         {t('processing_request')}...
                       </span>
                     ) : (
-                      `${t('pay_and_get_answer')} - ₹149`
+                      `${t('pay_and_get_answer')} - ${BC_PRICE_FORMATTED}`
                     )}
                   </button>
                 </form>
@@ -924,7 +927,7 @@ const AskQuestion = () => {
                               <span className="font-semibold text-white">{t('payment_id')}:</span> {analysisData.paymentId}
                             </p>
                             <p className="text-gray-400">
-                              <span className="font-semibold text-white">{t('amount_paid')}:</span> ₹149
+                              <span className="font-semibold text-white">{t('amount_paid')}:</span> {BC_PRICE_FORMATTED}
                             </p>
                           </div>
                         </div>
