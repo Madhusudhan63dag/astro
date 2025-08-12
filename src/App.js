@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './i18n'
 
 // Navigation Components
@@ -13,6 +13,7 @@ import Four from './components/Four';
 import Five from './components/Five';
 import Two from './components/Two';
 import Three from './components/Three';
+import Loader from './components/Loader';
 
 // Core Horoscope Pages
 import BirthChart from './pages/Horoscope/BirthChart';
@@ -69,12 +70,28 @@ function Home() {
   );
 }
 
-function App() {
+function RouteContainer() {
+  const location = useLocation();
+  const [loading, setLoading] = React.useState(true);
+
+  // Initial load animation
+  React.useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Show loader briefly on route changes
+  React.useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, [location.pathname]);
+
   return (
-    <div className="min-h-screen bg-transparent">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
+    <>
+      <Loader show={loading} />
+      <Navbar />
+      <Routes>
           {/* Home Route */}
           <Route path="/" element={<Home />} />
           
@@ -121,6 +138,15 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <div className="min-h-screen bg-transparent">
+      <BrowserRouter>
+        <RouteContainer />
       </BrowserRouter>
     </div>
   );
