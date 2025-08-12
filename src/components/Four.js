@@ -4,51 +4,42 @@ import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 const testimonials = [
   {
     name: 'Karthik R.',
-    location: 'Chennai, Tamil Nadu',
-    review: 'Predictions are correct. It helps us a lot and gives us accurate predictions.'
+    review: 'I was amazed at how accurate the predictions were. They matched my situation perfectly and really helped me plan ahead.'
   },
   {
     name: 'Ananya P.',
-    location: 'Bengaluru, Karnataka',
-    review: 'The predictions were correct. It helped us a lot and gave accurate guidance.'
+    review: 'The guidance was spot on. It gave me clarity when I was confused about some big decisions in life.'
   },
   {
     name: 'Suresh K.',
-    location: 'Hyderabad, Telangana',
-    review: 'Predictions are correct and it helps us a lot. Truly accurate predictions.'
+    review: 'Honestly, I didn’t expect them to be this accurate. Every prediction lined up with what actually happened.'
   },
   {
     name: 'Rajesh M.',
-    location: 'Visakhapatnam, Andhra Pradesh',
-    review: 'The predictions are correct and have been very helpful for our decisions.'
+    review: 'The advice has been extremely helpful for my family’s decisions. It feels like they truly understand our situation.'
   },
   {
     name: 'Divya N.',
-    location: 'Coimbatore, Tamil Nadu',
-    review: 'Accurate predictions that guided us perfectly. Very helpful and reliable.'
+    review: 'I was surprised by how precise the predictions were. They gave me the confidence to move forward without hesitation.'
   },
   {
     name: 'Prakash L.',
-    location: 'Mysuru, Karnataka',
-    review: 'The predictions were very accurate and helped us a lot in our planning.'
+    review: 'Very reliable insights. They’ve helped me avoid mistakes and make better choices for my work and personal life.'
   },
   {
     name: 'Sneha G.',
-    location: 'Thiruvananthapuram, Kerala',
-    review: 'Correct predictions that truly helped us. We are very satisfied.'
+    review: 'The accuracy is incredible. I’ve already recommended this to a couple of friends because it helped me so much.'
   },
   {
     name: 'Vikram A.',
-    location: 'Warangal, Telangana',
-    review: 'Predictions are absolutely accurate and have been a great help to us.'
+    review: 'These predictions aren’t just accurate, they’re practical too. I’ve been able to act on them with great results.'
   },
   {
     name: 'Priya R.',
-    location: 'Madurai, Tamil Nadu',
-    review: 'The predictions were spot on and very helpful for our important decisions.'
+    review: 'Everything matched exactly with what I was experiencing. It’s been a huge help in making important decisions.'
   }
-
 ]
+
 
 const Four = () => {
   const items = useMemo(() => testimonials, [])
@@ -121,7 +112,7 @@ const Four = () => {
                     </div>
                     <div>
                       <div className="text-white font-semibold">{t.name}</div>
-                      <div className="text-gray-400 text-sm">{t.location}</div>
+                      {/* <div className="text-gray-400 text-sm">{t.location}</div> */}
                     </div>
                   </div>
                 </div>

@@ -86,7 +86,7 @@ const translations = {
 
         // Add to your translation files
     "free_daily_horoscope": "Free Daily Horoscope",
-    "horoscope_categories": "Love Life, Health, Career\nEmotions, Travel and Luck.",
+    "horoscope_categories": "Every Sign, Every Secret – Discover What the Stars Say About You",
 
     // Zodiac signs
     "aries": "Aries",
@@ -231,17 +231,11 @@ const translations = {
     "kundli_reports_question": "What’s included in the Kundli reports?",
     "kundli_reports_answer": "Each report is a **professionally prepared 200+ page PDF** covering Birth Chart, Ascendant Analysis, Dasha, Gochar, Nakshatra, Numerology, Love & Career Guidance, Health Index, Lal Kitab Remedies, and more.",
 
-    "branding_question": "Can I request reports under my own brand?",
-    "branding_answer": "Yes! For professional astrologers, we offer **white-labeled reports** with your name, logo, and contact details—ideal for building your personal brand.",
-
     "saving_notes_question": "Can I get session notes or remedies added?",
     "saving_notes_answer": "Absolutely. If you want specific remedies, follow-up notes, or additional observations included, simply mention them during your request.",
 
     "devices_question": "How do I receive the report?",
     "devices_answer": "You’ll receive the report **within 24 hours** in PDF format via **WhatsApp, Email, or SMS**—whichever method you prefer.",
-
-    "astrology_systems_question": "What astrology systems are used in the report?",
-    "astrology_systems_answer": "We use a blend of **20+ astrological systems**, including Parashari, KP, Jaimini, Lal Kitab, Western, Numerology, and more for the most in-depth analysis.",
 
     "data_safety_question": "Is my personal data safe?",
     "data_safety_answer": "Yes. All user data is kept **completely confidential** and is never shared. Your privacy and trust are our highest priorities.",

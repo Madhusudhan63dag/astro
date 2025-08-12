@@ -62,7 +62,7 @@ export default function Services() {
       id="core-services"
       className="bg-gradient-to-br from-black via-gray-900 to-slate-900 py-16 px-2"
     >
-      <div className=" flex flex-col md:flex-row items-center justify-center gap-4">
+      <div className=" flex flex-col md:flex-row items-center justify-between">
         {/* Left - First 4 Services */}
         <div className="flex flex-col gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
           {service.slice(0, 4).map((item) => (
@@ -85,11 +85,11 @@ export default function Services() {
         </div>
         
         {/* Center Image - Larger Size */}
-        <div className="flex justify-center items-center max-w-sm md:max-w-lg">
+        <div className="flex justify-center items-center max-w-sm md:max-w-4xl">
           <img
             src={services}
             alt="Spiritual Services"
-            className="w-full md:w-[600px] lg:w-full object-contain p-3"
+            className="w-full md:w-full lg:w-[50rem] object-cover p-3"
             loading="lazy"
           />
         </div>

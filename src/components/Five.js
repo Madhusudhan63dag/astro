@@ -17,20 +17,12 @@ export default function Five() {
       answer: t('kundli_reports_answer'),
     },
     {
-      question: t('branding_question'),
-      answer: t('branding_answer'),
-    },
-    {
       question: t('saving_notes_question'),
       answer: t('saving_notes_answer'),
     },
     {
       question: t('devices_question'),
       answer: t('devices_answer'),
-    },
-    {
-      question: t('astrology_systems_question'),
-      answer: t('astrology_systems_answer'),
     },
     {
       question: t('data_safety_question'),
