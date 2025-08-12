@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import services from "../assets/services.png";
-import { getFormattedPrice, PRICE_KEYS } from '../config/prices';
 
 export default function Services() {
   const { t } = useTranslation();
@@ -58,11 +57,8 @@ export default function Services() {
   ];
 
   return (
-    <section
-      id="core-services"
-      className="bg-gradient-to-br from-black via-gray-900 to-slate-900 pb-16 px-2"
-    >
-      <div className=" flex flex-col md:flex-row items-end justify-between">
+    <section id="core-services" className="bg-black">
+      <div className=" flex flex-col md:flex-row items-center md:items-end justify-between">
         {/* Left - First 4 Services */}
         <div className="flex flex-col gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
           {service.slice(0, 4).map((item) => (
@@ -89,7 +85,7 @@ export default function Services() {
           <img
             src={services}
             alt="Spiritual Services"
-            className="w-full md:w-full lg:w-[50rem] object-cover p-3"
+            className="w-full md:w-full lg:w-[50rem] object-cover"
             loading="lazy"
           />
         </div>
@@ -113,23 +109,6 @@ export default function Services() {
               </a>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Example usage: replace hardcoded prices */}
-      <div className="service-card">
-        {/* ...existing code... */}
-        <div className="text-sm font-semibold">
-          {getFormattedPrice(PRICE_KEYS.birthChart)}
-        </div>
-      </div>
-
-      {/* Repeat for each service item */}
-      {/* e.g., match horoscope */}
-      <div className="service-card">
-        {/* ...existing code... */}
-        <div className="text-sm font-semibold">
-          {getFormattedPrice(PRICE_KEYS.matchHoroscope)}
         </div>
       </div>
     </section>
