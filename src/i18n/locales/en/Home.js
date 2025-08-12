@@ -303,6 +303,7 @@ const translations = {
     "pisces_element": "Water",
     "pisces_planet": "Neptune & Jupiter",
 
+    "review_title": "Energy Exchange: Their Words, Our Gratitude",
 
     "why_choose": "Why Choose",
     "sri_astro_veda": "SriAstroVeda",

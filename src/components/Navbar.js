@@ -387,7 +387,7 @@ const AstroNavbar = () => {
       items: [
         { name: t('lal_kitab'), href: "/lal-kitab" },
         { name: t('sade_sati'), href: "/sade-sati" },
-        { name: t('ask_question'), href: "/ask-question", price: "₹299" },
+        { name: t('ask_question'), href: "/ask-question" },
         { name: t('gemstones_report'), href: "/gemstones" }
       ]
     }

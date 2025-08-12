@@ -1,42 +1,66 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import one from '../assets/review/1.webp'
+import two from '../assets/review/2.webp'
+import three from '../assets/review/3.webp'
+import four from '../assets/review/4.webp'
+import five from '../assets/review/5.webp'
+import six from '../assets/review/6.webp'
+import seven from '../assets/review/7.webp'
+import eight from '../assets/review/8.webp'
+import nine from '../assets/review/9.webp'
+import ten from '../assets/review/10.webp'
 
 const testimonials = [
   {
     name: 'Karthik R.',
-    review: 'I was amazed at how accurate the predictions were. They matched my situation perfectly and really helped me plan ahead.'
+    review: 'I was amazed at how accurate the predictions were. They matched my situation perfectly and really helped me plan ahead.',
+    image: one
   },
   {
     name: 'Ananya P.',
-    review: 'The guidance was spot on. It gave me clarity when I was confused about some big decisions in life.'
+    review: 'The guidance was spot on. It gave me clarity when I was confused about some big decisions in life.',
+    image: two
   },
   {
     name: 'Suresh K.',
-    review: 'Honestly, I didn’t expect them to be this accurate. Every prediction lined up with what actually happened.'
+    review: 'Honestly, I didn’t expect them to be this accurate. Every prediction lined up with what actually happened.',
+    image: three
   },
   {
     name: 'Rajesh M.',
-    review: 'The advice has been extremely helpful for my family’s decisions. It feels like they truly understand our situation.'
+    review: 'The advice has been extremely helpful for my family’s decisions. It feels like they truly understand our situation.',
+    image: four
   },
   {
     name: 'Divya N.',
-    review: 'I was surprised by how precise the predictions were. They gave me the confidence to move forward without hesitation.'
+    review: 'I was surprised by how precise the predictions were. They gave me the confidence to move forward without hesitation.',
+    image: five
   },
   {
     name: 'Prakash L.',
-    review: 'Very reliable insights. They’ve helped me avoid mistakes and make better choices for my work and personal life.'
+    review: 'Very reliable insights. They’ve helped me avoid mistakes and make better choices for my work and personal life.',
+    image: six
   },
   {
     name: 'Sneha G.',
-    review: 'The accuracy is incredible. I’ve already recommended this to a couple of friends because it helped me so much.'
+    review: 'The accuracy is incredible. I’ve already recommended this to a couple of friends because it helped me so much.',
+    image: seven
   },
   {
     name: 'Vikram A.',
-    review: 'These predictions aren’t just accurate, they’re practical too. I’ve been able to act on them with great results.'
+    review: 'These predictions aren’t just accurate, they’re practical too. I’ve been able to act on them with great results.',
+    image: eight
   },
   {
     name: 'Priya R.',
-    review: 'Everything matched exactly with what I was experiencing. It’s been a huge help in making important decisions.'
+    review: 'Everything matched exactly with what I was experiencing. It’s been a huge help in making important decisions.',
+    image: nine
+  },
+  {
+    name: 'Ravi T.',
+    review: 'The insights provided were not only accurate but also actionable. I felt empowered to make decisions.',
+    image: ten
   }
 ]
 
@@ -74,7 +98,7 @@ const Four = () => {
   // auto slide
   useEffect(() => {
     if (paused || pages <= 1) return
-    const id = setInterval(() => setIndex(i => (i + 1) % pages), 1000)
+    const id = setInterval(() => setIndex(i => (i + 1) % pages), 3000)
     return () => clearInterval(id)
   }, [paused, pages])
 
@@ -83,7 +107,6 @@ const Four = () => {
       <div className="">
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">What our customers say</h2>
-          <p className="text-gray-300 text-lg">Real experiences from our clients across South India</p>
         </div>
 
         <div
@@ -98,8 +121,9 @@ const Four = () => {
           >
             {items.map((t, idx) => (
               <div key={idx} className="px-2 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 shrink-0">
-                <div className="bg-black/60 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 hover:border-yellow-400/50 transition-all duration-300 h-full flex flex-col">
-                  <div className="flex items-center gap-1 text-yellow-400 mb-4">
+                <div className=" h-full flex flex-col">
+                  <img src={t.image} alt={t.name} className="w-full" />
+                  {/* <div className="flex items-center gap-1 text-yellow-400 mb-4">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <FaStar key={i} />
                     ))}
@@ -111,9 +135,8 @@ const Four = () => {
                     </div>
                     <div>
                       <div className="text-white font-semibold">{t.name}</div>
-                      {/* <div className="text-gray-400 text-sm">{t.location}</div> */}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}
