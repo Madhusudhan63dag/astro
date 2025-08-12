@@ -654,6 +654,7 @@ const Kundli = () => {
                       <div className="bg-slate-800/60 border-2 border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
                         <TimePicker
                           label={t('select_exact_time') || "Select exact time"}
+                          timeSteps={{ minutes: 1 }}
                           value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
                           onChange={(newValue) => {
                             const timeString = newValue ? newValue.format('HH:mm') : '';
