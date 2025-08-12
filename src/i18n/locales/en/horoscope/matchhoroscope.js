@@ -7,7 +7,7 @@ export default {
     "horoscopes": "Horoscopes",
     "for_perfect_union": "For Perfect Union",
     "match_horoscope_description": "Discover your compatibility through authentic Vedic astrology. Our comprehensive Kundli matching analyzes 36 Gunas to determine marital harmony and relationship success.",
-
+ 
     // Form Fields
     "partner_1_details": "Partner 1 Details",
     "partner_2_details": "Partner 2 Details",

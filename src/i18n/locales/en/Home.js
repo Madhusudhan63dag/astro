@@ -45,7 +45,7 @@ const translations = {
 
 
     // CTA & Trust
-    "start_your_journey": "Start My Astro Journey",
+    "start_your_journey": "Unlock Your Zodiac Path",
     "learn_more": "Explore Full Services",
     "rated_by_clients": "Rated 4.9/5 by 10,000+ Clients",
     "confidential_secure": "100% Confidential & Secure",
@@ -118,6 +118,7 @@ const translations = {
 
     // Modal content keys
     "today_horoscope": "Today's Horoscope",
+    "basic_info": "Basic Information",
     "characteristics": "Characteristics",
     "lucky_elements": "Lucky Elements",
     "lucky_color": "Lucky Color",

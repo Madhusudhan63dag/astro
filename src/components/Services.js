@@ -85,7 +85,7 @@ export default function Services() {
           <img
             src={services}
             alt="Spiritual Services"
-            className="w-full md:w-full lg:w-[50rem] object-cover"
+            className="w-full md:w-full lg:w-[45rem] object-cover"
             loading="lazy"
           />
         </div>

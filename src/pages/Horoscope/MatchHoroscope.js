@@ -762,14 +762,14 @@ const MatchHoroscope = () => {
                       type="tel"
                       value={formData.customerPhone}
                       onChange={(e) => handleContactChange('customerPhone', e.target.value)}
-                      placeholder="Enter your phone for follow-up"
+                      placeholder="Enter your phone"
                       className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                     />
                   </div>
                 </div>
                 
                 <p className="text-gray-400 text-sm mt-4">
-                  📧 Providing contact details ensures you receive the detailed compatibility report directly.
+                  Providing contact details ensures you receive the detailed compatibility report directly.
                 </p>
               </div>
 
