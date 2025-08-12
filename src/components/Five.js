@@ -67,7 +67,7 @@ export default function Five() {
     <section className="pt-10 bg-gradient-to-br from-black via-gray-900 to-slate-900">
       <div className="px-6">
         <h2 className="text-5xl font-extrabold text-white mb-6 text-center tracking-tight leading-tight">
-          {t('why_choose')} <span className="text-gradient bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 bg-clip-text text-transparent">{t('sri_astro_veda')}</span>
+          {t('why_choose')} 
         </h2>
 
         {/* Accordion variant: multiple open via <details> */}

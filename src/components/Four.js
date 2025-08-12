@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next';
+
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import one from '../assets/review/1.webp'
-import two from '../assets/review/2.webp'
-import three from '../assets/review/3.webp'
-import four from '../assets/review/4.webp'
-import five from '../assets/review/5.webp'
-import six from '../assets/review/6.webp'
-import seven from '../assets/review/7.webp'
-import eight from '../assets/review/8.webp'
-import nine from '../assets/review/9.webp'
-import ten from '../assets/review/10.webp'
+import one from '../assets/review/1.jpg'
+import two from '../assets/review/1.jpg'
+import three from '../assets/review/1.jpg'
+import four from '../assets/review/1.jpg'
+import five from '../assets/review/1.jpg'
+import six from '../assets/review/1.jpg'
+import seven from '../assets/review/1.jpg'
+import eight from '../assets/review/1.jpg'
+import nine from '../assets/review/1.jpg'
+import ten from '../assets/review/1.jpg'
 
 const testimonials = [
   {
@@ -65,6 +67,7 @@ const testimonials = [
 ]
 
 const Four = () => {
+  const { t } = useTranslation();
   const items = useMemo(() => testimonials, [])
   const [index, setIndex] = useState(0) // starting card index
   const [paused, setPaused] = useState(false)
@@ -103,10 +106,10 @@ const Four = () => {
   }, [paused, pages])
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-black via-gray-900 to-slate-900">
+    <section className="bg-gradient-to-br from-black via-gray-900 to-slate-900">
       <div className="">
         <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">What our customers say</h2>
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">{t('review_title')}</h2>
         </div>
 
         <div
@@ -122,21 +125,7 @@ const Four = () => {
             {items.map((t, idx) => (
               <div key={idx} className="px-2 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 shrink-0">
                 <div className=" h-full flex flex-col">
-                  <img src={t.image} alt={t.name} className="w-full" />
-                  {/* <div className="flex items-center gap-1 text-yellow-400 mb-4">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <FaStar key={i} />
-                    ))}
-                  </div>
-                  <p className="text-gray-200 flex-1">{t.review}</p>
-                  <div className="mt-6 pt-4 border-t border-gray-700/50 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center text-yellow-400 font-semibold">
-                      {t.name.split(' ').map(w => w[0]).join('')}
-                    </div>
-                    <div>
-                      <div className="text-white font-semibold">{t.name}</div>
-                    </div>
-                  </div> */}
+                  <img src={t.image} alt={t.name} className="w-full h-full" />
                 </div>
               </div>
             ))}
