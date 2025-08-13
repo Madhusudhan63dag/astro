@@ -103,7 +103,7 @@ function RouteContainer() {
           
           {/* Core Horoscope Routes */}
           <Route path="/birth-chart" element={<BirthChart />} />
-          <Route path="/match-horoscope" element={<MatchHoroscope />} />
+          <Route path="/match-kundli" element={<MatchHoroscope />} />
           <Route path="/ascendant" element={<Ascendant />} />
           <Route path="/dasha-analysis" element={<DashaAnalysis />} />
           <Route path="/nakshatra" element={<Nakshatra />} />

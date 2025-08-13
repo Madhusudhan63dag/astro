@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import birthChartImage from '../../assets/2.webp';
+import birthChartImage from '../../assets/services/birth.jpg';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
@@ -507,7 +507,6 @@ const BirthChart = () => {
               <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
                 <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
                   <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                    <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📝</span>
                     {t('enter_birth_details')}
                   </h2>
 
@@ -515,7 +514,6 @@ const BirthChart = () => {
                   {error && (
                     <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500/50 rounded-lg">
                       <p className="text-red-300 flex items-start text-sm sm:text-base">
-                        <span className="mr-2 flex-shrink-0">⚠️</span>
                         <span>{error}</span>
                       </p>
                     </div>

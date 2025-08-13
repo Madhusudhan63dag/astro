@@ -247,7 +247,7 @@ export default function Footer() {
                     href="/match-horoscope" 
                     className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                   >
-                    {t('match_horoscope_footer')}
+                    {t('match_kundli_footer')}
                   </a>
                 </li>
                 <li>

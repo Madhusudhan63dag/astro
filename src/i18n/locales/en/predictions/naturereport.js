@@ -1,7 +1,7 @@
 export default {
     // Header Section
     "discover_your": "Discover Your",
-    "nature_report": "Nature Report",
+    "nature_report": "Character Analysis",
     "natural_personality_insights": "Natural Personality Insights",
     "nature_report_description": "Understand your authentic personality and innate nature through comprehensive analysis. Discover your natural behavior patterns, inherent strengths, core temperament, and authentic self-expression style based on your birth details.",
 

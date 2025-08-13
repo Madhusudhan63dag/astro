@@ -1,4 +1,4 @@
-export default {
+const askquestion = {
     // Header Section
     "discover_your": "Get Your",
     "ask_question": "Ask Question",
@@ -137,7 +137,8 @@ export default {
     "marriage_timing": "When will I get married?",
     "relationship_future": "What is the future of my relationship?",
     "soulmate_meeting": "When will I meet my soulmate?",
-    "love_compatibility": "Are we compatible for marriage?",
+    // Example question (renamed to avoid key collision with navbar's 'love_compatibility')
+    "love_compatibility_question": "Are we compatible for marriage?",
 
     "finance_questions_examples": "Finance Questions Examples",
     "money_problems": "When will my financial problems end?",
@@ -223,3 +224,5 @@ export default {
     "no_judgment": "Non-judgmental Approach",
     "supportive_guidance": "Supportive & Compassionate Guidance"
 };
+
+export default askquestion;

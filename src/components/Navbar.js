@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../assets/logo.png';
 import logovideo from '../assets/logo.gif';
 
 const AstroNavbar = () => {
@@ -62,7 +61,7 @@ const AstroNavbar = () => {
       icon: "✦",
       items: [
         { name: t('birth_chart'), href: "/birth-chart" },
-        { name: t('match_horoscope'), href: "/match-horoscope" },
+        { name: t('match_kundli'), href: "/match-kundli" },
         { name: t('ascendant_analysis'), href: "/ascendant" },
         { name: t('dasha_analysis'), href: "/dasha-analysis" },
         { name: t('nakshatra_report'), href: "/nakshatra" },
@@ -150,11 +149,7 @@ const AstroNavbar = () => {
                         className="flex items-center justify-between px-2 xl:px-3 py-2 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200 group"
                       >
                         <span className="text-xs xl:text-sm">{subItem.name}</span>
-                        {subItem.price && (
-                          <span className="text-xs bg-amber-500 text-black px-2 py-1 rounded-full font-semibold">
-                            {subItem.price}
-                          </span>
-                        )}
+                        
                         <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
@@ -164,10 +159,6 @@ const AstroNavbar = () => {
                 </div>
               </div>
             ))}
-
-            {/* <a href="/about" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
-              {t('about')}
-            </a> */}
             <a href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
               {t('contact')}
             </a>
@@ -236,14 +227,7 @@ const AstroNavbar = () => {
           <div className="py-3 sm:py-4 space-y-1 border-t border-gray-700/50">
             
             {/* Mobile Navigation Links */}
-            {/* <a 
-              href="/about" 
-              className="block px-3 sm:px-4 py-2 sm:py-3 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t('about')}
-            </a> */}
-
+            
             <a 
               href="/kundli" 
               className="block px-3 sm:px-4 py-2 sm:py-3 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"

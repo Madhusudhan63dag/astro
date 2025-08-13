@@ -14,7 +14,7 @@ export default {
     // Core Services
     "core_services_footer": "Core Services",
     "birth_chart_footer": "Birth Chart",
-    "match_horoscope_footer": "Match Horoscope",
+    "match_kundli_footer": "Match Kundli",
     "ascendant_footer": "Ascendant",
     "dasha_analysis_footer": "Dasha Analysis",
     "nakshatra_footer": "Nakshatra",
