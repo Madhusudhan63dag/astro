@@ -8,12 +8,12 @@ const translations = {
 
   // Features
   "detailed_reports": "2025 Personalized Life Report",
-  "horoscope_matching": "Horoscope & Love Matching",
+  "horoscope_matching": "Kundli Matching",
   "astrology_systems": "Birth Chart, Numerology, Dasha & More",
-
+ 
   // Modal
   "200_pages": "200+ Insightful Pages",
-  "multi_system": "20+ Powerful Astrological Systems",
+  "20_years_predictions": "20 Years of Future Predictions",
   "personalized_kundli": "Your Personalized Vedic Life Report",
   "most_detailed_india": "Complete & Comprehensive Guidance",
   "cosmic_blueprint_description": "Your life’s journey decoded through:",
@@ -26,7 +26,7 @@ const translations = {
     // Add to your translation files
     // Section Title & Description
     "authentic_vedic_astrology": "SriAstroVeda Astrology Services",
-    "cosmic_destiny": "Your Destiny, Decoded",
+    "cosmic_destiny": "Your Destiny, Decoded &",
     "through_ancient_wisdom": "Guided by the Eternal Wisdom of Vedic Astrology",
     "two_section_description": "SriAstroVeda helps you make informed life choices through the ancient science of astrology — combining detailed Kundli analysis, Numerology, Dasha timelines, Love compatibility, and powerful Lal Kitab remedies. Discover your path with clarity and confidence.",
 

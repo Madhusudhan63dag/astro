@@ -10,7 +10,7 @@ export default function Services() {
       title: t('match_horoscope'),
       desc: t('match_horoscope_desc'),
       cta: t('match_now'),
-      link: "/match-horoscope",
+      link: "/match-kundli",
     },
     {
       title: t('your_life_predictions'),

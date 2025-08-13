@@ -36,14 +36,14 @@ const KundliModal = ({ show, onClose }) => {
           <div className="flex-1 flex flex-col justify-between p-4 sm:p-6 lg:px-7">
             <div>
               <div className="mb-2 flex items-center gap-2 text-yellow-400 text-sm sm:text-base font-semibold">
-                <span>✦</span> {t('200_pages')} | {t('multi_system')}
+                <span>✦</span> {t('200_pages')} | {t('20_years_predictions')}
               </div>
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mb-2 tracking-tight">
                 {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
               </h3>
               <p className="text-gray-300 mb-4 text-sm sm:text-base leading-relaxed">
                 {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
-              </p>
+              </p>  
             </div>
             <a
               href="/kundli"
