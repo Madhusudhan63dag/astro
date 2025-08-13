@@ -492,10 +492,6 @@ const DashaPhalAnalysis = () => {
             <div className="text-center mb-8 sm:mb-12 lg:mb-16">
               <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {t('create_your')} <span className="text-purple-400">{t('dasha_phal')}</span>
-                <br />
-                <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
-                  {t('kundli_analysis')}
-                </span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
                 {t('dasha_phal_description')}

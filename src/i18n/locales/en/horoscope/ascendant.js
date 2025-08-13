@@ -2,7 +2,7 @@ export default {
   "discover_your": "Discover Your",
   "ascendant": "Ascendant",
   "rising_sign_analysis": "Rising Sign Analysis",
-  "ascendant_description": "Unlock the secrets of your rising sign and discover how the world sees you at first glance.",
+  "ascendant_description": "It shapes your personality, appearance, and life path, while Moon and Sun signs guide periodic predictions.",
   "exact_time_critical_for_ascendant": "Exact birth time is critical for accurate ascendant calculation",
   "location_essential_for_ascendant": "Precise location is essential for determining your rising sign",
   "complete_ascendant_analysis": "Complete Ascendant Analysis",

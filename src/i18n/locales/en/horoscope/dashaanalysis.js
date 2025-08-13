@@ -3,7 +3,7 @@ export default {
     "discover_your": "Discover Your",
     "dasha_phal": "Dasha Phal",
     "planetary_periods_analysis": "Planetary Periods Analysis",
-    "dasha_phal_description": "Get detailed insights into your current and future planetary periods (Dasha) with precise timing of events, career predictions, and remedial measures based on Vedic astrology.",
+    "dasha_phal_description": "Your Vimshottari Mahadasha journey shows phases of strong career growth, wealth, recognition, and supportive relationships, especially during Venus, Sun, Moon, Mars, Rahu, and Saturn periods.",
 
     // Service Information
     "enter_birth_details": "Enter Your Birth Details",

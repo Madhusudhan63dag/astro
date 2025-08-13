@@ -3,7 +3,7 @@ export default {
     "discover_your": "Discover Your",
     "nakshatra": "Nakshatra",
     "birth_star_analysis": "Birth Star Analysis",
-    "nakshatra_description": "Unlock the secrets of your birth star (Nakshatra) with detailed personality insights, compatibility analysis, career guidance, and spiritual wisdom based on ancient Vedic astrology.",
+    "nakshatra_description": `Nakshatra is one of 27 lunar mansions along the ecliptic, each divided into four padas (quarters). Each pada is linked to specific syllables, often used to choose a newborn’s name based on the Moon’s position.`,
 
     // Service Information
     "enter_birth_details": "Enter Your Birth Details",

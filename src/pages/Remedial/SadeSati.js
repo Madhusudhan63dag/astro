@@ -533,10 +533,7 @@ const SadeSati = () => {
             <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {t('create_your')} <span className="text-purple-400">{t('sadesati')}</span>
-                <br />
-                <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
-                  {t('kundli_analysis')}
-                </span>
+                
               </h1>
               <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
                 {t('sadesati_description')}
