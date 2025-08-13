@@ -85,8 +85,8 @@ const translations = {
     "check_sade_sati": "Check Sade Sati",
 
         // Add to your translation files
-    "free_daily_horoscope": "Free Daily Horoscope",
-    "horoscope_categories": "Every Sign, Every Secret – Discover What the Stars Say About You",
+    "free_daily_horoscope": "Every Sign, Every Secret – Discover What the Stars Say About You",
+    "horoscope_categories": "",
 
     // Zodiac signs
     "aries": "Aries",

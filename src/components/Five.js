@@ -64,7 +64,7 @@ export default function Five() {
   );
 
   return (
-    <section className="pt-10 bg-gradient-to-br from-black via-gray-900 to-slate-900">
+    <section className=" bg-gradient-to-br from-black via-gray-900 to-slate-900">
       <div className="px-6">
         <h2 className="text-5xl font-extrabold text-white mb-6 text-center tracking-tight leading-tight">
           {t('why_choose')} 
@@ -74,14 +74,14 @@ export default function Five() {
         {variant === 'accordion' && (
           <div className="space-y-4">
             {qaItems.map(({ question, answer }, idx) => (
-              <details key={idx} className="group bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-xl p-4 md:p-6 open:bg-black/70 open:border-yellow-400/40 transition-all">
-                <summary className="list-none flex items-center justify-between gap-4 cursor-pointer select-none">
-                  <span className="text-xl md:text-2xl font-semibold text-white group-open:text-yellow-300">{question}</span>
+              <details key={idx} className="group bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-xl p-4 open:bg-black/70 open:border-yellow-400/40 transition-all">
+                <summary className="list-none flex items-center justify-between cursor-pointer select-none">
+                  <span className="text-xl md:text-xl font-semibold text-white group-open:text-yellow-300">{question}</span>
                   <span className="text-yellow-400 flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30">
                     <FiChevronDown className="transition-transform duration-300 group-open:rotate-180" />
                   </span>
                 </summary>
-                <div className="mt-4 text-gray-300 text-base md:text-lg leading-relaxed">
+                <div className=" text-gray-300 text-base md:text-lg leading-relaxed">
                   {renderAnswer(answer)}
                 </div>
               </details>

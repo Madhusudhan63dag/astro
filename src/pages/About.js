@@ -121,15 +121,6 @@ const About = () => {
         {/* Story Section */}
         <div className="max-w-7xl mx-auto mb-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <img
-                src={aboutImage1}
-                alt={t('our_story_image')}
-                className="w-full rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-amber-400/20 rounded-2xl"></div>
-            </div>
-            
             <div className="space-y-6">
               <h2 className="text-4xl font-bold text-white mb-6">
                 {t('our_story')} <span className="text-yellow-400">{t('our_mission')}</span>
@@ -140,6 +131,15 @@ const About = () => {
               <p className="text-lg text-gray-300 leading-relaxed">
                 {t('our_story_description_2')}
               </p>
+            </div>
+
+             <div className="relative">
+              <img
+                src={aboutImage1}
+                alt={t('our_story_image')}
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-amber-400/20 rounded-2xl"></div>
             </div>
           </div>
         </div>
