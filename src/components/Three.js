@@ -1,324 +1,3 @@
-
-// import React, { useState } from 'react';
-// import { useTranslation } from 'react-i18next';
-// import one from '../assets/rasi/1.webp';
-// import two from '../assets/rasi/2.webp';
-// import three from '../assets/rasi/3.webp';
-// import four from '../assets/rasi/4.webp';
-// import five from '../assets/rasi/5.webp';
-// import six from '../assets/rasi/6.webp';
-// import seven from '../assets/rasi/7.webp';
-// import eight from '../assets/rasi/8.webp';
-// import nine from '../assets/rasi/9.webp';
-// import ten from '../assets/rasi/10.webp';
-// import eleven from '../assets/rasi/11.webp';
-// import twelve from '../assets/rasi/12.webp';
-// import cornerImage from '../assets/banner2.webp';
-
-// // Import your video files
-// import ariesVideo from '../assets/rasi/1.mp4';
-// import taurusVideo from '../assets/rasi/2.mp4';
-// import geminiVideo from '../assets/rasi/3.mp4';
-// import cancerVideo from '../assets/rasi/4.mp4';
-// import leoVideo from '../assets/rasi/5.mp4';
-// import virgoVideo from '../assets/rasi/6.mp4';
-// import libraVideo from '../assets/rasi/7.mp4';
-// import scorpioVideo from '../assets/rasi/8.mp4';
-// import sagittariusVideo from '../assets/rasi/9.mp4';
-// import capricornVideo from '../assets/rasi/10.mp4';
-// import aquariusVideo from '../assets/rasi/11.mp4';
-// import piscesVideo from '../assets/rasi/1.mp4';
- 
-// const Three = () => {
-//   const { t } = useTranslation();
-//   const [selectedZodiac, setSelectedZodiac] = useState(null);
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-//   const zodiacData = [
-//     { key: 'aries', name: t('aries'), image: one, video: ariesVideo, dates: t('aries_dates'), color: 'from-red-500 to-orange-500' },
-//     { key: 'taurus', name: t('taurus'), image: two, video: taurusVideo, dates: t('taurus_dates'), color: 'from-green-500 to-emerald-500' },
-//     { key: 'gemini', name: t('gemini'), image: three, video: geminiVideo, dates: t('gemini_dates'), color: 'from-yellow-500 to-orange-500' },
-//     { key: 'cancer', name: t('cancer'), image: four, video: cancerVideo, dates: t('cancer_dates'), color: 'from-blue-500 to-cyan-500' },
-//     { key: 'leo', name: t('leo'), image: five, video: leoVideo, dates: t('leo_dates'), color: 'from-yellow-500 to-amber-500' },
-//     { key: 'virgo', name: t('virgo'), image: six, video: virgoVideo, dates: t('virgo_dates'), color: 'from-green-500 to-teal-500' },
-//     { key: 'libra', name: t('libra'), image: seven, video: libraVideo, dates: t('libra_dates'), color: 'from-pink-500 to-rose-500' },
-//     { key: 'scorpio', name: t('scorpio'), image: eight, video: scorpioVideo, dates: t('scorpio_dates'), color: 'from-purple-600 to-indigo-600' },
-//     { key: 'sagittarius', name: t('sagittarius'), image: nine, video: sagittariusVideo, dates: t('sagittarius_dates'), color: 'from-orange-500 to-red-500' },
-//     { key: 'capricorn', name: t('capricorn'), image: ten, video: capricornVideo, dates: t('capricorn_dates'), color: 'from-gray-600 to-slate-600' },
-//     { key: 'aquarius', name: t('aquarius'), image: eleven, video: aquariusVideo, dates: t('aquarius_dates'), color: 'from-blue-500 to-purple-500' },
-//     { key: 'pisces', name: t('pisces'), image: twelve, video: piscesVideo, dates: t('pisces_dates'), color: 'from-teal-500 to-blue-500' }
-//   ];
-
-//   const handleCardClick = (zodiac) => {
-//     setSelectedZodiac(zodiac);
-//     setIsModalOpen(true);
-//   };
-
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//     setSelectedZodiac(null);
-//   };
-
-//   // Table data for the selected zodiac
-//   const getTableData = (zodiac) => {
-//     return [
-//       { category: t('basic_info') || 'Basic Information', items: [
-//         { property: t('element') || 'Element', value: t(`${zodiac.key}_element`) || 'Fire' },
-//         { property: t('ruling_planet') || 'Ruling Planet', value: t(`${zodiac.key}_planet`) || 'Sun' },
-//       ]},
-//       { category: t('lucky_elements') || 'Lucky Elements', items: [
-//         { property: t('lucky_color') || 'Lucky Color', value: t(`${zodiac.key}_color`) || 'Golden' },
-//         { property: t('lucky_number') || 'Lucky Number', value: t(`${zodiac.key}_number`) || '7' },
-//       ]},
-//       { category: t('personality_traits') || 'Personality Traits', items: [
-//         { property: t('likes') || 'Likes', value: t(`${zodiac.key}_likes`) || 'Adventure, Leadership' },
-//         { property: t('dislikes') || 'Dislikes', value: t(`${zodiac.key}_dislikes`) || 'Waiting, Inactivity' },
-//       ]},
-//       { category: t('lifestyle') || 'Lifestyle', items: [
-//         { property: t('food') || 'Food Preference', value: t(`${zodiac.key}_food`) || 'Spicy food' },
-//         { property: t('travel_style') || 'Travel Style', value: t(`${zodiac.key}_travel_style`) || 'Adventure trips' },
-//       ]},
-//     ];
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-16 px-4 font-sans relative overflow-hidden">
-
-//       {/* Corner decorative image */}
-//       <div className="pointer-events-none select-none hidden lg:block absolute -top-10 right-0 z-0">
-//         <img
-//           src={cornerImage}
-//           alt=""
-//           className="w-96 opacity-20 object-contain translate-x-12 filter blur-sm"
-//         />
-//       </div>
-
-//       {/* Header with enhanced styling */}
-//       <div className="text-center mb-20 relative z-10">
-//         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent leading-tight">
-//           {t('free_daily_horoscope')}
-//         </h1>
-        
-//         <div className="flex items-center justify-center gap-4 mb-8">
-//           <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-yellow-400 rounded-full"></div>
-//           <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-yellow-400 rounded-full"></div>
-//         </div>
-        
-//         <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
-//           {t('horoscope_categories')}
-//         </p>
-//       </div>
-
-//       {/* Zodiac Grid - Fixed to 3 columns */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-//         {zodiacData.map((zodiac, index) => (
-//           <div
-//             key={index}
-//             onClick={() => handleCardClick(zodiac)}
-//             className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
-//             style={{
-//               animationDelay: `${index * 100}ms`,
-//               animation: 'fadeInUp 0.6s ease-out forwards'
-//             }}
-//           >
-//             {/* Gradient overlay on hover */}
-//             <div className={`absolute inset-0 bg-gradient-to-br ${zodiac.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-3xl`}></div>
-            
-//             {/* Glowing border effect */}
-//             <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${zodiac.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300`}></div>
-            
-//             {/* Icon Container with enhanced styling */}
-//             <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300">
-//               <img
-//                 src={zodiac.image}
-//                 alt={zodiac.name}
-//                 className="w-16 h-16 filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
-//               />
-//             </div>
-
-//             {/* Content */}
-//             <div className="relative z-10">
-//               <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300">
-//                 {zodiac.name}
-//               </h3>
-              
-//               <div className="w-12 h-0.5 bg-gradient-to-r from-gray-600 to-gray-700 group-hover:from-yellow-400 group-hover:to-amber-500 mx-auto mb-3 rounded-full transition-all duration-300"></div>
-              
-//               <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 font-medium">
-//                 {zodiac.dates}
-//               </p>
-              
-//               {/* Hover indicator */}
-//               <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-//                 <span className="inline-flex items-center gap-2 text-yellow-400 text-sm font-semibold">
-//                   {t('explore')}
-//                 </span>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Full Width Modal with Video instead of Image */}
-//       {isModalOpen && selectedZodiac && (
-//         <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fadeIn">
-//           <div className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl border border-gray-700/50 w-full max-w-7xl h-[90vh] rounded-2xl relative shadow-2xl flex flex-col">
-            
-//             {/* Video in right corner - REPLACED IMAGE */}
-//             <div className="absolute top-4 right-16 z-0 hidden lg:block">
-//               <div className="relative">
-//                 <video
-//                   src={selectedZodiac.video}
-//                   autoPlay
-//                   loop
-//                   unmuted
-//                   playsInline
-//                   className="w-32 h-24 object-cover rounded-lg opacity-70 shadow-lg"
-//                   style={{ 
-//                     filter: 'brightness(0.8) contrast(1.1)',
-//                   }}
-//                 />
-//                 {/* Optional: Video overlay for better integration */}
-//                 <div className={`absolute inset-0 bg-gradient-to-br ${selectedZodiac.color} opacity-20 rounded-lg`}></div>
-//               </div>
-//             </div>
-
-//             {/* Enhanced Close Button */}
-//             <button
-//               onClick={closeModal}
-//               className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-800/50 hover:bg-red-500/20 border border-gray-600/50 hover:border-red-400/50 flex items-center justify-center text-gray-400 hover:text-red-400 transition-all duration-300 z-10"
-//             >
-//               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-//               </svg>
-//             </button>
-
-//             {/* Modal Header - Fixed */}
-//             <div className="flex-shrink-0 text-center p-6 border-b border-gray-700/30">
-//               <h2 className={`text-3xl lg:text-4xl font-bold mb-2 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-//                 {selectedZodiac.name}
-//               </h2>
-//               <p className="text-lg text-gray-300 font-medium">{selectedZodiac.dates}</p>
-//             </div>
-
-//             {/* Modal Content - Scrollable Table */}
-//             <div className="flex-1 overflow-hidden p-6">
-//               <div className="h-full bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 overflow-hidden flex flex-col">
-
-//                 {/* Scrollable Table Content */}
-//                 <div className="flex-1 overflow-y-auto custom-scrollbar">
-//                   <div className="divide-y divide-gray-700/50">
-//                     {getTableData(selectedZodiac).map((section, sectionIndex) => (
-//                       <div key={sectionIndex} className="p-4">
-//                         {/* Section Header */}
-//                         <h4 className={`text-lg font-bold mb-4 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-//                           {section.category}
-//                         </h4>
-                        
-//                         {/* Compact Table Rows */}
-//                         <div className="space-y-2">
-//                           {section.items.map((item, itemIndex) => (
-//                             <div 
-//                               key={itemIndex} 
-//                               className="grid grid-cols-1 md:grid-cols-2 gap-2 p-3 bg-black/30 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors duration-300"
-//                             >
-//                               <div className="font-semibold text-gray-300 flex items-center text-sm">
-//                                 <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${selectedZodiac.color} mr-2 flex-shrink-0`}></div>
-//                                 {item.property}
-//                               </div>
-//                               <div className="text-white font-medium text-sm">
-//                                 {item.value}
-//                               </div>
-//                             </div>
-//                           ))}
-//                         </div>
-//                       </div>
-//                     ))}
-
-//                     {/* Additional Information Section - Compact */}
-//                     <div className="p-4">
-//                       <h4 className={`text-lg font-bold mb-3 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-//                         {t('characteristics') || 'Characteristics'}
-//                       </h4>
-//                       <div className="bg-black/30 rounded-lg border border-gray-700/50 p-3">
-//                         <p className="text-gray-300 leading-relaxed text-sm">
-//                           {t(`${selectedZodiac.key}_traits`) || 'Learn about the unique traits and characteristics that define this zodiac sign.'}
-//                         </p>
-//                       </div>
-//                     </div>
-
-//                     {/* Celebrity Section - Compact */}
-//                     <div className="p-4">
-//                       <h4 className={`text-lg font-bold mb-3 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-//                         {t('famous_personalities') || 'Famous Personalities'}
-//                       </h4>
-//                       <div className="bg-black/30 rounded-lg border border-gray-700/50 p-3">
-//                         <p className="text-gray-300 leading-relaxed text-sm">
-//                           {t(`${selectedZodiac.key}_celebs`) || 'Notable personalities born under this zodiac sign.'}
-//                         </p>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//           </div>
-//         </div>
-//       )}
-
-//       {/* CSS for animations and custom scrollbar */}
-//       <style jsx>{`
-//         @keyframes fadeInUp {
-//           from {
-//             opacity: 0;
-//             transform: translateY(30px);
-//           }
-//           to {
-//             opacity: 1;
-//             transform: translateY(0);
-//           }
-//         }
-        
-//         @keyframes fadeIn {
-//           from { opacity: 0; }
-//           to { opacity: 1; }
-//         }
-        
-//         .animate-fadeIn {
-//           animation: fadeIn 0.3s ease-out;
-//         }
-
-//         .custom-scrollbar {
-//           scrollbar-width: thin;
-//           scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-//         }
-
-//         .custom-scrollbar::-webkit-scrollbar {
-//           width: 6px;
-//         }
-
-//         .custom-scrollbar::-webkit-scrollbar-track {
-//           background: transparent;
-//         }
-
-//         .custom-scrollbar::-webkit-scrollbar-thumb {
-//           background-color: rgba(156, 163, 175, 0.5);
-//           border-radius: 3px;
-//         }
-
-//         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-//           background-color: rgba(156, 163, 175, 0.8);
-//         }
-//       `}</style>
-
-//     </div>
-//   );
-// };
-
-// export default Three;
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import one from '../assets/rasi/1.webp';
@@ -481,13 +160,13 @@ const Three = () => {
       {/* Zodiac Grid Section */}
       <div ref={sectionRef} className="relative z-10">
         {/* Zodiac Grid - Fixed to 3 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {zodiacData.map((zodiac, index) => (
             <div
               key={index}
               ref={el => cardRefs.current[index] = el}
               onClick={() => handleCardClick(zodiac)}
-              className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
+      className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-5 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
               style={{
                 animationDelay: `${index * 100}ms`,
                 animation: 'fadeInUp 0.6s ease-out forwards'
@@ -500,7 +179,7 @@ const Three = () => {
               <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${zodiac.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300`}></div>
               
               {/* Video Container - ALL VIDEOS AUTOPLAY; ONLY FIRST HAS AUDIO WHEN SECTION IN VIEW */}
-              <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-gray-800/70 to-gray-900/70 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300 backdrop-blur-sm overflow-hidden">
+              <div className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 bg-gradient-to-br from-gray-800/70 to-gray-900/70 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300 backdrop-blur-sm overflow-hidden">
                 <video
                   src={zodiac.video}
                   autoPlay
@@ -517,22 +196,18 @@ const Three = () => {
 
               {/* Content */}
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300 drop-shadow-lg">
+                <h3 className="text-xl font-bold text-white mb-1.5 group-hover:text-yellow-300 transition-colors duration-300 drop-shadow-lg">
                   {zodiac.name}
                 </h3>
                 
-                <div className="w-12 h-0.5 bg-gradient-to-r from-gray-600 to-gray-700 group-hover:from-yellow-400 group-hover:to-amber-500 mx-auto mb-3 rounded-full transition-all duration-300"></div>
-                
-                <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 font-medium drop-shadow-md">
-                  {zodiac.dates}
-                </p>
+                {/* <div className="w-10 h-0.5 bg-gradient-to-r from-gray-600 to-gray-700 group-hover:from-yellow-400 group-hover:to-amber-500 mx-auto mb-3 rounded-full transition-all duration-300"></div> */}
                 
                 {/* Hover indicator */}
-                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="inline-flex items-center gap-2 text-yellow-400 text-sm font-semibold drop-shadow-lg">
                     {t('explore')}
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

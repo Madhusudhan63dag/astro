@@ -348,7 +348,9 @@ const translations = {
     "services_question": "What astrology services are included?",
     "services_answer": "Our reports include: **Birth Chart, Kundli Matching, Ascendant & Dasha Analysis, Gochar, Nakshatra, Numerology, Career & Love Guidance, Yearly & Daily Predictions, Health Index, Lal Kitab Remedies, Sade Sati Reports, Dosha Analysis, Gemstone Suggestions**, and much more.",
 
-  
+    "unmute_first_card": "Unmute First Card",
+    "mute_first_card": "Mute First Card"
+
 };
 
 export default translations;

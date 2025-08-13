@@ -58,9 +58,9 @@ export default function Services() {
 
   return (
     <section id="core-services" className="bg-black">
-      <div className=" flex flex-col md:flex-row items-center md:items-end justify-between">
+      <div className=" flex flex-col md:flex-row items-center md:items-center justify-between relative p-3">
         {/* Left - First 4 Services */}
-        <div className="flex flex-col gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
+        <div className="flex flex-col z-10 gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
           {service.slice(0, 4).map((item) => (
             <div
               key={item.title}
@@ -81,7 +81,7 @@ export default function Services() {
         </div>
         
         {/* Center Image - Larger Size */}
-        <div className="flex justify-center items-center max-w-sm md:max-w-4xl">
+        <div className="flex justify-center z-0 items-center max-w-sm md:max-w-4xl">
           <img
             src={services}
             alt="Spiritual Services"
@@ -91,7 +91,7 @@ export default function Services() {
         </div>
         
         {/* Right - Last 4 Services */}
-        <div className="flex flex-col gap-6 flex-1 w-full max-w-xs px-2 md:px-0">
+        <div className="flex flex-col gap-6 z-10 flex-1 w-full max-w-xs px-2 md:px-0">
           {service.slice(4, 8).map((item) => (
             <div
               key={item.title}

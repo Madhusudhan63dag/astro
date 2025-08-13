@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ThankYouPage from '../components/ThankYouPage';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import API_CONFIG from './api';
 
@@ -29,13 +29,11 @@ const Kundli = () => {
   
   // Previous state variables remain the same
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showAnalysis, setShowAnalysis] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [error, setError] = useState(null);
   const [analysisData, setAnalysisData] = useState(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [sessionStartTime, setSessionStartTime] = useState(null);
-  const [formCompletedTime, setFormCompletedTime] = useState(null);
   const [paymentInitiated, setPaymentInitiated] = useState(false);
   const [paymentInProgress, setPaymentInProgress] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
@@ -269,7 +267,8 @@ const Kundli = () => {
             
             if (retryCount < maxRetries) {
               // Wait before retry (exponential backoff)
-              await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+              const delayMs = 1000 * retryCount;
+              await new Promise(resolve => setTimeout(resolve, delayMs));
             }
           }
         }
@@ -419,7 +418,7 @@ const Kundli = () => {
 
 
     // Validate phone number
-    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+  const phoneRegex = /^\+?[\d\s\-()]{10,}$/;
     if (!phoneRegex.test(formData.phone)) {
       setError(t('invalid_phone_format') || 'Please enter a valid phone number.');
       return;
@@ -428,7 +427,7 @@ const Kundli = () => {
 
     setError(null);
     setIsGenerating(true);
-    setFormCompletedTime(Date.now());
+  // Form completion time tracking removed
     setPaymentInitiated(true);
 
 
@@ -595,45 +594,59 @@ const Kundli = () => {
 
       case 1: // Birth Date
         return (
-              <div className="space-y-6 sm:space-y-8">
-                <div className="text-center mb-6 sm:mb-8">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('your_birth_date') || 'Your Birth Date'}</h2>
-                  <p className="text-slate-400 text-sm sm:text-base px-2">{t('cosmic_journey_begin') || 'When did your cosmic journey begin?'}</p>
-                </div>
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('your_birth_date') || 'Your Birth Date'}</h2>
+              <p className="text-slate-400 text-sm sm:text-base px-2">{t('cosmic_journey_begin') || 'When did your cosmic journey begin?'}</p>
+            </div>
 
-                <div className="max-w-md mx-auto px-4 sm:px-0">
-                  <div className="relative">
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
-                      max={new Date().toISOString().split('T')[0]}
-                      className="w-full px-4 sm:px-8 py-4 sm:py-6 text-center rounded-2xl sm:rounded-3xl bg-gradient-to-r from-slate-800 to-slate-700 border-2 border-blue-500/30 text-white text-lg sm:text-2xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-300"
-                      required
+            <div className="max-w-md mx-auto px-4 sm:px-0">
+              <ThemeProvider theme={modernTheme}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className="bg-slate-800/60 border-2 border-blue-500/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+                    <DatePicker
+                      label={t('your_birth_date') || 'Your Birth Date'}
+                      format="DD/MM/YYYY"
+                      disableFuture
+                      maxDate={dayjs()}
+                      value={formData.dateOfBirth ? dayjs(formData.dateOfBirth) : null}
+                      onChange={(newValue) => {
+                        const dateString = newValue ? newValue.format('YYYY-MM-DD') : '';
+                        setFormData(prev => ({ ...prev, dateOfBirth: dateString }));
+                      }}
+                      slotProps={{
+                        textField: {
+                          fullWidth: true,
+                          variant: 'outlined',
+                          sx: {
+                            '& .MuiInputBase-root': {
+                              fontSize: { xs: '16px', sm: '18px' },
+                              fontWeight: 600,
+                            },
+                          },
+                          helperText: t('select_birth_date') || 'Please select your birth date (DD/MM/YYYY)',
+                        }
+                      }}
                     />
                   </div>
+                </LocalizationProvider>
+              </ThemeProvider>
 
-                  {formData.dateOfBirth && (
-                    <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-xl sm:rounded-2xl border border-blue-400/30">
-                      <div className="text-center">
-                        <div className="text-3xl sm:text-5xl mb-3 sm:mb-4">🎂</div>
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                          {new Date(formData.dateOfBirth).toLocaleDateString('en-US', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </h3>
-                        <p className="text-slate-300 text-sm sm:text-base">
-                          {t('age_label') || 'Age'}: {Math.floor((new Date() - new Date(formData.dateOfBirth)) / (365.25 * 24 * 60 * 60 * 1000))} {t('years') || 'years'}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+              {formData.dateOfBirth && (
+                <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-blue-900/40 to-purple-900/40 rounded-xl sm:rounded-2xl border border-blue-400/30">
+                  <div className="text-center">
+                    <div className="text-3xl sm:text-5xl mb-3 sm:mb-4">🎂</div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                      {dayjs(formData.dateOfBirth).format('dddd, DD MMMM YYYY')}
+                    </h3>
+                    <p className="text-slate-300 text-sm sm:text-base">
+                      {t('age_label') || 'Age'}: {dayjs().diff(dayjs(formData.dateOfBirth), 'year')} {t('years') || 'years'}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
+            </div>
+          </div>
         );
 
 
@@ -651,29 +664,64 @@ const Kundli = () => {
                   <label className="text-white font-medium text-base sm:text-lg">{t('birth_time') || 'Birth Time'}</label>
                   <ThemeProvider theme={modernTheme}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <div className="bg-slate-800/60 border-2 border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+            <div className="bg-slate-800/60 border-2 border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-6">
                         <TimePicker
                           label={t('select_exact_time') || "Select exact time"}
+              ampm
+              format="hh:mm a"
                           timeSteps={{ minutes: 1 }}
+                          views={['hours', 'minutes']}
+                          openTo="hours"
+                          referenceDate={dayjs('2000-01-01')}
                           value={formData.timeOfBirth ? dayjs(`2000-01-01T${formData.timeOfBirth}`) : null}
                           onChange={(newValue) => {
                             const timeString = newValue ? newValue.format('HH:mm') : '';
                             setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
                           }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth
-                              variant="outlined"
-                              sx={{
+                          slotProps={{
+                            textField: {
+                              fullWidth: true,
+                              variant: 'outlined',
+                placeholder: 'e.g., 10:30 AM',
+                helperText: t('enter_time_helper_12h') || 'Type or pick time with AM/PM, e.g., 10:30 AM',
+                              sx: {
                                 '& .MuiInputBase-root': {
                                   fontSize: { xs: '16px', sm: '18px' },
                                   fontWeight: 600,
                                 },
-                              }}
-                            />
-                          )}
+                              },
+                            }
+                          }}
                         />
+                        <div className="flex items-center gap-2 mt-3">
+                          <span className="text-slate-400 text-sm">{t('meridiem') || 'AM/PM'}:</span>
+                          <select
+                            className="bg-slate-800/60 border border-slate-600/60 text-white text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500/30"
+                            value={(formData.timeOfBirth && parseInt(formData.timeOfBirth.split(':')[0], 10) >= 12) ? 'PM' : 'AM'}
+                            onChange={(e) => {
+                              const sel = e.target.value; // 'AM' | 'PM'
+                              const hasTime = Boolean(formData.timeOfBirth);
+                              let hours = 10; // default hour when no time selected
+                              let minutes = 0;
+                              if (hasTime) {
+                                const [hStr, mStr] = formData.timeOfBirth.split(':');
+                                hours = parseInt(hStr, 10);
+                                minutes = parseInt(mStr, 10) || 0;
+                              }
+                              if (sel === 'AM') {
+                                if (hours >= 12) hours = hours - 12; // 12..23 -> 0..11
+                              } else {
+                                if (hours < 12) hours = hours + 12; // 0..11 -> 12..23
+                              }
+                              const hh = String(hours).padStart(2, '0');
+                              const mm = String(minutes).padStart(2, '0');
+                              setFormData(prev => ({ ...prev, timeOfBirth: `${hh}:${mm}` }));
+                            }}
+                          >
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                          </select>
+                        </div>
                       </div>
                     </LocalizationProvider>
                   </ThemeProvider>
@@ -734,7 +782,7 @@ const Kundli = () => {
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center mb-6 sm:mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{t('your_preferences_title') || 'Your Preferences'}</h2>
-              <p className="text-slate-400 text-sm sm:text-base px-2">{t('customize_astrological_experience') || 'Customize your astrological experience'}</p>
+              <p className="text-slate-400 text-sm sm:text-base px-2">{t('life_kundali_20_years') || 'Customize your astrological experience'}</p>
             </div>
 
             <div className="max-w-lg mx-auto space-y-6 px-4 sm:px-0">
