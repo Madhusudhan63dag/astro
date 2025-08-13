@@ -55,6 +55,9 @@ const enKundli = {
   "hindi": "🇮🇳 हिंदी",
   "telugu": "🇮🇳 తెలుగు",
   "kannada": "🇮🇳 ಕನ್ನಡ",
+  "tamil": "🇮🇳 தமிழ்",
+  "marathi": "🇮🇳 मराठी",
+  "bengali": "🇮🇳 বাংলা",
   "what_youll_receive": "What You'll Receive",
   "life_kundali_20_years": "Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance for Career, Love, Health & Wealth",
   "detailed_career_path_analysis": "200+ Page PDF Kundli Report",
@@ -93,7 +96,7 @@ const enKundli = {
   // Header
   "cosmic_career": "200+ Page Kundli Report",
   "journey": "Your Complete Life Analysis",
-  "discover_professional_destiny": "Get your personalized Vedic astrology report with career, love, health and remedies—delivered in 24 hours",
+  "discover_professional_destiny": "Get your personalized Vedic astrology report with career, love, health and remedies—delivered in 24 hours.Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance for Career, Love, Health & Wealth",
 
   // Trust Indicators
   "reports_generated": "15,000+ Reports Delivered",

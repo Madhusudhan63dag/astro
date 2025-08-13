@@ -125,7 +125,7 @@ const Four = () => {
             {items.map((t, idx) => (
               <div key={idx} className="px-2 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 shrink-0">
                 <div className=" h-full flex flex-col">
-                  <img src={t.image} alt={t.name} className="w-full h-full" />
+                  <img src={t.image} alt={t.name} className="w-[90%] h-[80%] rounded-2xl" />
                 </div>
               </div>
             ))}

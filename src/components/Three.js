@@ -144,7 +144,7 @@ const Three = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-16 px-4 font-sans relative overflow-hidden">
 
-      <h1 className="text-5xl sm:text-6xl text-center lg:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent leading-tight">
+      <h1 className="text-5xl sm:text-6xl text-center lg:text-4xl font-bold mb-6 bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent leading-tight">
           {t('free_daily_horoscope')}
       </h1>
 

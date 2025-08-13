@@ -793,7 +793,10 @@ const Kundli = () => {
                     { value: 'en', label: t('english') || '🇺🇸 English', flag: '🇺🇸' },
                     { value: 'hi', label: t('hindi') || '🇮🇳 हिंदी', flag: '🇮🇳' },
                     { value: 'te', label: t('telugu') || '🇮🇳 తెలుగు', flag: '🇮🇳' },
-                    { value: 'kn', label: t('kannada') || '🇮🇳 ಕನ್ನಡ', flag: '🇮🇳' }
+                    { value: 'kn', label: t('kannada') || '🇮🇳 ಕನ್ನಡ', flag: '🇮🇳' },
+                    { value: 'ta', label: t('tamil') || '🇮🇳 தமிழ்', flag: '🇮🇳' },
+                    { value: 'mr', label: t('marathi') || '🇮🇳 मराठी', flag: '🇮🇳' },
+                    { value: 'bn', label: t('bengali') || '🇮🇳 বাংলা', flag: '🇮🇳' }
                   ].map((lang) => (
                     <button
                       key={lang.value}

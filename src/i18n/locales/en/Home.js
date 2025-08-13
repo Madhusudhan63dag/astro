@@ -340,7 +340,7 @@ const translations = {
     "affiliate_answer": "Yes! Join the **SriAstroVeda Affiliate Program** and earn commissions by referring friends, clients, or your audience.",
 
     "languages_question": "Are reports available in regional languages?",
-    "languages_answer": "Yes. We offer reports in **Hindi, English, Telugu and Kannada**, and other regional languages on request.",
+    "languages_answer": "Yes. We offer reports in **Hindi, English, Telugu, Kannada, Tamil, Marathi and Bengali**, and other regional languages on request.",
 
     "delivery_time_question": "How soon will I receive my report?",
     "delivery_time_answer": "You’ll receive your full report **within 24 hours** after submitting your details. Delivery is available via WhatsApp, Email, or SMS.",

@@ -4,7 +4,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 export default function Five() {
   const { t } = useTranslation();
-  const [variant, setVariant] = useState('accordion'); // 'accordion' | 'compact'
+  const [variant] = useState('accordion'); // 'accordion' | 'compact'
   const [openIndex, setOpenIndex] = useState(0);
 
   const qaItems = [
@@ -70,22 +70,47 @@ export default function Five() {
           {t('why_choose')} 
         </h2>
 
-        {/* Accordion variant: multiple open via <details> */}
+        {/* Accordion variant: single-open, controlled (no native <details> to avoid toggle glitches) */}
         {variant === 'accordion' && (
           <div className="space-y-4">
-            {qaItems.map(({ question, answer }, idx) => (
-              <details key={idx} className="group bg-black/60 backdrop-blur-md border border-gray-700/50 rounded-xl p-4 open:bg-black/70 open:border-yellow-400/40 transition-all">
-                <summary className="list-none flex items-center justify-between cursor-pointer select-none">
-                  <span className="text-xl md:text-xl font-semibold text-white group-open:text-yellow-300">{question}</span>
-                  <span className="text-yellow-400 flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30">
-                    <FiChevronDown className="transition-transform duration-300 group-open:rotate-180" />
-                  </span>
-                </summary>
-                <div className=" text-gray-300 text-base md:text-lg leading-relaxed">
-                  {renderAnswer(answer)}
+            {qaItems.map(({ question, answer }, idx) => {
+              const isOpen = openIndex === idx;
+              const headerId = `faq-acc-header-${idx}`;
+              const panelId = `faq-acc-panel-${idx}`;
+              return (
+                <div
+                  key={idx}
+                  className={`group rounded-xl border transition-all backdrop-blur-md p-4 ${
+                    isOpen
+                      ? 'bg-black/70 border-yellow-400/40'
+                      : 'bg-black/60 border-gray-700/50'
+                  }`}
+                >
+                  <button
+                    id={headerId}
+                    aria-controls={panelId}
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    className="w-full list-none flex items-center justify-between cursor-pointer select-none text-left"
+                  >
+                    <span className={`text-xl md:text-xl font-semibold ${isOpen ? 'text-yellow-300' : 'text-white'}`}>{question}</span>
+                    <span className="text-yellow-400 flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30">
+                      <FiChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={headerId}
+                      className="text-gray-300 text-base md:text-lg leading-relaxed mt-2"
+                    >
+                      {renderAnswer(answer)}
+                    </div>
+                  )}
                 </div>
-              </details>
-            ))}
+              );
+            })}
           </div>
         )}
 
