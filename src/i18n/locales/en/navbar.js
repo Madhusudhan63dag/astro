@@ -11,7 +11,7 @@ export default {
   // Core Horoscope
   "core_horoscope": "Core Horoscope",
   "birth_chart": "Birth Chart / Kundli",
-  "match_horoscope": "Match Horoscope",
+  "match_horoscope": "Match Kundli",
   "ascendant_analysis": "Ascendant Analysis",
   "gochar_phal": "Gochar Phal",
   "dasha_analysis": "Dasha Phal Analysis",

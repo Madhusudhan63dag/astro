@@ -493,9 +493,9 @@ const BirthChart = () => {
               <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {t('create_your')} <span className="text-purple-400">{t('birth_chart')}</span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
+                {/* <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-violet-500 bg-clip-text text-transparent">
                   {t('kundli_analysis')}
-                </span>
+                </span> */}
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
                 {t('birth_chart_description')}
@@ -850,10 +850,6 @@ const BirthChart = () => {
                   <>
                     {/* Sample Chart Display */}
                     <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
-                        {t('sample_birth_chart')}
-                      </h3>
                       <div className="relative">
                         <img
                           src={birthChartImage}

@@ -38,11 +38,21 @@ const Kundli = () => {
   const [paymentInProgress, setPaymentInProgress] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [userAbandoned, setUserAbandoned] = useState(false);
+  // Default meridiem for time selection (keeps AM/PM default visible)
+  const [meridiem, setMeridiem] = useState('AM');
 
 
   useEffect(() => {
     setSessionStartTime(Date.now());
   }, []);
+
+  // Keep meridiem in sync if timeOfBirth changes elsewhere
+  useEffect(() => {
+    if (formData.timeOfBirth) {
+      const hours = parseInt(formData.timeOfBirth.split(':')[0], 10);
+      setMeridiem(hours >= 12 ? 'PM' : 'AM');
+    }
+  }, [formData.timeOfBirth]);
 
 
   const modernTheme = createTheme({
@@ -668,7 +678,7 @@ const Kundli = () => {
                         <TimePicker
                           label={t('select_exact_time') || "Select exact time"}
               ampm
-              format="hh:mm a"
+              format="hh:mm "
                           timeSteps={{ minutes: 1 }}
                           views={['hours', 'minutes']}
                           openTo="hours"
@@ -677,6 +687,9 @@ const Kundli = () => {
                           onChange={(newValue) => {
                             const timeString = newValue ? newValue.format('HH:mm') : '';
                             setFormData(prev => ({ ...prev, timeOfBirth: timeString }));
+                            if (newValue) {
+                              setMeridiem(newValue.hour() >= 12 ? 'PM' : 'AM');
+                            }
                           }}
                           slotProps={{
                             textField: {
@@ -697,9 +710,10 @@ const Kundli = () => {
                           <span className="text-slate-400 text-sm">{t('meridiem') || 'AM/PM'}:</span>
                           <select
                             className="bg-slate-800/60 border border-slate-600/60 text-white text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-purple-500/30"
-                            value={(formData.timeOfBirth && parseInt(formData.timeOfBirth.split(':')[0], 10) >= 12) ? 'PM' : 'AM'}
+                            value={meridiem}
                             onChange={(e) => {
                               const sel = e.target.value; // 'AM' | 'PM'
+                              setMeridiem(sel);
                               const hasTime = Boolean(formData.timeOfBirth);
                               let hours = 10; // default hour when no time selected
                               let minutes = 0;
@@ -965,9 +979,47 @@ const Kundli = () => {
   }
 
 
+  // Rolling banner items
+  const bannerItems = [
+    t('life_kundali_20_years') || 'Life Kundali with 20 Years Prediction',
+    t('detailed_career_path_analysis') || 'Detailed Career Path Analysis',
+    // t('planetary_position_interpretations') || 'Planetary Position Interpretations',
+    t('dasha_system_predictions') || 'Dasha System Predictions',
+    t('digital_pdf_report') || 'Digital PDF Report'
+  ];
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 relative overflow-hidden">
+      {/* Rolling Text Banner */}
+        <div className="marquee-container bg-gradient-to-r from-cyan-900/30 via-slate-800/30 to-purple-900/30 border-y border-cyan-500/20 py-2 sm:py-3 mb-6 sm:mb-10">
+          <div className="marquee-inner">
+            <div className="flex items-center gap-8 pr-8 whitespace-nowrap">
+              {bannerItems.map((txt, i) => (
+                <div key={`a-${i}`} className="flex items-center gap-3 text-slate-200 text-sm sm:text-base font-medium">
+                  <span className="text-cyan-400">✦</span>
+                  <span>{txt}</span>
+                </div>
+              ))}
+            </div>
+            {/* duplicate for seamless loop */}
+            <div className="flex items-center gap-8 pr-8 whitespace-nowrap" aria-hidden="true">
+              {bannerItems.map((txt, i) => (
+                <div key={`b-${i}`} className="flex items-center gap-3 text-slate-200 text-sm sm:text-base font-medium">
+                  <span className="text-cyan-400">✦</span>
+                  <span>{txt}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       <div className="relative z-10 py-6 sm:py-12 px-3 sm:px-4">
+        {/* Rolling text banner styles */}
+        <style>{`
+          .marquee-container { position: relative; overflow: hidden; }
+          .marquee-inner { display: flex; width: max-content; animation: sav-scroll-h 28s linear infinite; }
+          @keyframes sav-scroll-h { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+          @media (prefers-reduced-motion: reduce) { .marquee-inner { animation: none; } }
+        `}</style>
         {/* Header - Make text responsive */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-white mb-2 sm:mb-4 leading-tight">
@@ -981,6 +1033,8 @@ const Kundli = () => {
             {t('discover_professional_destiny') || 'Discover your professional destiny through the wisdom of Vedic astrology'}
           </p>
         </div>
+
+        
 
 
         {/* Main Content Card */}

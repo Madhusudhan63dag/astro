@@ -848,10 +848,6 @@ const DashaPhalAnalysis = () => {
                   <>
                     {/* Sample Chart Display */}
                     <div className="bg-black/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
-                        {t('sample_dasha_phal')}
-                      </h3>
                       <div className="relative">
                         <img
                           src={dashaPhalImage}

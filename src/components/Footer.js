@@ -208,14 +208,14 @@ export default function Footer() {
                     {t('home')}
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a 
                     href="/about" 
                     className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                   >
                     {t('about')}
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a 
                     href="/contact" 
@@ -308,14 +308,14 @@ export default function Footer() {
                     {t('2025_report_footer')}
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a 
                     href="/daily-horoscope" 
                     className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                   >
                     {t('daily_horoscope_footer')}
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a 
                     href="/love-report" 

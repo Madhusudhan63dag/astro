@@ -77,7 +77,6 @@ const AstroNavbar = () => {
         { name: t('your_life_predictions'), href: "/life-predictions" },
         { name: t('2025_report'), href: "/2025-predictions" },
         { name: t('year_analysis'), href: "/year-analysis" },
-        { name: t('daily_horoscope'), href: "/daily-horoscope" },
         { name: t('love_compatibility'), href: "/love-report" },
         { name: t('career_guidance'), href: "/career-report" },
         { name: t('nature_analysis'), href: "/nature-report" },
