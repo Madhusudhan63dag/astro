@@ -377,7 +377,7 @@ const Three = () => {
   // Auto toggle audio based on section visibility (unmute in view, mute when out)
   useEffect(() => {
     if (!sectionRef.current) return;
-    const observer = new IntersectionObserver(
+  const observer = new IntersectionObserver(
       ([entry]) => {
         const inView = entry.isIntersecting;
         setIsMuted(!inView);
@@ -394,8 +394,8 @@ const Three = () => {
             }
           }
         }
-      },
-      { threshold: 0.5 }
+  },
+  { threshold: 0 }
     );
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
