@@ -450,13 +450,6 @@ export default function Footer() {
             </a>
             <span className="text-slate-600">·</span>
             <a 
-              href="/cancellation" 
-              className="hover:text-yellow-300 transition-colors duration-300 px-1"
-            >
-              {t('cancellation_policy')}
-            </a>
-            <span className="text-slate-600">·</span>
-            <a 
               href="/terms-of-service" 
               className="hover:text-yellow-300 transition-colors duration-300 px-1"
             >

@@ -26,7 +26,7 @@ import scorpioVideo from '../assets/rasi/8.mp4';
 import sagittariusVideo from '../assets/rasi/9.mp4';
 import capricornVideo from '../assets/rasi/10.mp4';
 import aquariusVideo from '../assets/rasi/11.mp4';
-import piscesVideo from '../assets/rasi/1.mp4';
+import piscesVideo from '../assets/rasi/12.mp4';
  
 const Three = () => {
   const { t } = useTranslation();
