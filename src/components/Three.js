@@ -15,7 +15,7 @@ import twelve from '../assets/rasi/12.webp';
 import cornerImage from '../assets/banner2.webp';
 
 // Import your video files
-import ariesVideo from '../assets/rasi/1.mp4';
+import ariesVideo from '../assets/rasi/10.mp4';
 import taurusVideo from '../assets/rasi/2.mp4';
 import geminiVideo from '../assets/rasi/3.mp4';
 import cancerVideo from '../assets/rasi/4.mp4';
@@ -24,7 +24,7 @@ import virgoVideo from '../assets/rasi/6.mp4';
 import libraVideo from '../assets/rasi/7.mp4';
 import scorpioVideo from '../assets/rasi/8.mp4';
 import sagittariusVideo from '../assets/rasi/9.mp4';
-import capricornVideo from '../assets/rasi/10.mp4';
+import capricornVideo from '../assets/rasi/1.mp4';
 import aquariusVideo from '../assets/rasi/11.mp4';
 import piscesVideo from '../assets/rasi/12.mp4';
  
