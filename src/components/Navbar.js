@@ -412,11 +412,11 @@ const AstroNavbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            <a href="/about" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-base">
-              {t('about')}
+
+            <a href="/" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
+              {t('home')}
             </a>
-            
-            <a href="/kundli" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-base">
+            <a href="/kundli" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
               {t('detailed')}
             </a>
 
@@ -462,7 +462,10 @@ const AstroNavbar = () => {
               </div>
             ))}
 
-            <a href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-base">
+            <a href="/about" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
+              {t('about')}
+            </a>
+            <a href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
               {t('contact')}
             </a>
 

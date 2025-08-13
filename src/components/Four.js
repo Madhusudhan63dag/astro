@@ -3,15 +3,15 @@ import { useTranslation } from 'react-i18next';
 
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import one from '../assets/review/1.jpg'
-import two from '../assets/review/1.jpg'
-import three from '../assets/review/1.jpg'
-import four from '../assets/review/1.jpg'
-import five from '../assets/review/1.jpg'
+import two from '../assets/review/2.jpg'
+import three from '../assets/review/3.jpg'
+import four from '../assets/review/4.jpg'
+import five from '../assets/review/5.jpg'
 import six from '../assets/review/1.jpg'
-import seven from '../assets/review/1.jpg'
-import eight from '../assets/review/1.jpg'
-import nine from '../assets/review/1.jpg'
-import ten from '../assets/review/1.jpg'
+import seven from '../assets/review/2.jpg'
+import eight from '../assets/review/3.jpg'
+import nine from '../assets/review/4.jpg'
+import ten from '../assets/review/5.jpg'
 
 const testimonials = [
   {

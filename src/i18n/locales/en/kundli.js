@@ -1,4 +1,4 @@
-export default {
+const enKundli = {
   // Error Messages
   "please_fill_required_fields": "Please fill in all required fields.",
   "invalid_email_format": "Please enter a valid email address.",
@@ -29,7 +29,7 @@ export default {
   "email_address": "Email Address",
   "email_placeholder": "your@email.com",
   "phone_number": "Phone Number",
-  "phone_placeholder": "+91 9876543210",
+  "phone_placeholder": "+91 1234567890",
 
   // Step 1: Birth Date
   "your_birth_date": "Your Birth Date",
@@ -56,6 +56,7 @@ export default {
   "telugu": "🇮🇳 తెలుగు",
   "kannada": "🇮🇳 ಕನ್ನಡ",
   "what_youll_receive": "What You'll Receive",
+  "life_kundali_20_years": "Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance for Career, Love, Health & Wealth",
   "detailed_career_path_analysis": "200+ Page PDF Kundli Report",
   "planetary_position_interpretations": "Covers 20+ astrological systems",
   "dasha_system_predictions": "Includes Career, Marriage, Health & Life Predictions",
@@ -146,3 +147,4 @@ export default {
   "november": "November",
   "december": "December"
 };
+export default enKundli;

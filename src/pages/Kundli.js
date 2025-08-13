@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ThankYouPage from '../components/ThankYouPage';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -108,82 +108,82 @@ const Kundli = () => {
   };
 
 
-  // Send abandonment email
-  const sendAbandonmentEmail = async (reason = t('payment_cancelled_by_user') || 'Payment cancelled by user') => {
+  // Helper function to calculate form completion
+  const calculateFormCompletion = useCallback(() => {
+    const fields = ['name', 'email', 'phone', 'dateOfBirth', 'timeOfBirth', 'placeOfBirth'];
+    const filledFields = fields.filter(field => formData[field] && formData[field].trim() !== '');
+    return Math.round((filledFields.length / fields.length) * 100);
+  }, [formData]);
+
+  // Send abandonment email (memoized)
+  const sendAbandonmentEmail = useCallback(async (reason = t('payment_cancelled_by_user') || 'Payment cancelled by user') => {
     // Check if we should send abandonment email
     if (userAbandoned || paymentCompleted || showThankYou) return;
-    
-    setUserAbandoned(true);  
-      try {
-        const abandonmentData = {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: 'kundli',
-          birthDetails: {
-            dateOfBirth: formData.dateOfBirth,
-            timeOfBirth: formData.timeOfBirth,
-            placeOfBirth: formData.placeOfBirth,
-            gender: formData.gender
-          },
-          language: formData.language,
-          abandonmentReason: reason,
-          sessionData: {
-            timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
-            hasUserInteracted: true,
-            currentStep: currentStep,
-            formCompletionPercentage: calculateFormCompletion()
-          },
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent
-        };
 
-        // Add retry logic for abandonment email too
-        let emailSent = false;
-        let retryCount = 0;
-        const maxRetries = 2;
+    setUserAbandoned(true);
+    try {
+      const abandonmentData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: 'kundli',
+        birthDetails: {
+          dateOfBirth: formData.dateOfBirth,
+          timeOfBirth: formData.timeOfBirth,
+          placeOfBirth: formData.placeOfBirth,
+          gender: formData.gender
+        },
+        language: formData.language,
+        abandonmentReason: reason,
+        sessionData: {
+          timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
+          hasUserInteracted: true,
+          currentStep: currentStep,
+          formCompletionPercentage: calculateFormCompletion()
+        },
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent
+      };
 
-        while (!emailSent && retryCount < maxRetries) {
-          try {
-            const response = await fetch(`${API_URL}/abandoned-payment-email`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(abandonmentData),
-              signal: AbortSignal.timeout(10000) // 10 second timeout
-            });
+      // Add retry logic for abandonment email too
+      let emailSent = false;
+      let retryCount = 0;
+      const maxRetries = 2;
 
-            if (response.ok) {
-              emailSent = true;
-              console.log('Abandonment email sent successfully');
-            } else {
-              throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-          } catch (emailError) {
-            retryCount++;
-            console.error(`Abandonment email attempt ${retryCount} failed:`, emailError.message);
-            
-            if (retryCount < maxRetries) {
-              await new Promise(resolve => setTimeout(resolve, 2000));
-            }
+      while (!emailSent && retryCount < maxRetries) {
+        try {
+          const response = await fetch(`${API_URL}/abandoned-payment-email`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(abandonmentData),
+            signal: AbortSignal.timeout(10000) // 10 second timeout
+          });
+
+          if (response.ok) {
+            emailSent = true;
+            console.log('Abandonment email sent successfully');
+          } else {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+        } catch (emailError) {
+          retryCount++;
+          console.error(`Abandonment email attempt ${retryCount} failed:`, emailError.message);
+
+          if (retryCount < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
           }
         }
-
-        if (!emailSent) {
-          console.warn('Failed to send abandonment email after retries');
-        }
-      } catch (error) {
-        console.error('Error in abandonment email process:', error);
       }
-    };
 
-    // Helper function to calculate form completion
-    const calculateFormCompletion = () => {
-      const fields = ['name', 'email', 'phone', 'dateOfBirth', 'timeOfBirth', 'placeOfBirth'];
-      const filledFields = fields.filter(field => formData[field] && formData[field].trim() !== '');
-      return Math.round((filledFields.length / fields.length) * 100);
-    };
+      if (!emailSent) {
+        console.warn('Failed to send abandonment email after retries');
+      }
+    } catch (error) {
+      console.error('Error in abandonment email process:', error);
+    }
+  }, [userAbandoned, paymentCompleted, showThankYou, formData, currentStep, sessionStartTime, t, calculateFormCompletion]);
 
 
   
@@ -769,6 +769,7 @@ const Kundli = () => {
                 </h3>
                 <div className="space-y-2 sm:space-y-3">
                   {[
+                    t('life_kundali_20_years') || 'Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance',
                     t('detailed_career_path_analysis') || 'Detailed Career Path Analysis',
                     t('planetary_position_interpretations') || 'Planetary Position Interpretations',
                     t('dasha_system_predictions') || 'Dasha System Predictions',
@@ -889,7 +890,7 @@ const Kundli = () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData]);
+  }, [paymentInitiated, paymentCompleted, userAbandoned, showThankYou, formData, paymentInProgress, sendAbandonmentEmail, t]);
 
 
   if (showThankYou) {

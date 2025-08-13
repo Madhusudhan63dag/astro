@@ -354,7 +354,6 @@ const Three = () => {
   const [selectedZodiac, setSelectedZodiac] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [visibleCards, setVisibleCards] = useState(new Set());
   const cardRefs = useRef([]);
   const sectionRef = useRef(null);
 
@@ -373,31 +372,50 @@ const Three = () => {
     { key: 'pisces', name: t('pisces'), image: twelve, video: piscesVideo, dates: t('pisces_dates'), color: 'from-teal-500 to-blue-500' }
   ];
 
-  // Intersection Observer for card visibility
+  // (Removed card-level visibility observer; using section-level audio control instead)
+
+  // Auto toggle audio based on section visibility (unmute in view, mute when out)
   useEffect(() => {
+    if (!sectionRef.current) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const cardIndex = parseInt(entry.target.dataset.cardIndex);
-          if (entry.isIntersecting) {
-            setVisibleCards(prev => new Set([...prev, cardIndex]));
-          } else {
-            setVisibleCards(prev => {
-              const newSet = new Set(prev);
-              newSet.delete(cardIndex);
-              return newSet;
-            });
+      ([entry]) => {
+        const inView = entry.isIntersecting;
+        setIsMuted(!inView);
+
+        // Reflect immediately on the first card's video element
+        const firstCardRef = cardRefs.current[0];
+        if (firstCardRef) {
+          const video = firstCardRef.querySelector('video');
+          if (video) {
+            video.muted = !inView;
+            // Ensure it's playing when in view
+            if (inView) {
+              video.play().catch(() => {});
+            }
           }
-        });
+        }
       },
       { threshold: 0.5 }
     );
-
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
+    observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Ensure videos start playing on initial load (muted autoplay is allowed)
+  useEffect(() => {
+    const playAll = () => {
+      cardRefs.current.forEach((ref) => {
+        if (!ref) return;
+        const video = ref.querySelector('video');
+        if (video) {
+          video.play().catch(() => {});
+        }
+      });
+    };
+    // Try immediately and after a short delay to catch rendered refs
+    playAll();
+    const id = setTimeout(playAll, 300);
+    return () => clearTimeout(id);
   }, []);
 
   const handleCardClick = (zodiac) => {
@@ -412,15 +430,14 @@ const Three = () => {
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
-    // Update all visible videos
-    cardRefs.current.forEach((ref) => {
-      if (ref) {
-        const video = ref.querySelector('video');
-        if (video) {
-          video.muted = !isMuted;
-        }
+    // Update only the first card's video audio
+    const firstCardRef = cardRefs.current[0];
+    if (firstCardRef) {
+      const video = firstCardRef.querySelector('video');
+      if (video) {
+        video.muted = !isMuted;
       }
-    });
+    }
   };
 
   // Table data for the selected zodiac
@@ -448,7 +465,7 @@ const Three = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-16 px-4 font-sans relative overflow-hidden">
 
-      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent leading-tight">
+      <h1 className="text-5xl sm:text-6xl text-center lg:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-300 via-amber-400 to-orange-500 bg-clip-text text-transparent leading-tight">
           {t('free_daily_horoscope')}
       </h1>
 
@@ -469,7 +486,6 @@ const Three = () => {
             <div
               key={index}
               ref={el => cardRefs.current[index] = el}
-              data-card-index={index}
               onClick={() => handleCardClick(zodiac)}
               className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
               style={{
@@ -483,19 +499,18 @@ const Three = () => {
               {/* Glowing border effect */}
               <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${zodiac.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300`}></div>
               
-              {/* Video Container - REPLACED ICON WITH VIDEO */}
+              {/* Video Container - ALL VIDEOS AUTOPLAY; ONLY FIRST HAS AUDIO WHEN SECTION IN VIEW */}
               <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-br from-gray-800/70 to-gray-900/70 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300 backdrop-blur-sm overflow-hidden">
                 <video
                   src={zodiac.video}
-                  autoPlay={visibleCards.has(index)}
+                  autoPlay
                   loop
-                  muted={isMuted}
+                  muted={index === 0 ? isMuted : true} // Only first card respects mute state, others are always muted
                   playsInline
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   onLoadedData={(e) => {
-                    if (visibleCards.has(index)) {
-                      e.target.play();
-                    }
+                    // Attempt to play regardless; browsers may block unmuted play which we avoid by starting muted
+                    e.target.play().catch(() => {});
                   }}
                 />
               </div>
@@ -523,7 +538,7 @@ const Three = () => {
           ))}
         </div>
 
-        {/* Mute Button at bottom of section */}
+        {/* Mute Button at bottom of section - Now only affects first card */}
         <div className="flex justify-center mt-12">
           <button
             onClick={toggleMute}
@@ -542,7 +557,7 @@ const Three = () => {
               )}
             </div>
             <span className="font-semibold">
-              {isMuted ? t('unmute') || 'Unmute' : t('mute') || 'Mute'}
+              {isMuted ? t('unmute_first_card') || 'Unmute First Card' : t('mute_first_card') || 'Mute First Card'}
             </span>
           </button>
         </div>
