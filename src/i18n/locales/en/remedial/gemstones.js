@@ -3,8 +3,11 @@ export default {
     "discover_your": "Discover Your",
     "gemstones": "Gemstones",
     "healing_crystal_guidance": "Healing Crystal Guidance",
-    "gemstones_description": "Get personalized gemstone and crystal recommendations based on your birth chart analysis. Discover the perfect stones for healing, protection, prosperity, and spiritual growth with detailed guidance on selection, wearing, and care.",
+    "gemstones_description": "Receive personalized gemstone and crystal recommendations based on your unique birth chart. Discover the perfect stones for healing, protection, prosperity, and spiritual growth—along with expert guidance on how to choose, wear, and care for them to maximize their benefits.",
 
+
+    "gemstone_power": "Gemstone Power",
+    "unlock_your": "Unlock Your",
     // Service Information
     "enter_details_for_gemstone_analysis": "Enter Your Details for Gemstone Analysis",
     "complete_gemstone_analysis": "Complete Gemstone Analysis",

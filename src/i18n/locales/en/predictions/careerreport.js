@@ -75,7 +75,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Career Analysis Package",
-    "detailed_career_report_pdf": "Comprehensive Career Report (PDF)",
+    "detailed_career_report": "Comprehensive Career Report (PDF)",
     "suitable_career_options": "Suitable Career Options & Fields",
     "professional_development_plan": "Professional Development Plan",
     "success_timing_analysis": "Success Timing Analysis",

@@ -592,7 +592,7 @@ const BirthChart = () => {
                     {/* Date & Time of Birth - Mobile Responsive */}
                     <div>
                       <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2 sm:mb-3">
-                        {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                        {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                       </label>
                       <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-3 sm:p-4">
                         <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
@@ -784,13 +784,8 @@ const BirthChart = () => {
                       </label>
                       <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
                         <div className="text-center">
-                          <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_birth_chart_analysis')}</h4>
                           <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
                           <ul className="text-gray-300 text-xs sm:text-sm space-y-1 sm:space-y-2 text-left max-w-sm mx-auto">
-                            <li className="flex items-center gap-2">
-                              <span className="text-purple-400 flex-shrink-0">✓</span>
-                              <span>{t('detailed_birth_chart_pdf') || 'Detailed Birth Chart (PDF)'}</span>
-                            </li>
                             <li className="flex items-center gap-2">
                               <span className="text-purple-400 flex-shrink-0">✓</span>
                               <span>{t('comprehensive_astrological_analysis') || 'Comprehensive Astrological Analysis'}</span>

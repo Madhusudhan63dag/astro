@@ -3,7 +3,10 @@ export default {
     "discover_your": "Discover Your",
     "lal_kitab": "Lal Kitab",
     "ancient_remedial_wisdom": "Ancient Remedial Wisdom",
-    "lal_kitab_description": "Get comprehensive Lal Kitab analysis based on unique astrological principles. Discover practical remedies, karmic insights, and life guidance through this powerful ancient system of astrology with simple yet effective solutions.",
+    "lal_kitab_description": "Step into the world of ancient wisdom with a personalized Lal Kitab analysis. Reveal hidden karmic patterns, uncover life’s secrets, and receive simple yet powerful remedies to transform challenges into opportunities for success, harmony, and prosperity.",
+
+    "lal_kitab_title": "with Lal Kitab",
+    "craft_your_destiny":"Craft Your Destiny",
 
     // Service Information
     "enter_details_for_lal_kitab": "Enter Your Details for Lal Kitab Analysis",
@@ -75,7 +78,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Lal Kitab Analysis Package",
-    "detailed_lal_kitab_report_pdf": "Detailed Lal Kitab Report (PDF)",
+    "detailed_lal_kitab_report": "Detailed Lal Kitab Report (PDF)",
     "lal_kitab_chart_analysis": "Lal Kitab Chart Analysis",
     "practical_remedies_list": "Practical Remedies List",
     "karmic_debts_solutions": "Karmic Debts & Solutions",

@@ -26,7 +26,7 @@ export default {
   "daily_horoscope": "My Day Today",
   "love_compatibility": "Love Compatibility",
   "career_guidance": "Career Guidance",
-  "nature_analysis": "Nature Analysis",
+  "nature_analysis": "Your True Nature",
   "health_index": "Health Index",
   
   // Remedial Solutions

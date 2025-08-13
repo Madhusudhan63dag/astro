@@ -3,8 +3,9 @@ export default {
     "discover_your": "Discover Your",
     "sadesati": "SadeSati",
     "saturn_influence_analysis": "Saturn's Influence Analysis",
-    "sadesati_description": "Navigate through Saturn's transformative 7.5-year cycle with detailed analysis of your current SadeSati phase, its effects on your life, and powerful remedies to minimize challenges while maximizing growth opportunities.",
+    "sadesati_description": "Get a detailed analysis of Saturn’s influence on your life, with insights and remedies to turn challenges into opportunities for growth and success.",
 
+    "sadesati_your": "SadeSati Analysis",
     // Service Information
     "enter_details_for_sadesati": "Enter Your Details for SadeSati Analysis",
     "complete_sadesati_analysis": "Complete SadeSati Analysis",
@@ -75,7 +76,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your SadeSati Analysis Package",
-    "detailed_sadesati_report_pdf": "Comprehensive SadeSati Report (PDF)",
+    "detailed_sadesati_report": "Comprehensive SadeSati Report (PDF)",
     "saturn_phase_analysis": "Saturn Phase & Timeline Analysis",
     "remedial_measures_guidance": "Remedial Measures & Guidance",
     "life_predictions_timeline": "Life Predictions & Timeline",

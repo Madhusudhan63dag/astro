@@ -629,7 +629,7 @@ const HealthReport = () => {
                       {/* Date & Time of Birth - Manual split fields */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-lg mb-3">
-                          {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                          {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                         </label>
                         <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
                           <div className="flex flex-wrap items-center gap-4">
@@ -724,14 +724,7 @@ const HealthReport = () => {
                           </div>
                           <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
                         </div>
-                        <div className="mt-3 flex items-center text-sm">
-                          <div className="flex items-center text-gray-400">
-                            <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            {t('enter_your_birth_date_accurately')}
-                          </div>
-                        </div>
+                        
                       </div>
 
                       {/* Time Visualization */}

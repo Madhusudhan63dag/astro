@@ -60,7 +60,7 @@ const translations = {
     "life_predictions_desc": "Get a complete overview of your future based on your birth chart.",
     "view_predictions": "View Predictions",
 
-    "ask_question_price": "Ask A Question – ₹299",
+    "ask_question_price": "Ask A Question",
     "ask_question_desc": "Get expert answers to any personal or urgent question.",
     "ask_now": "Ask Now",
 

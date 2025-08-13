@@ -72,7 +72,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "What You'll Receive",
-    "detailed_dasha_phal_report_pdf": "Detailed Dasha Phal Report (PDF)",
+    "detailed_dasha_phal_report": "Detailed Dasha Phal Report (PDF)",
     "current_planetary_periods": "Current Planetary Periods Analysis",
     "future_dasha_predictions_timeline": "Future Dasha Predictions Timeline",
     "planetary_remedies_guidance": "Planetary Remedies & Guidance",

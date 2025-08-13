@@ -75,7 +75,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Personalized Report 2025 Package",
-    "comprehensive_personalized_report_pdf": "Comprehensive Personalized Report (PDF)",
+    "comprehensive_personalized_report": "Comprehensive Personalized Report (PDF)",
     "complete_2025_predictions": "Complete 2025 Predictions",
     "all_life_areas_detailed_analysis": "All Life Areas Detailed Analysis",
     "personalized_remedies_guide": "Personalized Remedies Guide",

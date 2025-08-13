@@ -75,7 +75,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Love Analysis Package",
-    "detailed_love_report_pdf": "Comprehensive Love Report (PDF)",
+    "detailed_love_report": "Comprehensive Love Report (PDF)",
     "compatibility_analysis_detailed": "Detailed Compatibility Analysis",
     "relationship_timing_predictions": "Relationship Timing Predictions",
     "soulmate_characteristics": "Soulmate Characteristics Profile",

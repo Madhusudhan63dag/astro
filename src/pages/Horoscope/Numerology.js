@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import numerologyImage from '../../assets/2.webp';
+import numerologyImage from '../../assets/services/numerology.jpg';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
@@ -637,14 +637,7 @@ const Numerology = () => {
                             className="w-full px-3 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
                           />
                         </div>
-                        <div className="mt-2 sm:mt-3 flex items-center text-xs sm:text-sm">
-                          <div className="flex items-center text-gray-400">
-                            <svg className="w-3 sm:w-4 h-3 sm:h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            {t('enter_your_birth_date_accurately')}
-                          </div>
-                        </div>
+                        
                       </div>
 
                       {/* Time of Birth */}

@@ -5,6 +5,8 @@ export default {
     "yearly_cosmic_insights": "Yearly Cosmic Insights",
     "year_analysis_description": "Get comprehensive yearly analysis based on Vedic astrology and numerology. Understand your year's themes, monthly predictions, auspicious periods, challenges, and personalized guidance for success throughout the year.",
 
+    "know_your": "Know Your",
+
     // Service Information
     "enter_details_for_year_analysis": "Enter Your Details for Year Analysis",
     "complete_year_analysis": "Complete Year Analysis",
@@ -75,7 +77,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Year Analysis Package",
-    "detailed_year_analysis_pdf": "Detailed Year Analysis Report (PDF)",
+    "detailed_year_analysis": "Detailed Year Analysis Report (PDF)",
     "monthly_predictions_calendar": "Monthly Predictions Calendar",
     "auspicious_dates_timing": "Auspicious Dates & Timing",
     "yearly_remedies_guide": "Yearly Remedies Guide",

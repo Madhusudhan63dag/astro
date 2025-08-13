@@ -532,7 +532,7 @@ const Gemstones = () => {
             {/* Header Section */}
             <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                {t('create_your')} <span className="text-purple-400">{t('gemstones')}</span>
+                {t('unlock_your')} <span className="text-purple-400">{t('gemstone_power')}</span>
                 
               </h1>
               <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
@@ -630,7 +630,7 @@ const Gemstones = () => {
                       {/* Date & Time of Birth - Manual split fields */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-lg mb-3">
-                          {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                          {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                         </label>
                         <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
                           <div className="flex flex-wrap items-center gap-4">
@@ -725,14 +725,6 @@ const Gemstones = () => {
                           </div>
                           <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
                         </div>
-                        <div className="mt-3 flex items-center text-sm">
-                          <div className="flex items-center text-gray-400">
-                            <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            {t('enter_your_birth_date_accurately')}
-                          </div>
-                        </div>
                       </div>
 
                       {/* Time Visualization */}
@@ -816,10 +808,6 @@ const Gemstones = () => {
                             <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_gemstones_analysis')}</h4>
                             <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
                             <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('detailed_gemstones_consultation')}</span>
-                              </li>
                               <li className="flex items-center gap-2">
                                 <span className="text-purple-400 flex-shrink-0">✓</span>
                                 <span>{t('comprehensive_analysis')}</span>

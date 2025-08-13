@@ -72,7 +72,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Nakshatra Analysis Package",
-    "detailed_nakshatra_report_pdf": "Comprehensive Nakshatra Report (PDF)",
+    "detailed_nakshatra_report": "Comprehensive Nakshatra Report (PDF)",
     "birth_star_characteristics": "Birth Star Personality Profile",
     "pada_and_symbol_analysis": "Pada Analysis & Sacred Symbols",
     "compatibility_insights": "Marriage & Partnership Compatibility",

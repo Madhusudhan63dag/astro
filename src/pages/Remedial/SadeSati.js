@@ -532,7 +532,7 @@ const SadeSati = () => {
             {/* Header Section */}
             <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                {t('create_your')} <span className="text-purple-400">{t('sadesati')}</span>
+                <span className="text-purple-400">{t('sadesati_your')}</span>
                 
               </h1>
               <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
@@ -630,7 +630,7 @@ const SadeSati = () => {
                       {/* Date & Time of Birth - Manual split fields */}
                       <div>
                         <label className="block text-gray-100 font-semibold text-lg mb-3">
-                          {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                          {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                         </label>
                         <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
                           <div className="flex flex-wrap items-center gap-4">

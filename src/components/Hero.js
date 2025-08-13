@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 import sampleVideo from '../assets/banner.mp4';
+import banner2 from '../assets/banner2.mp4';
+import banner3 from '../assets/banner3.mp4';
+import bannerPoster from '../assets/banner2.webp';
+import mobile_banner from '../assets/mobile_banner.png'
 import three from '../assets/8.webp';
 
 const KundliModal = ({ show, onClose }) => {
@@ -56,6 +60,7 @@ const KundliModal = ({ show, onClose }) => {
 const Hero = () => {
   const { t } = useTranslation();
   const [showKundliModal, setShowKundliModal] = useState(false);
+  const videoRef = useRef(null);
 
   const features = [
     { text: t('detailed_reports') },
@@ -66,6 +71,21 @@ const Hero = () => {
   useEffect(() => {
     const timer = setTimeout(() => setShowKundliModal(true), 5000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Nudge autoplay on some browsers that require a programmatic play()
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const tryPlay = () => {
+      v.play().catch(() => {/* ignore autoplay block if any; muted should allow */});
+    };
+    if (v.readyState >= 2) {
+      tryPlay();
+    } else {
+      v.addEventListener('canplay', tryPlay, { once: true });
+      return () => v.removeEventListener('canplay', tryPlay);
+    }
   }, []);
 
   // Enhanced responsive styles with better MacBook Air support
@@ -216,28 +236,51 @@ const Hero = () => {
       {/* Inject custom styles */}
       <style dangerouslySetInnerHTML={{ __html: customStyles }} />
       
-      <section className="relative w-full min-h-screen max-h-screen flex items-start lg:items-start px-4 sm:px-6 lg:px-9 overflow-hidden">
+      {/* Mobile-only banner: show only image + bottom button */}
+  <section className="relative w-full h-[70vh] sm:h-[75vh] flex lg:hidden items-end overflow-hidden">
+        <img
+          src={mobile_banner}
+          alt="SriAstroVeda Mobile Banner"
+          className="absolute inset-0 w-full h-full"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 w-full px-4 pb-6">
+          <a
+            href="/kundli"
+            className="hero-button inline-block mx-auto px-8 py-4 text-lg rounded-lg font-bold bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-center"
+          >
+            {t('get_my_report')} →
+          </a>
+        </div>
+      </section>
+
+      <section className="relative w-full min-h-screen max-h-screen hidden lg:flex items-start lg:items-start px-4 sm:px-6 lg:px-9 overflow-hidden">
         
         {/* Background video container */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <video
+            ref={videoRef}
             className="w-full h-full object-cover"
-            src={sampleVideo}
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
+            poster={bannerPoster}
             aria-label="Background video"
-            style={{
-              objectPosition: 'center center'
-            }}
-          />
+            style={{ objectPosition: 'center center' }}
+          >
+            <source src={sampleVideo} type="video/mp4" />
+            <source src={banner2} type="video/mp4" />
+            <source src={banner3} type="video/mp4" />
+          </video>
         </div>
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40 z-0"></div>
 
-        {/* Content - Starting from top with custom responsive classes */}
+  {/* Content - Starting from top with custom responsive classes */}
         <div className="relative z-10 text-center lg:text-left w-full lg:w-1/2 h-full flex flex-col justify-start pt-8 lg:pt-12">
           
           {/* Main Content */}

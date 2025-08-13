@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import ascendantImage from '../../assets/services/ascendant.png';
+import ascendantImage from '../../assets/services/ascendant.jpg';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
@@ -582,7 +582,7 @@ const Ascendant = () => {
                     {/* Date & Time of Birth - Mobile Responsive */}
                     <div>
                       <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2 sm:mb-3">
-                        {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                        {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                       </label>
                       <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-3 sm:p-4">
                         <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">

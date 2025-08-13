@@ -75,7 +75,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Life Predictions Package",
-    "detailed_life_predictions_pdf": "Comprehensive Life Predictions Report (PDF)",
+    "detailed_life_predictions": "Comprehensive Life Predictions Report (PDF)",
     "future_events_timeline": "Future Events Timeline & Dates",
     "career_marriage_wealth_predictions": "Career, Marriage & Wealth Predictions",
     "planetary_periods_analysis": "Planetary Periods (Dasha) Analysis",

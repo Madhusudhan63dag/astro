@@ -70,7 +70,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Nature Analysis Package",
-    "detailed_nature_report_pdf": "Comprehensive Nature Report (PDF)",
+    "detailed_nature_report": "Comprehensive Nature Report (PDF)",
     "personality_traits_breakdown": "Personality Traits Breakdown",
     "behavioral_insights_guide": "Behavioral Insights Guide",
     "natural_abilities_assessment": "Natural Abilities Assessment",

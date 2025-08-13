@@ -70,7 +70,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Numerology Analysis Package",
-    "detailed_numerology_report_pdf": "Comprehensive Numerology Report (PDF)",
+    "detailed_numerology_report": "Comprehensive Numerology Report (PDF)",
     "life_path_destiny_analysis": "Life Path & Destiny Number Analysis",
     "personal_numbers_meanings": "Personal Numbers & Their Meanings",
     "lucky_elements_guidance": "Lucky Elements & Guidance",
@@ -156,7 +156,7 @@ export default {
     "spiritual_journey": "Spiritual Development Path",
 
     // Compatibility Analysis
-    "love_compatibility": "Love & Romance Compatibility",
+    "love_compatibility": "Love Compatibility",
     "friendship_compatibility": "Friendship Compatibility",
     "business_compatibility": "Business Partnership Compatibility",
     "family_dynamics": "Family Relationship Dynamics",

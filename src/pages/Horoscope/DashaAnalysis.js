@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import dashaPhalImage from '../../assets/2.webp';
+import dashaPhalImage from '../../assets/services/dasha.jpg';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
@@ -590,7 +590,7 @@ const DashaPhalAnalysis = () => {
                     {/* Date & Time of Birth - Mobile Responsive */}
                     <div>
                       <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2 sm:mb-3">
-                        {t('date_time_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
+                        {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
                       </label>
                       <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-3 sm:p-4">
                         <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
@@ -783,10 +783,6 @@ const DashaPhalAnalysis = () => {
                           <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_dasha_phal_analysis')}</h4>
                           <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
                           <ul className="text-gray-300 text-xs sm:text-sm space-y-1 sm:space-y-2 text-left max-w-sm mx-auto">
-                            <li className="flex items-center gap-2">
-                              <span className="text-purple-400 flex-shrink-0">✓</span>
-                              <span>{t('detailed_dasha_phal')}</span>
-                            </li>
                             <li className="flex items-center gap-2">
                               <span className="text-purple-400 flex-shrink-0">✓</span>
                               <span>{t('comprehensive_analysis')}</span>

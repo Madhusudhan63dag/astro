@@ -75,7 +75,7 @@ export default {
 
     // What You'll Receive
     "what_youll_receive": "Your Health Analysis Package",
-    "detailed_health_report_pdf": "Comprehensive Health Report (PDF)",
+    "detailed_health_report": "Comprehensive Health Report (PDF)",
     "body_system_vulnerability_analysis": "Body System Vulnerability Analysis",
     "preventive_healthcare_plan": "Preventive Healthcare Plan",
     "dietary_wellness_guidelines": "Dietary & Wellness Guidelines",
