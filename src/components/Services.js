@@ -7,8 +7,8 @@ export default function Services() {
 
   const service = [
     {
-      title: t('match_horoscope'),
-      desc: t('match_horoscope_desc'),
+      title: t('match_kundli'),
+      desc: t('match_kundli_desc'),
       cta: t('match_now'),
       link: "/match-kundli",
     },

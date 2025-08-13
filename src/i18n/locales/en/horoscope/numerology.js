@@ -156,7 +156,7 @@ export default {
     "spiritual_journey": "Spiritual Development Path",
 
     // Compatibility Analysis
-    "love_compatibility": "Love Compatibility",
+    "love_compatibility": "Your Love Life",
     "friendship_compatibility": "Friendship Compatibility",
     "business_compatibility": "Business Partnership Compatibility",
     "family_dynamics": "Family Relationship Dynamics",

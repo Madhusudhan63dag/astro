@@ -58,7 +58,7 @@ const Terms = () => {
             <h2 className="text-2xl font-semibold text-white mt-8">7. REFUND & CANCELLATION POLICY</h2>
             <h3 className="text-xl font-semibold text-white mt-4">Comprehensive Return & Cancellation Policy Service</h3>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Refund will be considered only if customer mails us at <span className="text-yellow-400">customercareproductcenter@gmail.com</span> within 2 hours of payment. No refund shall be entertained after expiry of two hours from the time of payment.</li>
+              <li>Refund will be considered only if customer mails us at <span className="text-yellow-400">sriastroveda@gmail.com</span> within 2 hours of payment. No refund shall be entertained after expiry of two hours from the time of payment.</li>
               <li>No refund shall be made if data provided by customer is incorrect. However, if customer mails us within an hour of ordering the report, we will consider the changes to be made.</li>
               <li>Once the report is delivered to customer, no refund shall be made.</li>
               <li>All eligible refunds shall be made within seven business days from the date of receipt of request. However, the same is subject to transaction and processing time taken by bank/payment gateway.</li>
@@ -68,8 +68,8 @@ const Terms = () => {
             <h3 className="text-xl font-semibold text-white mt-4">Comprehensive Return & Cancellation Policy Product</h3>
             <ul className="list-disc pl-6 space-y-2">
               <li>All printable products including SRIASTROVEDA Big Horoscope, SRIASTROVEDA Year Book, Trikal Samhita and Janam Patri are non-returnable.</li>
-              <li>If the customer found product in damaged/defective/broken condition, customer may apply for replacement or refund. For this customer may mail at <span className="text-yellow-400">customercareproductcenter@gmail.com</span> within two days of delivery of product. No refund shall be entertained after expiry of two days from the date of delivery of product.</li>
-              <li>All the products must be returned in the original condition they were received in along with any bills and labels. Customer needs to register a dispute by sending email to <span className="text-yellow-400">customercareproductcenter@gmail.com</span> with images of broken/defective/damaged products within 2 days of delivery. Disputes registered after two days of delivery may not be entertained by sellers.</li>
+              <li>If the customer found product in damaged/defective/broken condition, customer may apply for replacement or refund. For this customer may mail at <span className="text-yellow-400">sriastroveda@gmail.com</span> within two days of delivery of product. No refund shall be entertained after expiry of two days from the date of delivery of product.</li>
+              <li>All the products must be returned in the original condition they were received in along with any bills and labels. Customer needs to register a dispute by sending email to <span className="text-yellow-400">sriastroveda@gmail.com</span> with images of broken/defective/damaged products within 2 days of delivery. Disputes registered after two days of delivery may not be entertained by sellers.</li>
               <li>In case of double payment made by mistake against the single order, one payment will be refunded.</li>
               <li>All refunds will be made after deducting the transaction charges levied by the bank and/or the payment gateway, the cost of shipping or courier charges (back and forth), customs duty and/or any other charges that may have been borne by SRIASTROVEDA.com in processing and/or delivering the service, as applicable. However, no recovery of above mentioned shall be made if refund is due to damaged/defective/broken product.</li>
             </ul>

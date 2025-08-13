@@ -2,7 +2,7 @@ const translations = {
     // Hero Section
   "unlock_cosmic": "Sri Astro Veda",
   "personalized_predictions": "From Zodiac Signs to Life’s Big Answers",
-  "hero_description": "Where ancient wisdom meets your modern life — explore Birth Charts, Numerology, Love Compatibility, and Dasha Phal readings, all crafted by certified Jyotish experts to guide your path with clarity and purpose.",
+  "hero_description": "Where ancient wisdom meets your modern life — explore Birth Charts, Numerology, Your Love Life, and Dasha Phal readings, all crafted by certified Jyotish experts to guide your path with clarity and purpose.",
   "get_my_report": "Get Full Report",
   "view_sample": "View Sample Report",
 
@@ -18,7 +18,7 @@ const translations = {
   "most_detailed_india": "Complete & Comprehensive Guidance",
   "cosmic_blueprint_description": "Your life’s journey decoded through:",
 
-  "predictions_doshas_remedies": "Detailed insights on Birth Chart, Dashas, Nakshatras, Numerology, Lal Kitab, Love Compatibility, Career, Health Index, Sade Sati, Remedies & more.",
+  "predictions_doshas_remedies": "Detailed insights on Birth Chart, Dashas, Nakshatras, Numerology, Lal Kitab, Your Love Life, Career, Health Index, Sade Sati, Remedies & more.",
   "customized_for_you": "A divine report crafted exclusively for you by SriAstroVeda",
   "check_sample_kundli": "Explore Report",
 
@@ -28,7 +28,7 @@ const translations = {
     "authentic_vedic_astrology": "SriAstroVeda Astrology Services",
     "cosmic_destiny": "Your Destiny, Decoded &",
     "through_ancient_wisdom": "Guided by the Eternal Wisdom of Vedic Astrology",
-    "two_section_description": "SriAstroVeda helps you make informed life choices through the ancient science of astrology — combining detailed Kundli analysis, Numerology, Dasha timelines, Love compatibility, and powerful Lal Kitab remedies. Discover your path with clarity and confidence.",
+    "two_section_description": "SriAstroVeda helps you make informed life choices through the ancient science of astrology — combining detailed Kundli analysis, Numerology, Dasha timelines, Your Love Life, and powerful Lal Kitab remedies. Discover your path with clarity and confidence.",
 
     // Features – focused on user benefits
     "personalized_birth_charts": "Understand Your True Self",
@@ -51,9 +51,9 @@ const translations = {
     "confidential_secure": "100% Confidential & Secure",
 
     "authentic_astrology_banner": "Authentic Astrology Services",
-  
-    "match_horoscope": "Match Horoscope",
-    "match_horoscope_desc": "Check marriage compatibility and kundli matching for you and your partner.",
+
+    "match_kundli": "Match Kundli",
+    "match_kundli_desc": "Check marriage compatibility and kundli matching for you and your partner.",
     "match_now": "Match Now",
 
     "your_life_predictions": "Your Life Predictions",

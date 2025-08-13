@@ -532,7 +532,7 @@ const PersonalizedReport2025 = () => {
             {/* Header Section */}
             <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                {t('create_your')} <span className="text-purple-400">{t('personalized_report_2025')}</span>
+                <span className="text-purple-400">{t('personalized_report_2025')}</span>
                
               </h1>
               <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">

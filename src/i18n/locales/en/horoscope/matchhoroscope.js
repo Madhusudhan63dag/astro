@@ -4,7 +4,7 @@ export default {
     // Header Section
     "kundli_matching_service": "Kundli Matching Service",
     "match_your": "Match Your",
-    "horoscopes": "Kundlis",
+    "horoscopes": "Kundli",
     "for_perfect_union": "For Perfect Union",
     "match_horoscope_description": "Discover your compatibility through authentic Vedic astrology. Our comprehensive Kundli matching analyzes 36 Gunas to determine marital harmony and relationship success.",
  
@@ -18,7 +18,7 @@ export default {
 
     // Actions
     "match_horoscopes_now": "Match Kundlis Now",
-    "matching_horoscopes": "Matching Kundlis",
+    "matching_horoscopes": "Matching Kundli",
 
     // Results
     "compatibility_result": "Compatibility Result",
@@ -39,7 +39,7 @@ export default {
     "what_our_matching_includes": "What Our Matching Includes",
     "36_guna_analysis": "36 Guna Analysis",
     "36_guna_analysis_desc": "Complete assessment of all 36 compatibility points",
-    "love_compatibility": "Love Compatibility",
+    "love_compatibility": "Your Love Life",
     "love_compatibility_desc": "Emotional and romantic harmony analysis",
     "family_harmony": "Family Harmony",
     "family_harmony_desc": "Long-term relationship stability prediction",

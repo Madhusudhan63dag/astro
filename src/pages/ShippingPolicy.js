@@ -70,7 +70,7 @@ const ShippingPolicy = () => {
 
             <h2 className="text-2xl font-semibold text-white mt-8">10. Support</h2>
             <p>
-              For delivery issues or assistance, write to <span className="text-yellow-400">customercareproductcenter@gmail.com</span> with your order ID. We aim to respond promptly.
+              For delivery issues or assistance, write to <span className="text-yellow-400">sriastroveda@gmail.com</span> with your order ID. We aim to respond promptly.
             </p>
 
             <h2 className="text-2xl font-semibold text-white mt-8">11. Updates to this Policy</h2>

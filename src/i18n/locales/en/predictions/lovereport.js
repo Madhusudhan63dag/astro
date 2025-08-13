@@ -38,7 +38,7 @@ export default {
     "language_note": "Your love analysis will be delivered in the selected language",
 
     // Core Love Features
-    "love_compatibility_analysis": "Love Compatibility Analysis",
+    "love_compatibility_analysis": "Your Love Life Analysis",
     "relationship_potential_insights": "Relationship Potential Insights",
     "marriage_timing_predictions": "Marriage Timing Predictions",
     "soulmate_identification": "Soulmate Identification",
@@ -83,7 +83,7 @@ export default {
 
     // Visual Content
     "sample_love_analysis": "Sample Love Analysis",
-    "love_compatibility_score": "Love Compatibility Score",
+    "love_compatibility_score": "Your Love Life Score",
     "sample_love_reading": "High romantic potential with deep emotional connection",
     "sample_love_preview": "Preview of your personalized love analysis with compatibility insights",
     "love_analysis_categories": "Love Analysis Categories",

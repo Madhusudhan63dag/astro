@@ -52,7 +52,7 @@ const Privacy = () => {
 
             <h3 className="text-xl font-semibold text-white mt-4">4. Contacting us</h3>
             <p>
-              If you have any questions about this privacy statement, the practices of this site, or your dealings with this web site, you can contact us at <span className="text-yellow-400">customercareproductcenter@gmail.com</span>
+              If you have any questions about this privacy statement, the practices of this site, or your dealings with this web site, you can contact us at <span className="text-yellow-400">sriastroveda@gmail.com</span>
             </p>
           </div>
         </div>

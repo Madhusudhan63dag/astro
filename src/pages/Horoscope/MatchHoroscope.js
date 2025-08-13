@@ -737,7 +737,7 @@ const MatchHoroscope = () => {
               <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
                   <span className="text-yellow-400 mr-3">📧</span>
-                  Contact Information (Optional)
+                  Contact Information
                 </h2>
                 
                 <div className="grid md:grid-cols-2 gap-6">

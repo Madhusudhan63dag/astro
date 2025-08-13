@@ -21,13 +21,6 @@ const Cancellation = () => {
             </p>
 
             <h2 className="text-2xl font-semibold text-white mt-8">What is SriAstroVeda Return Policy?</h2>
-            <h3 className="text-xl font-semibold text-white mt-4">Product</h3>
-            <p>Our “100% Buyer Protection Program” for products allows for easy returns and refunds for:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Products which you received in “Damaged/Defective/Broken” condition.</li>
-              <li>Products which you may not like for quality and color related issues.</li>
-            </ul>
-
             <h3 className="text-xl font-semibold text-white mt-4">Service</h3>
             <p>Our “100% Buyer Protection Program” for service has the below mentioned refund & cancellation policy:</p>
             <ul className="list-disc pl-6 space-y-2">

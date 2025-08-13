@@ -5,6 +5,7 @@ import './i18n'
 // Navigation Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FloatingIcons from './components/FloatingIcons';
 
 // Home Components
 import Hero from './components/Hero';
@@ -148,6 +149,8 @@ function App() {
       <BrowserRouter>
         <RouteContainer />
       </BrowserRouter>
+  {/* Floating icons rendered outside Router so they persist across routes */}
+  <FloatingIcons whatsappNumber="+919999999999" phoneNumber="+919999999999" email="support@sriastroveda.com" />
     </div>
   );
 }

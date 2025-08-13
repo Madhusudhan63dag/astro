@@ -24,7 +24,7 @@ export default {
   "2025_report": "2025 Personalized Report",
   "year_analysis": "Year Analysis",
   "daily_horoscope": "My Day Today",
-  "love_compatibility": "Love Compatibility",
+  "love_compatibility": "Your Love Life",
   "career_guidance": "Career Guidance",
   "nature_analysis": "Your True Nature",
   "health_index": "Health Index",
