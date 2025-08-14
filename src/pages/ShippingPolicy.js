@@ -5,11 +5,11 @@ const ShippingPolicy = () => {
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 relative overflow-hidden">
       <div className="relative z-10 py-16 px-4">
         <div className="max-w-4xl mx-auto bg-black/60 backdrop-blur-md rounded-2xl p-8 lg:p-12 border border-gray-700/50">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-center">Shipping & Delivery Policy</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-center">Shipping Policy</h1>
 
           <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
             <p>
-              This Shipping & Delivery Policy applies to all digital astrology products and services purchased from SriAstroVeda ("we", "our", "us"). Our reports and consultations are delivered digitally and no physical shipment is involved.
+              This Shipping Policy applies to services purchased from SriAstroVeda ("we", "our", "us"). Our reports and consultations are delivered digitally and no physical shipment is involved.
             </p>
 
             <h2 className="text-2xl font-semibold text-white mt-8">1. Nature of Delivery</h2>
@@ -63,10 +63,7 @@ const ShippingPolicy = () => {
               <li>If you need expedited delivery, contact support before purchase. We’ll confirm feasibility and timelines.</li>
             </ul>
 
-            <h2 className="text-2xl font-semibold text-white mt-8">9. Refunds & Cancellations</h2>
-            <p>
-              Our refunds/cancellations are governed by our Cancellation & Refund Policy and Terms of Service. Please review those pages for details.
-            </p>
+         
 
             <h2 className="text-2xl font-semibold text-white mt-8">10. Support</h2>
             <p>

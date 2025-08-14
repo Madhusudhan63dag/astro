@@ -3,7 +3,6 @@ import Home from './Home';
 import common from './common';
 import footer from './footer';
 import contact from './contact';
-import about from './about';
 import birthchart from './horoscope/birthchart';
 import matchhoroscope from './horoscope/matchhoroscope';
 import ascendant from './horoscope/ascendant';
@@ -33,7 +32,6 @@ export default {
   ...common,
   ...footer,
   ...contact,
-  ...about,
   ...birthchart,
   ...matchhoroscope,
   ...ascendant,

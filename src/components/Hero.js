@@ -6,6 +6,7 @@ import banner3 from '../assets/banner3.mp4';
 import bannerPoster from '../assets/banner2.webp';
 import mobile_banner from '../assets/mobile_banner.png'
 import three from '../assets/8.webp';
+import audio from '../assets/audio.mp3';
 
 const KundliModal = ({ show, onClose }) => {
   const { t } = useTranslation();
@@ -60,7 +61,10 @@ const KundliModal = ({ show, onClose }) => {
 const Hero = () => {
   const { t } = useTranslation();
   const [showKundliModal, setShowKundliModal] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
 
   const features = [
     { text: t('detailed_reports') },
@@ -87,6 +91,55 @@ const Hero = () => {
       return () => v.removeEventListener('canplay', tryPlay);
     }
   }, []);
+
+  // Auto-play audio when page loads
+  useEffect(() => {
+    const playAudio = async () => {
+      if (audioRef.current && !hasScrolled) {
+        try {
+          await audioRef.current.play();
+          setIsAudioPlaying(true);
+        } catch (error) {
+          console.log('Audio autoplay blocked by browser:', error);
+        }
+      }
+    };
+
+    // Small delay to ensure page is loaded
+    const timer = setTimeout(playAudio, 1000);
+    return () => clearTimeout(timer);
+  }, [hasScrolled]);
+
+  // Handle scroll detection to stop/start audio
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 50) {
+        // User scrolled down - pause audio (don't reset currentTime)
+        if (!hasScrolled) {
+          setHasScrolled(true);
+          if (audioRef.current && isAudioPlaying) {
+            audioRef.current.pause();
+            setIsAudioPlaying(false);
+          }
+        }
+      } else if (scrollY <= 50 && hasScrolled) {
+        // User scrolled back to top - resume audio from where it was paused
+        setHasScrolled(false);
+        if (audioRef.current && !isAudioPlaying) {
+          audioRef.current.play().then(() => {
+            setIsAudioPlaying(true);
+          }).catch((error) => {
+            console.log('Audio replay blocked by browser:', error);
+          });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled, isAudioPlaying]);
 
   // Enhanced responsive styles with better MacBook Air support
   const customStyles = `
@@ -235,6 +288,22 @@ const Hero = () => {
     <div>
       {/* Inject custom styles */}
       <style dangerouslySetInnerHTML={{ __html: customStyles }} />
+      
+      {/* Hidden audio element */}
+      <audio
+        ref={audioRef}
+        preload="auto"
+        loop
+      >
+        <source src={audio} type="audio/mpeg" />
+      </audio>
+
+      {/* Audio status indicator */}
+      {/* {isAudioPlaying && !hasScrolled && (
+        <div className="fixed top-4 right-4 z-50 bg-green-600/80 text-white px-3 py-2 rounded-lg text-sm font-medium shadow-lg">
+          🎵 Audio Playing
+        </div>
+      )} */}
       
       {/* Mobile-only banner: show only image + bottom button */}
   <section className="relative w-full h-[70vh] sm:h-[75vh] flex lg:hidden items-end overflow-hidden">

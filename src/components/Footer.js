@@ -418,11 +418,6 @@ export default function Footer() {
                   {t('whatsapp_support')}
                 </a>
               </li>
-              <li>
-                <div className="text-slate-500 text-xs sm:text-sm mt-2 sm:mt-3">
-                  {t('available_24_7')}
-                </div>
-              </li>
             </ul>
           </div>
         </div>
@@ -463,12 +458,6 @@ export default function Footer() {
               {t('shipping_policy')}
             </a>
             <span className="text-slate-600">·</span>
-            <a 
-              href="/disclaimer" 
-              className="hover:text-yellow-300 transition-colors duration-300 px-1"
-            >
-              {t('disclaimer')}
-            </a>
           </div>
         </div>
       </div>

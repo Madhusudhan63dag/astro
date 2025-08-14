@@ -306,8 +306,7 @@ const translations = {
 
     "review_title": "Energy Exchange: Their Words, Our Gratitude",
 
-    "why_choose": "Why Choose",
-    "sri_astro_veda": "SriAstroVeda",
+    "why_choose": "Why Choose SriAstroVeda",
     
     "unlimited_kundlis_question": "Can I request multiple Kundlis?",
     "unlimited_kundlis_answer": "Yes! You can submit details for as many individuals as you like. Each request will be carefully prepared and delivered as a personalized PDF report.",

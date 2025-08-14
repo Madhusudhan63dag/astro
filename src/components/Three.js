@@ -56,7 +56,7 @@ const Three = () => {
   // Auto toggle audio based on section visibility (unmute in view, mute when out)
   useEffect(() => {
     if (!sectionRef.current) return;
-  const observer = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       ([entry]) => {
         const inView = entry.isIntersecting;
         setIsMuted(!inView);
@@ -73,11 +73,11 @@ const Three = () => {
             }
           }
         }
-  },
-  { threshold: 0 }
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    },
+    { threshold: 0 }
+      );
+      observer.observe(sectionRef.current);
+      return () => observer.disconnect();
   }, []);
 
   // Ensure videos start playing on initial load (muted autoplay is allowed)
@@ -160,215 +160,205 @@ const Three = () => {
       {/* Zodiac Grid Section */}
       <div ref={sectionRef} className="relative z-10">
         {/* Zodiac Grid - Fixed to 3 columns */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {zodiacData.map((zodiac, index) => (
-            <div
-              key={index}
-              ref={el => cardRefs.current[index] = el}
-              onClick={() => handleCardClick(zodiac)}
-      className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-5 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
-              style={{
-                animationDelay: `${index * 100}ms`,
-                animation: 'fadeInUp 0.6s ease-out forwards'
-              }}
-            >
-              {/* Gradient overlay on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${zodiac.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-3xl`}></div>
-              
-              {/* Glowing border effect */}
-              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${zodiac.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300`}></div>
-              
-              {/* Video Container - ALL VIDEOS AUTOPLAY; ONLY FIRST HAS AUDIO WHEN SECTION IN VIEW */}
-              <div className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 bg-gradient-to-br from-gray-800/70 to-gray-900/70 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300 backdrop-blur-sm overflow-hidden">
-                <video
-                  src={zodiac.video}
-                  autoPlay
-                  loop
-                  muted={index === 0 ? isMuted : true} // Only first card respects mute state, others are always muted
-                  playsInline
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  onLoadedData={(e) => {
-                    // Attempt to play regardless; browsers may block unmuted play which we avoid by starting muted
-                    e.target.play().catch(() => {});
-                  }}
-                />
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold text-white mb-1.5 group-hover:text-yellow-300 transition-colors duration-300 drop-shadow-lg">
-                  {zodiac.name}
-                </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {zodiacData.map((zodiac, index) => (
+              <div
+                key={index}
+                ref={el => cardRefs.current[index] = el}
+                onClick={() => handleCardClick(zodiac)}
+                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-5 text-center transition-all duration-500 hover:-translate-y-3 hover:scale-105 cursor-pointer"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
+              >
+                {/* Gradient overlay on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${zodiac.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-3xl`}></div>
                 
-                {/* <div className="w-10 h-0.5 bg-gradient-to-r from-gray-600 to-gray-700 group-hover:from-yellow-400 group-hover:to-amber-500 mx-auto mb-3 rounded-full transition-all duration-300"></div> */}
+                {/* Glowing border effect */}
+                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${zodiac.color} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300`}></div>
                 
-                {/* Hover indicator */}
-                {/* <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="inline-flex items-center gap-2 text-yellow-400 text-sm font-semibold drop-shadow-lg">
-                    {t('explore')}
-                  </span>
-                </div> */}
+                {/* Video Container - ALL VIDEOS AUTOPLAY; ONLY FIRST HAS AUDIO WHEN SECTION IN VIEW */}
+                <div className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 bg-gradient-to-br from-gray-800/70 to-gray-900/70 border border-gray-600/50 group-hover:border-yellow-400/50 transition-all duration-300 backdrop-blur-sm overflow-hidden">
+                  <video
+                    src={zodiac.video}
+                    autoPlay
+                    loop
+                    muted={index === 0 ? isMuted : true} // Only first card respects mute state, others are always muted
+                    playsInline
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onLoadedData={(e) => {
+                      // Attempt to play regardless; browsers may block unmuted play which we avoid by starting muted
+                      e.target.play().catch(() => {});
+                    }}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold text-white mb-1.5 group-hover:text-yellow-300 transition-colors duration-300 drop-shadow-lg">
+                    {zodiac.name}
+                  </h3>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Mute Button at bottom of section - Now only affects first card */}
-        <div className="flex justify-center mt-12">
-          <button
-            onClick={toggleMute}
-            className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-gray-800/70 to-gray-900/70 backdrop-blur-md border border-gray-600/50 hover:border-yellow-400/50 rounded-full text-white hover:text-yellow-300 transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            <div className="w-8 h-8 rounded-full bg-gray-700/50 flex items-center justify-center group-hover:bg-yellow-400/20 transition-colors duration-300">
-              {isMuted ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-              )}
-            </div>
-            <span className="font-semibold">
-              {isMuted ? t('unmute_first_card') || 'Unmute First Card' : t('mute_first_card') || 'Mute First Card'}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Full Width Modal with Icon instead of Video */}
-      {isModalOpen && selectedZodiac && (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fadeIn">
-          <div className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl border border-gray-700/50 w-full max-w-7xl h-[90vh] rounded-2xl relative shadow-2xl flex flex-col">
-            
-            {/* Icon in right corner - REPLACED VIDEO WITH ICON */}
-            <div className="absolute top-4 right-16 z-0 hidden lg:block">
-              <div className="relative">
-                <img
-                  src={selectedZodiac.image}
-                  alt={selectedZodiac.name}
-                  className="w-32 h-24 object-contain opacity-70 shadow-lg filter drop-shadow-2xl"
-                />
-                {/* Optional: Color overlay for better integration */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${selectedZodiac.color} opacity-20 rounded-lg`}></div>
-              </div>
-            </div>
-
-            {/* Enhanced Close Button */}
+          {/* Mute Button at bottom of section - Now only affects first card */}
+          <div className="flex justify-center mt-12">
             <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-800/50 hover:bg-red-500/20 border border-gray-600/50 hover:border-red-400/50 flex items-center justify-center text-gray-400 hover:text-red-400 transition-all duration-300 z-10"
+              onClick={toggleMute}
+              className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-gray-800/70 to-gray-900/70 backdrop-blur-md border border-gray-600/50 hover:border-yellow-400/50 rounded-full text-white hover:text-yellow-300 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <div className="w-8 h-8 rounded-full bg-gray-700/50 flex items-center justify-center group-hover:bg-yellow-400/20 transition-colors duration-300">
+                {isMuted ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+              </div>
+              <span className="font-semibold">
+                {isMuted ? t('unmute_first_card') || 'Unmute First Card' : t('mute_first_card') || 'Mute First Card'}
+              </span>
             </button>
+          </div>
+        </div>
 
-            {/* Modal Header - Fixed */}
-            <div className="flex-shrink-0 text-center p-6 border-b border-gray-700/30">
-              <h2 className={`text-3xl lg:text-4xl font-bold mb-2 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-                {selectedZodiac.name}
-              </h2>
-              <p className="text-lg text-gray-300 font-medium">{selectedZodiac.dates}</p>
-            </div>
+        {/* Full Width Modal with Icon instead of Video */}
+        {isModalOpen && selectedZodiac && (
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fadeIn">
+            <div className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl border border-gray-700/50 w-full max-w-7xl h-[90vh] rounded-2xl relative shadow-2xl flex flex-col">
+              
+              {/* Icon in right corner - REPLACED VIDEO WITH ICON */}
+              <div className="absolute top-4 right-16 z-0 hidden lg:block">
+                <div className="relative">
+                  <img
+                    src={selectedZodiac.image}
+                    alt={selectedZodiac.name}
+                    className="w-32 h-24 object-contain opacity-70 shadow-lg filter drop-shadow-2xl"
+                  />
+                  {/* Optional: Color overlay for better integration */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${selectedZodiac.color} opacity-20 rounded-lg`}></div>
+                </div>
+              </div>
 
-            {/* Modal Content - Scrollable Table */}
-            <div className="flex-1 overflow-hidden p-6">
-              <div className="h-full bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 overflow-hidden flex flex-col">
+              {/* Enhanced Close Button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-800/50 hover:bg-red-500/20 border border-gray-600/50 hover:border-red-400/50 flex items-center justify-center text-gray-400 hover:text-red-400 transition-all duration-300 z-10"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
 
-                {/* Scrollable Table Content */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar">
-                  <div className="">
-                    {/* Additional Information Section - Compact */}
-                    <div className="p-4">
-                      <h4 className={`text-lg font-bold mb-3 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
-                        {t('characteristics') || 'Characteristics'}
-                      </h4>
-                      <div className="bg-black/30 rounded-lg border border-gray-700/50 p-3">
-                        <p className="text-gray-300 leading-relaxed text-sm">
-                          {t(`${selectedZodiac.key}_traits`) || 'Learn about the unique traits and characteristics that define this zodiac sign.'}
-                        </p>
-                      </div>
-                    </div>
-                    {getTableData(selectedZodiac).map((section, sectionIndex) => (
-                      <div key={sectionIndex} className="">
-                        {/* Compact Table Rows */}
-                        <div className="">
-                          {section.items.map((item, itemIndex) => (
-                            <div 
-                              key={itemIndex} 
-                              className="grid grid-cols-1 md:grid-cols-2 gap-2 p-3 bg-black/30 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors duration-300"
-                            >
-                              <div className="font-semibold text-gray-300 flex items-center text-sm">
-                                <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${selectedZodiac.color} mr-2 flex-shrink-0`}></div>
-                                {item.property}
-                              </div>
-                              <div className="text-white font-medium text-sm">
-                                {item.value}
-                              </div>
-                            </div>
-                          ))}
+              {/* Modal Header - Fixed */}
+              <div className="flex-shrink-0 text-center p-6 border-b border-gray-700/30">
+                <h2 className={`text-3xl lg:text-4xl font-bold mb-2 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
+                  {selectedZodiac.name}
+                </h2>
+                <p className="text-lg text-gray-300 font-medium">{selectedZodiac.dates}</p>
+              </div>
+
+              {/* Modal Content - Scrollable Table */}
+              <div className="flex-1 overflow-hidden p-6">
+                <div className="h-full bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm rounded-2xl border border-gray-700/30 overflow-hidden flex flex-col">
+
+                  {/* Scrollable Table Content */}
+                  <div className="flex-1 overflow-y-auto custom-scrollbar">
+                    <div className="">
+                      {/* Additional Information Section - Compact */}
+                      <div className="p-4">
+                        <h4 className={`text-lg font-bold mb-3 bg-gradient-to-r ${selectedZodiac.color} bg-clip-text text-transparent`}>
+                          {t('characteristics') || 'Characteristics'}
+                        </h4>
+                        <div className="bg-black/30 rounded-lg border border-gray-700/50 p-3">
+                          <p className="text-gray-300 leading-relaxed text-sm">
+                            {t(`${selectedZodiac.key}_traits`) || 'Learn about the unique traits and characteristics that define this zodiac sign.'}
+                          </p>
                         </div>
                       </div>
-                    ))}
+                      {getTableData(selectedZodiac).map((section, sectionIndex) => (
+                        <div key={sectionIndex} className="">
+                          {/* Compact Table Rows */}
+                          <div className="">
+                            {section.items.map((item, itemIndex) => (
+                              <div 
+                                key={itemIndex} 
+                                className="grid grid-cols-1 md:grid-cols-2 gap-2 p-3 bg-black/30 rounded-lg border border-gray-700/50 hover:border-gray-600/50 transition-colors duration-300"
+                              >
+                                <div className="font-semibold text-gray-300 flex items-center text-sm">
+                                  <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${selectedZodiac.color} mr-2 flex-shrink-0`}></div>
+                                  {item.property}
+                                </div>
+                                <div className="text-white font-medium text-sm">
+                                  {item.value}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
 
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-      )}
+        )}
 
-      {/* CSS for animations and custom scrollbar */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
+        {/* CSS for animations and custom scrollbar */}
+        <style jsx>{`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
+          
+          .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+          }
 
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-        }
+          .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+          }
 
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+          }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+          }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: rgba(156, 163, 175, 0.5);
-          border-radius: 3px;
-        }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 3px;
+          }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background-color: rgba(156, 163, 175, 0.8);
-        }
-      `}</style>
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(156, 163, 175, 0.8);
+          }
+        `}</style>
 
-    </div>
+      </div>
   );
 };
 

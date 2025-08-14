@@ -96,7 +96,7 @@ const AstroNavbar = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-black via-gray-900 to-slate-900 shadow-2xl border-b border-gray-700/50 sticky top-0 z-50">
+    <nav className="bg-[#3f519c] shadow-2xl border-b border-gray-700/50 sticky top-0 z-50">
       <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo Section */}
@@ -105,7 +105,7 @@ const AstroNavbar = () => {
               <a href="/" className='flex flex-col items-center justify-center'>
                 <img 
                   src={logovideo} 
-                  className="h-20 sm:h-24 lg:h-28 w-auto object-contain" 
+                  className="h-28 sm:h-24 lg:h-32 w-auto object-contain" 
                   alt="SriAstroVeda Logo" 
                 />
               </a>
@@ -131,7 +131,7 @@ const AstroNavbar = () => {
               >
                 <button className="flex items-center space-x-1 xl:space-x-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium py-2 text-sm xl:text-base">
                   <span className="text-xs xl:text-sm">{item.icon}</span>
-                  <span className="whitespace-nowrap">{item.title}</span>
+                  <span className="whitespace-nowrap text-sm">{item.title}</span>
                   <svg className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 ${activeDropdown === item.key ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
@@ -245,7 +245,7 @@ const AstroNavbar = () => {
                 >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <span className="text-sm sm:text-base">{item.icon}</span>
-                    <span>{item.title}</span>
+                    <span className='text-sm'>{item.title}</span>
                   </div>
                   <svg className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 flex-shrink-0 ${activeDropdown === `mobile-${item.key}` ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />

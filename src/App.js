@@ -40,9 +40,6 @@ import SadeSati from './pages/Remedial/SadeSati';
 import AskQuestion from './pages/Remedial/AskQuestion';
 import Gemstones from './pages/Remedial/Gemstones';
 
-// About Page
-import About from './pages/About';
-
 // Contact Page
 import Contact from './pages/Contact';
 
@@ -99,8 +96,6 @@ function RouteContainer() {
           {/* Existing Routes */}
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-
           
           {/* Core Horoscope Routes */}
           <Route path="/birth-chart" element={<BirthChart />} />

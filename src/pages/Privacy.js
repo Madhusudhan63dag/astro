@@ -34,19 +34,7 @@ const Privacy = () => {
               We use secure servers, encrypted connections, and trusted payment processors to protect your data. While we take every precaution, no online transmission is 100% secure, and you share data at your own risk.
             </p>
 
-            <h2 className="text-2xl font-semibold text-white">5. Third-Party Services</h2>
-            <p>
-              We may use trusted third-party tools for payment processing, email communication, or analytics. These providers have their own privacy policies, and we recommend reviewing them.
-            </p>
-
-            <h2 className="text-2xl font-semibold text-white">6. Your Rights</h2>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Request a copy of your personal data we hold.</li>
-              <li>Ask us to correct any inaccurate details.</li>
-              <li>Request deletion of your data (unless required by law to retain it).</li>
-            </ul>
-
-            <h2 className="text-2xl font-semibold text-white">7. Changes to This Policy</h2>
+            <h2 className="text-2xl font-semibold text-white">5. Changes to This Policy</h2>
             <p>
               We may update this Privacy Policy from time to time. Any changes will be posted here with the updated date.
             </p>
