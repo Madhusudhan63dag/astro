@@ -7,8 +7,8 @@ import en from './locales/en';
 import hi from './locales/hi';
 import te from './locales/te';
 import kn from './locales/kn';
+import ta from './locales/ta';
 // Import other languages similarly when you create them
-// import ta from './locales/ta';
 // import mr from './locales/mr';
 
 const resources = {
@@ -16,10 +16,8 @@ const resources = {
   hi: { translation: hi },
   te: { translation: te },
   kn: { translation: kn },
+  ta: { translation: ta },
   // Add other languages here
-  // te: { translation: te },
-  // ta: { translation: ta },
-  // kn: { translation: kn },
   // mr: { translation: mr }
 };
 

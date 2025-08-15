@@ -50,6 +50,7 @@ const AstroNavbar = () => {
     { code: 'te', name: 'Telugu', native: 'తెలుగు' },
     { code: 'hi', name: 'Hindi', native: 'हिंदी' },
     { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
+    { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
   ];
 
   const currentLang = languages.find(lang => lang.code === selectedLanguage);

@@ -86,7 +86,7 @@ function RouteContainer() {
   }, [location.pathname]);
 
   return (
-    <>
+    <div className="overflow-hidden">
       <Loader show={loading} />
       <Navbar />
       <Routes>
@@ -134,7 +134,7 @@ function RouteContainer() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
-    </>
+    </div>
   );
 }
 

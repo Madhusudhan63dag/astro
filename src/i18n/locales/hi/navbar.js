@@ -1,6 +1,7 @@
 export default {
   // Navigation
   "home": "होम",
+  "detailed": "विस्तृत जीवन रिपोर्ट",
   "about": "हमारे बारे में",
   "contact": "संपर्क",
   "get_reading": "रीडिंग प्राप्त करें",
