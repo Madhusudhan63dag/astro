@@ -1,5 +1,4 @@
-export default {
-    // Add to your translation files (create src/i18n/locales/en/match-horoscope.js)
+const matchhoroscope = {
 
     // Header Section
     "kundli_matching_service": "Kundli Matching Service",
@@ -7,7 +6,7 @@ export default {
     "horoscopes": "Kundli",
     "for_perfect_union": "For Perfect Union",
     "match_horoscope_description": "Discover your compatibility through authentic Vedic astrology. Our comprehensive Kundli matching analyzes 36 Gunas to determine marital harmony and relationship success.",
- 
+
     // Form Fields
     "partner_1_details": "Partner 1 Details",
     "partner_2_details": "Partner 2 Details",
@@ -15,10 +14,42 @@ export default {
     "female_bride": "Female/Bride",
     "enter_groom_name": "Enter groom's full name",
     "enter_bride_name": "Enter bride's full name",
+    "full_name": "Full Name",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "date_time_of_birth": "Date & Time of Birth",
+    "place_of_birth": "Place of Birth",
+    "enter_partner_name": "Enter partner name",
+    "city_state_country": "City, State, Country",
+    "email_address": "Email Address",
+    "phone_number": "Phone Number",
+    "enter_email_for_report": "Enter your email for detailed report",
+    "enter_phone": "Enter your phone",
+    "contact_details_info": "Providing contact details ensures you receive the detailed compatibility report directly.",
+    "service_pricing": "Service Pricing",
+    "complete_horoscope_matching": "Complete Horoscope Matching Analysis",
+    "one_time_payment_info": "One-time payment for complete horoscope matching analysis by expert astrologers",
+    "detailed_compatibility_analysis": "Detailed Compatibility Analysis",
+    "guna_milan_36_points": "Guna Milan (36 Points System)",
+    "manglik_dosha_analysis": "Manglik Dosha Analysis",
+    "future_predictions_couple": "Future Predictions for Couple",
+    "remedial_solutions": "Remedial Solutions & Suggestions",
+    "pdf_report_download": "PDF Report Download",
+    "contact_information": "Contact Information",
 
     // Actions
     "match_horoscopes_now": "Match Kundlis Now",
     "matching_horoscopes": "Matching Kundli",
+    "pay_and_match": "Pay & Match Horoscopes",
+    "processing_payment": "Processing Payment...",
+    "dd_mm_yyyy_time_format": "Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM",
+    "am": "AM",
+    "pm": "PM",
+    "dd_placeholder": "DD",
+    "mm_placeholder": "MM", 
+    "yyyy_placeholder": "YYYY",
+    "hh_placeholder": "HH",
 
     // Results
     "compatibility_result": "Compatibility Result",
@@ -62,5 +93,6 @@ export default {
     "processing_request": "Processing Your Request",
     "back_to_home": "Back to Home"
 
+};
 
-}
+export default matchhoroscope;

@@ -642,11 +642,11 @@ const MatchHoroscope = () => {
             <div className="mb-12 max-w-4xl mx-auto">
               <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-md rounded-2xl p-8 border border-green-500/30 text-center">                
                 <h2 className="text-3xl font-bold text-white mb-4">
-                  🎉 Thank You for Your Submission!
+                  🎉 {t('thank_you_submission')}
                 </h2>
                 
                 <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                  We have received your horoscope matching request for <strong>{formData.partner1.name}</strong> and <strong>{formData.partner2.name}</strong>.
+                  {t('data_received_message')} <strong>{formData.partner1.name}</strong> and <strong>{formData.partner2.name}</strong>.
                 </p>
 
                 {/* Security and Timeline Info */}
@@ -656,10 +656,10 @@ const MatchHoroscope = () => {
                       <span className="text-4xl">🔒</span>
                     </div>
                     <h3 className="text-lg font-semibold text-white mb-2">
-                      Your Data is Secure
+                      {t('your_data_secure')}
                     </h3>
                     <p className="text-gray-300 text-sm">
-                      All birth details are encrypted and will only be used for astrological analysis.
+                      {t('data_security_message')}
                     </p>
                   </div>
 
@@ -668,10 +668,10 @@ const MatchHoroscope = () => {
                       <span className="text-4xl">⏰</span>
                     </div>
                     <h3 className="text-lg font-semibold text-white mb-2">
-                      Response Within 12 Hours
+                      {t('response_within_12_hours')}
                     </h3>
                     <p className="text-gray-300 text-sm">
-                      Our expert astrologers will analyze compatibility and send detailed report.
+                      {t('response_time_message')}
                     </p>
                   </div>
                 </div>
@@ -680,7 +680,7 @@ const MatchHoroscope = () => {
                 <div className="bg-black/40 rounded-xl p-6 border border-gray-700/50 mb-6">
                   <h3 className="text-lg font-semibold text-white mb-4 flex items-center justify-center">
                     <span className="mr-2">📞</span>
-                    Need Immediate Help?
+                    {t('need_immediate_help')}
                   </h3>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm">
                     <a 
@@ -696,7 +696,7 @@ const MatchHoroscope = () => {
                       rel="noopener noreferrer"
                       className="text-green-400 hover:text-green-300 transition-colors duration-300 flex items-center gap-2"
                     >
-                      💬 WhatsApp Support
+                      💬 {t('whatsapp_support')}
                     </a>
                   </div>
                 </div>
@@ -717,14 +717,14 @@ const MatchHoroscope = () => {
                     }}
                     className="px-8 py-3 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
                   >
-                    Match Another Couple
+                    {t('match_another_couple')}
                   </button>
                   
                   <a
                     href="/"
                     className="px-8 py-3 text-yellow-400 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black font-semibold rounded-lg transition-all duration-300 text-center"
                   >
-                    Back to Home
+                    {t('back_to_home')}
                   </a>
                 </div>
               </div>
@@ -737,39 +737,39 @@ const MatchHoroscope = () => {
               <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
                   <span className="text-yellow-400 mr-3">📧</span>
-                  Contact Information
+                  {t('contact_information')}
                 </h2>
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-gray-100 font-semibold text-lg mb-2">
-                      Email Address
+                      {t('email_address')}
                     </label>
                     <input
                       type="email"
                       value={formData.customerEmail}
                       onChange={(e) => handleContactChange('customerEmail', e.target.value)}
-                      placeholder="Enter your email for detailed report"
+                      placeholder={t('enter_email_for_report')}
                       className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                     />
                   </div>
 
                   <div>
                     <label className="block text-gray-100 font-semibold text-lg mb-2">
-                      Phone Number
+                      {t('phone_number')}
                     </label>
                     <input
                       type="tel"
                       value={formData.customerPhone}
                       onChange={(e) => handleContactChange('customerPhone', e.target.value)}
-                      placeholder="Enter your phone"
+                      placeholder={t('enter_phone')}
                       className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                     />
                   </div>
                 </div>
                 
                 <p className="text-gray-400 text-sm mt-4">
-                  Providing contact details ensures you receive the detailed compatibility report directly.
+                  {t('contact_details_info')}
                 </p>
               </div>
 
@@ -777,43 +777,43 @@ const MatchHoroscope = () => {
               <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
                   <span className="text-yellow-400 mr-3">💰</span>
-                  Service Pricing
+                  {t('service_pricing')}
                 </h2>
                 
                 <div className="bg-gradient-to-r from-yellow-400/10 to-amber-400/10 border-2 border-yellow-400/50 rounded-lg p-6">
                   <div className="text-center">
-                    <h4 className="text-xl font-semibold text-white mb-2">Complete Horoscope Matching Analysis</h4>
+                    <h4 className="text-xl font-semibold text-white mb-2">{t('complete_horoscope_matching')}</h4>
                     <div className="text-4xl font-bold text-yellow-400 mb-4">{BC_PRICE_FORMATTED}</div>
                     <ul className="text-gray-300 text-sm space-y-2 text-left max-w-sm mx-auto">
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>Detailed Compatibility Analysis</span>
+                        <span>{t('detailed_compatibility_analysis')}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>Guna Milan (36 Points System)</span>
+                        <span>{t('guna_milan_36_points')}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>Manglik Dosha Analysis</span>
+                        <span>{t('manglik_dosha_analysis')}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>Future Predictions for Couple</span>
+                        <span>{t('future_predictions_couple')}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>Remedial Solutions & Suggestions</span>
+                        <span>{t('remedial_solutions')}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-yellow-400">✓</span>
-                        <span>PDF Report Download</span>
+                        <span>{t('pdf_report_download')}</span>
                       </li>
                     </ul>
                   </div>
                 </div>
                 <p className="text-gray-400 text-sm mt-3 text-center">
-                  💸 One-time payment for complete horoscope matching analysis by expert astrologers
+                  💸 {t('one_time_payment_info')}
                 </p>
               </div>
 
@@ -823,19 +823,19 @@ const MatchHoroscope = () => {
                 <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50">
                   <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
                     <span className="text-blue-400 mr-3">👨</span>
-                    Partner 1 Details (Male/Groom)
+                    {t('partner_1_details')} ({t('male_groom')})
                   </h2>
 
                   <div className="space-y-6">
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Full Name <span className="text-amber-400">*</span>
+                        {t('full_name')} <span className="text-amber-400">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.partner1.name}
                         onChange={(e) => handleInputChange('partner1', 'name', e.target.value)}
-                        placeholder="Enter partner 1 name"
+                        placeholder={t('enter_partner_name')}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                         required
                       />
@@ -843,50 +843,50 @@ const MatchHoroscope = () => {
 
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Gender
+                        {t('gender')}
                       </label>
                       <select
                         value={formData.partner1.gender}
                         onChange={(e) => handleInputChange('partner1', 'gender', e.target.value)}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                       >
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="male">{t('male')}</option>
+                        <option value="female">{t('female')}</option>
                       </select>
                     </div>
 
                     {/* Date & Time of Birth - Partner 1 */}
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Date & Time of Birth <span className="text-amber-400">*</span>
+                        {t('date_time_of_birth')} <span className="text-amber-400">*</span>
                       </label>
                       <div className="bg-gray-800/60 border border-yellow-500/40 rounded-xl p-4">
                         <div className="flex flex-wrap items-center gap-4">
                           {/* Date: DD/MM/YYYY */}
                           <div className="flex items-center gap-2">
-                            <input ref={p1DdRef} type="text" inputMode="numeric" placeholder="DD" value={p1DobDay}
+                            <input ref={p1DdRef} type="text" inputMode="numeric" placeholder={t('dd_placeholder')} value={p1DobDay}
                               onChange={(e)=>{ onChangeDigits(setP1DobDay,e.target.value,2,p1MmRef); }}
                               onBlur={()=>updateDateInForm('partner1', p1DobDay, p1DobMonth, p1DobYear)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">/</span>
-                            <input ref={p1MmRef} type="text" inputMode="numeric" placeholder="MM" value={p1DobMonth}
+                            <input ref={p1MmRef} type="text" inputMode="numeric" placeholder={t('mm_placeholder')} value={p1DobMonth}
                               onChange={(e)=>{ onChangeDigits(setP1DobMonth,e.target.value,2,p1YyyyRef); }}
                               onBlur={()=>updateDateInForm('partner1', p1DobDay, p1DobMonth, p1DobYear)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">/</span>
-                            <input ref={p1YyyyRef} type="text" inputMode="numeric" placeholder="YYYY" value={p1DobYear}
+                            <input ref={p1YyyyRef} type="text" inputMode="numeric" placeholder={t('yyyy_placeholder')} value={p1DobYear}
                               onChange={(e)=>{ onChangeDigits(setP1DobYear,e.target.value,4,p1HhRef); const v=(e.target.value||'').replace(/\D/g,''); if(v.length===4) updateDateInForm('partner1', p1DobDay, p1DobMonth, v);} }
                               onBlur={()=>updateDateInForm('partner1', p1DobDay, p1DobMonth, p1DobYear)}
                               className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                           </div>
                           {/* Time: HH:MM + AM/PM */}
                           <div className="flex items-center gap-2">
-                            <input ref={p1HhRef} type="text" inputMode="numeric" placeholder="HH" value={p1TobHour}
+                            <input ref={p1HhRef} type="text" inputMode="numeric" placeholder={t('hh_placeholder')} value={p1TobHour}
                               onChange={(e)=>{ onChangeDigits(setP1TobHour,e.target.value,2,p1MinRef); }}
                               onBlur={()=>updateTimeInForm('partner1', p1TobHour, p1TobMinute, p1TobMeridiem)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">:</span>
-                            <input ref={p1MinRef} type="text" inputMode="numeric" placeholder="MM" value={p1TobMinute}
+                            <input ref={p1MinRef} type="text" inputMode="numeric" placeholder={t('mm_placeholder')} value={p1TobMinute}
                               onChange={(e)=>{ onChangeDigits(setP1TobMinute,e.target.value,2); const v=(e.target.value||'').replace(/\D/g,''); if(v.length===2) updateTimeInForm('partner1', p1TobHour, v, p1TobMeridiem);} }
                               onBlur={()=>updateTimeInForm('partner1', p1TobHour, p1TobMinute, p1TobMeridiem)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
@@ -894,24 +894,24 @@ const MatchHoroscope = () => {
                           {/* AM/PM toggle */}
                           <div className="inline-flex rounded-md overflow-hidden border border-yellow-500/40">
                             <button type="button" onClick={()=>{ setP1TobMeridiem('AM'); updateTimeInForm('partner1', p1TobHour, p1TobMinute, 'AM'); }}
-                              className={`px-3 py-2 text-sm ${p1TobMeridiem==='AM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('am')||'AM'}</button>
+                              className={`px-3 py-2 text-sm ${p1TobMeridiem==='AM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('am')}</button>
                             <button type="button" onClick={()=>{ setP1TobMeridiem('PM'); updateTimeInForm('partner1', p1TobHour, p1TobMinute, 'PM'); }}
-                              className={`px-3 py-2 text-sm ${p1TobMeridiem==='PM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('pm')||'PM'}</button>
+                              className={`px-3 py-2 text-sm ${p1TobMeridiem==='PM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('pm')}</button>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm mt-2">Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM</p>
+                        <p className="text-gray-400 text-sm mt-2">{t('dd_mm_yyyy_time_format')}</p>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Place of Birth <span className="text-amber-400">*</span>
+                        {t('place_of_birth')} <span className="text-amber-400">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.partner1.placeOfBirth}
                         onChange={(e) => handleInputChange('partner1', 'placeOfBirth', e.target.value)}
-                        placeholder="City, State, Country"
+                        placeholder={t('city_state_country')}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                         required
                       />
@@ -923,19 +923,19 @@ const MatchHoroscope = () => {
                 <div className="bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-gray-700/50">
                   <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
                     <span className="text-pink-400 mr-3">👩</span>
-                    Partner 2 Details (Female/Bride)
+                    {t('partner_2_details')} ({t('female_bride')})
                   </h2>
 
                   <div className="space-y-6">
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Full Name <span className="text-amber-400">*</span>
+                        {t('full_name')} <span className="text-amber-400">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.partner2.name}
                         onChange={(e) => handleInputChange('partner2', 'name', e.target.value)}
-                        placeholder="Enter partner 2 name"
+                        placeholder={t('enter_partner_name')}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                         required
                       />
@@ -943,50 +943,50 @@ const MatchHoroscope = () => {
 
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Gender
+                        {t('gender')}
                       </label>
                       <select
                         value={formData.partner2.gender}
                         onChange={(e) => handleInputChange('partner2', 'gender', e.target.value)}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                       >
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
+                        <option value="female">{t('female')}</option>
+                        <option value="male">{t('male')}</option>
                       </select>
                     </div>
 
                     {/* Date & Time of Birth - Partner 2 */}
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Date & Time of Birth <span className="text-amber-400">*</span>
+                        {t('date_time_of_birth')} <span className="text-amber-400">*</span>
                       </label>
                       <div className="bg-gray-800/60 border border-yellow-500/40 rounded-xl p-4">
                         <div className="flex flex-wrap items-center gap-4">
                           {/* Date: DD/MM/YYYY */}
                           <div className="flex items-center gap-2">
-                            <input ref={p2DdRef} type="text" inputMode="numeric" placeholder="DD" value={p2DobDay}
+                            <input ref={p2DdRef} type="text" inputMode="numeric" placeholder={t('dd_placeholder')} value={p2DobDay}
                               onChange={(e)=>{ onChangeDigits(setP2DobDay,e.target.value,2,p2MmRef); }}
                               onBlur={()=>updateDateInForm('partner2', p2DobDay, p2DobMonth, p2DobYear)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">/</span>
-                            <input ref={p2MmRef} type="text" inputMode="numeric" placeholder="MM" value={p2DobMonth}
+                            <input ref={p2MmRef} type="text" inputMode="numeric" placeholder={t('mm_placeholder')} value={p2DobMonth}
                               onChange={(e)=>{ onChangeDigits(setP2DobMonth,e.target.value,2,p2YyyyRef); }}
                               onBlur={()=>updateDateInForm('partner2', p2DobDay, p2DobMonth, p2DobYear)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">/</span>
-                            <input ref={p2YyyyRef} type="text" inputMode="numeric" placeholder="YYYY" value={p2DobYear}
+                            <input ref={p2YyyyRef} type="text" inputMode="numeric" placeholder={t('yyyy_placeholder')} value={p2DobYear}
                               onChange={(e)=>{ onChangeDigits(setP2DobYear,e.target.value,4,p2HhRef); const v=(e.target.value||'').replace(/\D/g,''); if(v.length===4) updateDateInForm('partner2', p2DobDay, p2DobMonth, v);} }
                               onBlur={()=>updateDateInForm('partner2', p2DobDay, p2DobMonth, p2DobYear)}
                               className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                           </div>
                           {/* Time: HH:MM + AM/PM */}
                           <div className="flex items-center gap-2">
-                            <input ref={p2HhRef} type="text" inputMode="numeric" placeholder="HH" value={p2TobHour}
+                            <input ref={p2HhRef} type="text" inputMode="numeric" placeholder={t('hh_placeholder')} value={p2TobHour}
                               onChange={(e)=>{ onChangeDigits(setP2TobHour,e.target.value,2,p2MinRef); }}
                               onBlur={()=>updateTimeInForm('partner2', p2TobHour, p2TobMinute, p2TobMeridiem)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
                             <span className="text-gray-400">:</span>
-                            <input ref={p2MinRef} type="text" inputMode="numeric" placeholder="MM" value={p2TobMinute}
+                            <input ref={p2MinRef} type="text" inputMode="numeric" placeholder={t('mm_placeholder')} value={p2TobMinute}
                               onChange={(e)=>{ onChangeDigits(setP2TobMinute,e.target.value,2); const v=(e.target.value||'').replace(/\D/g,''); if(v.length===2) updateTimeInForm('partner2', p2TobHour, v, p2TobMeridiem);} }
                               onBlur={()=>updateTimeInForm('partner2', p2TobHour, p2TobMinute, p2TobMeridiem)}
                               className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-yellow-500/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
@@ -994,24 +994,24 @@ const MatchHoroscope = () => {
                           {/* AM/PM toggle */}
                           <div className="inline-flex rounded-md overflow-hidden border border-yellow-500/40">
                             <button type="button" onClick={()=>{ setP2TobMeridiem('AM'); updateTimeInForm('partner2', p2TobHour, p2TobMinute, 'AM'); }}
-                              className={`px-3 py-2 text-sm ${p2TobMeridiem==='AM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('am')||'AM'}</button>
+                              className={`px-3 py-2 text-sm ${p2TobMeridiem==='AM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('am')}</button>
                             <button type="button" onClick={()=>{ setP2TobMeridiem('PM'); updateTimeInForm('partner2', p2TobHour, p2TobMinute, 'PM'); }}
-                              className={`px-3 py-2 text-sm ${p2TobMeridiem==='PM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('pm')||'PM'}</button>
+                              className={`px-3 py-2 text-sm ${p2TobMeridiem==='PM'?'bg-yellow-500 text-black':'bg-gray-900/70 text-gray-200'}`}>{t('pm')}</button>
                           </div>
                         </div>
-                        <p className="text-gray-400 text-sm mt-2">Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM</p>
+                        <p className="text-gray-400 text-sm mt-2">{t('dd_mm_yyyy_time_format')}</p>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-gray-100 font-semibold text-lg mb-2">
-                        Place of Birth <span className="text-amber-400">*</span>
+                        {t('place_of_birth')} <span className="text-amber-400">*</span>
                       </label>
                       <input
                         type="text"
                         value={formData.partner2.placeOfBirth}
                         onChange={(e) => handleInputChange('partner2', 'placeOfBirth', e.target.value)}
-                        placeholder="City, State, Country"
+                        placeholder={t('city_state_country')}
                         className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-gray-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
                         required
                       />
@@ -1034,10 +1034,10 @@ const MatchHoroscope = () => {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Processing Payment...
+                        {t('processing_payment')}
                       </span>
                     ) : (
-                      `Pay & Match Horoscopes - ${BC_PRICE_FORMATTED}`
+                      `${t('pay_and_match')} - ${BC_PRICE_FORMATTED}`
                     )}
                   </button>
                 </form>
