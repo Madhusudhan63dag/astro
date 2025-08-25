@@ -15,7 +15,7 @@ const Two = () => {
         <div className="absolute bottom-20 right-10 text-3xl text-amber-400">✧</div>
       </div>
 
-      <div className="container mx-auto px-3 sm:px-4 relative z-10">
+      <div className=" px-3 sm:px-4 relative z-10">
         <div className="flex flex-col lg:flex-row shadow-2xl rounded-2xl overflow-hidden bg-black/40 backdrop-blur-md border border-gray-700/50">
           
           {/* Image Section */}
@@ -33,16 +33,16 @@ const Two = () => {
           {/* Content Section */}
           <div className="lg:w-1/2 w-full flex flex-col justify-center items-start p-5 sm:p-8 lg:p-12">
             {/* Main Heading */}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               <span className="text-yellow-400">{t('cosmic_destiny')}</span>
               <br />
-              <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent leading-[1.4]">
                 {t('through_ancient_wisdom')}
               </span>
             </h2>
 
             {/* Description */}
-            <p className="text-sm sm:text-base lg:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg  text-gray-300 mb-6 sm:mb-8 leading-relaxed">
               {t('two_section_description')}
             </p>
 

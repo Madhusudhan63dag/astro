@@ -103,7 +103,7 @@ const AstroNavbar = () => {
           {/* Logo Section */}
           <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
             <div>
-              <a href="/" className='flex flex-col items-center justify-center'>
+              <a href="https://sacredrelm.com" className='flex flex-col items-center justify-center'>
                 <img 
                   src={logovideo} 
                   className="h-28 sm:h-24 lg:h-32 w-auto object-contain" 
@@ -160,9 +160,6 @@ const AstroNavbar = () => {
                 </div>
               </div>
             ))}
-            <a href="/contact" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
-              {t('contact')}
-            </a>
 
             {/* Desktop Language Selector */}
             <div 
@@ -279,15 +276,6 @@ const AstroNavbar = () => {
                 </div>
               </div>
             ))}
-
-            <a 
-              href="/contact" 
-              className="block px-3 sm:px-4 py-2 sm:py-3 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t('contact')}
-            </a>
-
             {/* Mobile Language Selector */}
             <div className="mx-2">
               <button

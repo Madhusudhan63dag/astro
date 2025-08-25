@@ -492,7 +492,7 @@ const DashaPhalAnalysis = () => {
             <div className="text-center mb-8 sm:mb-12 lg:mb-16">
               <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 {t('create_your')} <span className="text-purple-400">{t('dasha_phal')}</span>
-              </h1>
+              </h1> 
               <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
                 {t('dasha_phal_description')}
               </p>

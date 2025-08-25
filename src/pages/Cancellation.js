@@ -5,36 +5,64 @@ const Cancellation = () => {
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 relative overflow-hidden">
       <div className="relative z-10 py-16 px-4">
         <div className="max-w-4xl mx-auto bg-black/60 backdrop-blur-md rounded-2xl p-8 lg:p-12 border border-gray-700/50">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-center">Return, Refund & Cancellation Policy</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-center">
+            Cancellation & Refund Policy – Astrology Services
+          </h1>
 
           <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
             <p>
-              SriAstroVeda has a friendly return and refund policy to ensure your online purchase is free of stress. We offer a “100% Buyer Protection Program” for our valued customers. We are always with you, before your purchase and after your purchase. We are not perfect but we have ensured hard that our refund/return policies do not bring any ugly surprises to you post your purchase.
+              We aim to provide accurate, timely, and personalized astrological guidance.
+              Since our services are customized for each client, certain limitations apply to
+              cancellations and refunds. Please read carefully before booking.
             </p>
 
+            <hr className="border-gray-700" />
+
+            <h2 className="text-2xl font-semibold text-white mt-8">1. Nature of Services</h2>
             <p>
-              By requesting a refund, the user agrees to provide SriAstroVeda’s Quality Audit team permission to access the recording of the consultation for which a refund has been requested, in order to determine whether the case is fit for refund.
+              All astrology reports, consultations, and predictions are prepared specifically
+              for you, based on your birth details and questions. Due to this personalized
+              nature, changes, cancellations, and refunds are restricted.
             </p>
 
-            <p>
-              SriAstroVeda Quality Audit team’s decision on processing the refund is at the sole discretion of the team and such decision is final in nature. The Quality Audit team will, on a best efforts basis, provide refund to users in their SriAstroVeda Wallet wherever quality parameters have not been satisfied.
-            </p>
+            <hr className="border-gray-700" />
 
-            <h2 className="text-2xl font-semibold text-white mt-8">What is SriAstroVeda Return Policy?</h2>
-            <h3 className="text-xl font-semibold text-white mt-4">Service</h3>
-            <p>Our “100% Buyer Protection Program” for service has the below mentioned refund & cancellation policy:</p>
+            <h2 className="text-2xl font-semibold text-white mt-8">2. Cancellation Policy</h2>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Any cancellation made within two hours of payment.</li>
-              <li>No refund shall be made for incorrect data provided by the customer. However one can send correct information within two hours of order.</li>
-              <li>Once the report is delivered to the customer no refund shall be made.</li>
-              <li>In case of double payment made by mistake against the single order, one payment will be refunded.</li>
+              <li>
+                <span className="font-semibold">Before Service Begins:</span> You may request a cancellation within 2 hours of placing your order if our team has not yet started working on your report or consultation. A full refund will be issued in such cases.
+              </li>
+              <li>
+                <span className="font-semibold">After Service Has Started:</span> Once your report preparation, chart analysis, or consultation scheduling has commenced, no cancellation or refund will be possible.
+              </li>
+              <li>
+                <span className="font-semibold">For Live Consultations:</span> If you cannot attend your scheduled session, inform us at least 24 hours in advance to reschedule. Missed appointments without prior notice will be considered completed, with no refund.
+              </li>
             </ul>
 
-            <h2 className="text-2xl font-semibold text-white mt-8">What to do if SriAstroVeda is not responding to the dispute?</h2>
-            <p>
-              Please allow 3 business days for us to address the issue and provide instructions for your return/resolution. If we do not respond even after 3 business days, or if your issue is not addressed to your satisfaction, you can submit the dispute by sending an email to <span className="text-yellow-400">sriastroveda@gmail.com</span> and we will ensure you get timely resolution to your dispute.
-            </p>
-           
+            <hr className="border-gray-700" />
+
+            <h2 className="text-2xl font-semibold text-white mt-8">3. Refund Policy</h2>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                <span className="font-semibold">Eligibility for Refunds:</span> Refunds are only applicable if:
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>A cancellation request is made within the allowed time before work starts.</li>
+                  <li>The service cannot be delivered due to our technical or operational issues.</li>
+                </ul>
+              </li>
+              <li>
+                <span className="font-semibold">Non-Refundable Cases:</span>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Dissatisfaction with the interpretation, predictions, or guidance (as astrology is a matter of faith and personal belief).</li>
+                  <li>Incorrect or incomplete details provided by the client.</li>
+                  <li>Missed consultation slots without prior notice.</li>
+                </ul>
+              </li>
+              <li>
+                <span className="font-semibold">Mode of Refund:</span> Approved refunds will be processed through the original payment method within 7–10 working days.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
