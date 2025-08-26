@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 import sampleVideo from '../assets/banner.mp4';
-import banner2 from '../assets/banner2.mp4';
-import banner3 from '../assets/banner3.mp4';
 import bannerPoster from '../assets/banner2.webp';
-import mobile_banner from '../assets/mobile_banner.png'
+import mobile_banner from '../assets/mobile_banner.webp'
 import three from '../assets/8.webp';
 import audio from '../assets/audio.mp3';
 
@@ -341,8 +339,6 @@ const Hero = () => {
             style={{ objectPosition: 'center center' }}
           >
             <source src={sampleVideo} type="video/mp4" />
-            <source src={banner2} type="video/mp4" />
-            <source src={banner3} type="video/mp4" />
           </video>
         </div>
         

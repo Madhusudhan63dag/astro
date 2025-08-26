@@ -301,7 +301,7 @@ const translations = {
 "pisces_element": "నీరు",
 "pisces_planet": "నెప్ట్యూన్ & గురువు",
 
-"review_title": "శక్తి మార్పిడి: వారి మాటలు, మా కృతజ్ఞతలు",
+"review_title": "Client Testimonials",
 
 "why_choose": "శ్రీఆస్ట్రోవేదను ఎందుకు ఎంచుకోవాలి",
 

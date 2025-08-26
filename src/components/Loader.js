@@ -1,5 +1,5 @@
 import React from 'react';
-import logoGif from '../assets/logo.gif';
+import logoGif from '../assets/logo.webp';
 
 /**
  * Fullscreen overlay loader that shows the animated logo.

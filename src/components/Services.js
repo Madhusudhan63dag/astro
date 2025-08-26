@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
-import services from "../assets/services.png";
+import services from "../assets/services.webp";
 
 export default function Services() {
   const { t } = useTranslation();

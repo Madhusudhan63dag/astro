@@ -68,7 +68,7 @@ export default function Contact() {
                   +91 93922 77389
                 </a>
                 <a 
-                  href="https://wa.me/919573999254" 
+                  href="https://wa.me/919059821555" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-green-400 hover:text-green-300 transition-colors duration-300 flex items-center gap-2 bg-green-500/10 px-3 py-2 rounded-lg border border-green-500/20"

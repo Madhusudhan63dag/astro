@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import logovideo from '../assets/logo.gif';
+import logovideo from '../assets/logo.webp';
 
 const AstroNavbar = () => {
   const { t, i18n } = useTranslation();
@@ -97,16 +97,16 @@ const AstroNavbar = () => {
   ];
 
   return (
-    <nav className="bg-[#3f519c] shadow-2xl border-b border-gray-700/50 sticky top-0 z-50">
-      <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+    <nav className="bg-[#F7F3E3] shadow-2xl py-2 border-b border-gray-700/50 sticky top-0 z-50">
+      <div className="px-3 sm:px-4">
+        <div className="flex  items-center justify-between h-14 sm:h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
             <div>
               <a href="https://sacredrelm.com" className='flex flex-col items-center justify-center'>
                 <img 
                   src={logovideo} 
-                  className="h-28 sm:h-24 lg:h-32 w-auto object-contain" 
+                  className="h-28  sm:h-10 lg:h-20 w-auto object-contain" 
                   alt="SriAstroVeda Logo" 
                 />
               </a>
@@ -116,10 +116,10 @@ const AstroNavbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
 
-            <a href="/" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
+            <a href="/" className=" hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
               {t('home')}
             </a>
-            <a href="/kundli" className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
+            <a href="/kundli" className=" hover:text-yellow-400 transition-colors duration-300 font-medium text-sm xl:text-sm">
               {t('detailed')}
             </a>
 
@@ -130,7 +130,7 @@ const AstroNavbar = () => {
                 onMouseEnter={() => handleMouseEnter(item.key)}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className="flex items-center space-x-1 xl:space-x-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium py-2 text-sm xl:text-base">
+                <button className="flex items-center space-x-1 xl:space-x-2  hover:text-yellow-400 transition-colors duration-300 font-medium py-2 text-sm xl:text-base">
                   <span className="text-xs xl:text-sm">{item.icon}</span>
                   <span className="whitespace-nowrap text-sm">{item.title}</span>
                   <svg className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 ${activeDropdown === item.key ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
@@ -147,9 +147,9 @@ const AstroNavbar = () => {
                       <a
                         key={index}
                         href={subItem.href}
-                        className="flex items-center justify-between px-2 xl:px-3 py-2 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200 group"
+                        className="flex items-center justify-between px-2 xl:px-3 py-2  hover:text-yellow-400 hover:bg-gray-800/50 rounded-lg transition-all duration-200 group"
                       >
-                        <span className="text-xs xl:text-sm">{subItem.name}</span>
+                        <span className="text-xs text-white xl:text-sm">{subItem.name}</span>
                         
                         <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -167,7 +167,7 @@ const AstroNavbar = () => {
               onMouseEnter={() => handleMouseEnter('language')}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="flex items-center space-x-1 xl:space-x-2 text-gray-300 hover:text-yellow-400 transition-colors duration-300 font-medium py-2 px-2 xl:px-3 bg-gray-800/50 rounded-lg border border-gray-600/30 text-sm xl:text-base">
+              <button className="flex items-center space-x-1 xl:space-x-2  hover:text-yellow-400 transition-colors duration-300 font-medium py-2 px-2 xl:px-3 bg-gray-800/50 rounded-lg border border-gray-600/30 text-sm xl:text-base">
                 <span className="text-xs xl:text-sm">🌐</span>
                 <span className="text-xs xl:text-sm whitespace-nowrap">{currentLang?.native || 'English'}</span>
                 <svg className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 ${activeDropdown === 'language' ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
@@ -187,7 +187,7 @@ const AstroNavbar = () => {
                       className={`w-full flex items-center justify-between px-2 xl:px-3 py-2 text-left rounded-lg transition-all duration-200 ${
                         selectedLanguage === language.code 
                           ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' 
-                          : 'text-gray-300 hover:text-yellow-400 hover:bg-gray-800/50'
+                          : 'text-white hover:text-yellow-400 hover:bg-gray-800/50'
                       }`}
                     >
                       <div className="flex flex-col">
@@ -207,7 +207,7 @@ const AstroNavbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-gray-300 hover:text-yellow-400 transition-colors duration-300 p-2 -mr-2"
+            className="lg:hidden  hover:text-yellow-400 transition-colors duration-300 p-2 -mr-2"
             aria-label="Toggle mobile menu"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,7 +228,7 @@ const AstroNavbar = () => {
             
             <a 
               href="/kundli" 
-              className="block px-3 sm:px-4 py-2 sm:py-3 text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"
+              className="block px-3 sm:px-4 py-2 sm:py-3  hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {t('detailed')}
@@ -239,7 +239,7 @@ const AstroNavbar = () => {
               <div key={item.key} className="mx-2">
                 <button
                   onClick={() => setActiveDropdown(activeDropdown === `mobile-${item.key}` ? null : `mobile-${item.key}`)}
-                  className="flex items-center justify-between w-full px-3 sm:px-4 py-2 sm:py-3 text-left text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg transition-colors duration-300 font-medium text-sm sm:text-base"
+                  className="flex items-center justify-between w-full px-3 sm:px-4 py-2 sm:py-3 text-left  hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg transition-colors duration-300 font-medium text-sm sm:text-base"
                 >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <span className="text-sm sm:text-base">{item.icon}</span>
@@ -280,7 +280,7 @@ const AstroNavbar = () => {
             <div className="mx-2">
               <button
                 onClick={() => setActiveDropdown(activeDropdown === 'mobile-language' ? null : 'mobile-language')}
-                className="flex items-center justify-between w-full px-3 sm:px-4 py-2 sm:py-3 text-left text-gray-300 hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg transition-colors duration-300 font-medium text-sm sm:text-base"
+                className="flex items-center justify-between w-full px-3 sm:px-4 py-2 sm:py-3 text-left  hover:text-yellow-400 hover:bg-gray-800/30 rounded-lg transition-colors duration-300 font-medium text-sm sm:text-base"
               >
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <span className="text-sm sm:text-base">🌐</span>

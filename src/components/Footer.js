@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa";
-import logo from '../assets/logo.gif';
+import logo from '../assets/logo.webp';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ export default function Footer() {
                 <FaFacebookF />
               </a>
               <a 
-                href="https://wa.me/919573999254" 
+                href="https://wa.me/919059821555" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="WhatsApp" 
@@ -273,7 +273,7 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://wa.me/919573999254" 
+                  href="https://wa.me/919059821555" 
                   className="hover:text-green-300 transition-colors duration-300 block py-1" 
                   target="_blank" 
                   rel="noopener noreferrer"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import numerologyImage from '../../assets/services/numerology.jpg';
+import numerologyImage from '../../assets/services/numerology.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';

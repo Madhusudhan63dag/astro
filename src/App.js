@@ -145,7 +145,7 @@ function App() {
         <RouteContainer />
       </BrowserRouter>
   {/* Floating icons rendered outside Router so they persist across routes */}
-  <FloatingIcons whatsappNumber="+919999999999" phoneNumber="+919999999999" email="support@sriastroveda.com" />
+  <FloatingIcons whatsappNumber="+919059821555" phoneNumber="+919059821555" email="support@sriastroveda.com" />
     </div>
   );
 }

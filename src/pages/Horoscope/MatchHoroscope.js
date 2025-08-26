@@ -691,7 +691,7 @@ const MatchHoroscope = () => {
                     </a>
                     <span className="text-gray-500 hidden sm:inline">|</span>
                     <a 
-                      href="https://wa.me/919573999254" 
+                      href="https://wa.me/919059821555" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-green-400 hover:text-green-300 transition-colors duration-300 flex items-center gap-2"
