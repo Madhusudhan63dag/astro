@@ -314,7 +314,7 @@ export default function Footer() {
               {t('terms_of_service')}
             </a>
             <span className="text-slate-600 hidden sm:inline">·</span>
-            <a 
+            {/* <a 
               href="/shipping-policy" 
               className="hover:text-yellow-300 transition-colors duration-300 px-1"
             >
@@ -327,7 +327,7 @@ export default function Footer() {
             >
               {t('Cancellation')}
             </a>
-            <span className="text-slate-600">·</span>
+            <span className="text-slate-600">·</span> */}
           </div>
         </div>
       </div>

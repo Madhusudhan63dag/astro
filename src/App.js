@@ -127,8 +127,8 @@ function RouteContainer() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
-          <Route path="/cancellation" element={<Cancellation />} />
-          <Route path="/shipping-policy" element={<ShippingPolicy />} />
+          {/* <Route path="/cancellation" element={<Cancellation />} />
+          <Route path="/shipping-policy" element={<ShippingPolicy />} /> */}
 
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
