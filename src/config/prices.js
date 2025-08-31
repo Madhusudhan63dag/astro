@@ -11,31 +11,31 @@ const LOCATION_CURRENCY = {
 // Fill/change these numbers as you need.
 const BASE_PRICES = {
   // Core Horoscope
-  birthChart: 599,
-  matchHoroscope: 499,
-  ascendant: 699,
-  dashaAnalysis: 799,
-  nakshatra: 199,
-  numerology: 299,
+  birthChart: 349,
+  matchHoroscope: 349,
+  ascendant: 349,
+  dashaAnalysis: 349,
+  nakshatra: 349,
+  numerology: 349,
 
   // Predictions
-  lifePredictions: 999,
-  personalizedReport2025: 1499,
-  yearAnalysis: 1299,
-  dailyHoroscope: 49,
-  loveReport: 499,
-  careerReport: 599,
-  natureReport: 399,
-  healthReport: 599,
+  lifePredictions: 349,
+  personalizedReport2025: 349,
+  yearAnalysis: 349,
+  dailyHoroscope: 349,
+  loveReport:  349,
+  careerReport: 349,
+  natureReport: 349,
+  healthReport: 349,
 
   // Remedial
-  lalKitab: 699,
-  sadeSati: 799,
-  askQuestion: 199,
-  gemstones: 999,
+  lalKitab: 349,
+  sadeSati: 349,
+  askQuestion: 349,
+  gemstones: 349,
 
   // Other
-  kundli: 299,
+  kundli: 599,
 };
 
 
