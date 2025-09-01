@@ -79,7 +79,7 @@ const enKundli = {
   "birth_place_label": "Birth Place:",
   "processing_payment": "Processing Payment...",
   "preparing_analysis": "Generating Your 200+ Page Report...",
-  "complete_payment_get_report": "🚀 Complete Payment & Get Report - ₹599",
+  "complete_payment_get_report": "🚀 Complete Payment & Get Report",
 
   // Navigation
   "previous": "← Previous",

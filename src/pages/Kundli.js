@@ -6,6 +6,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../config/prices';
 import dayjs from 'dayjs';
 import API_CONFIG from './api';
 
@@ -14,6 +15,8 @@ const API_URL = API_CONFIG.API_URL;
 
 
 const Kundli = () => {
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.careerReport);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.careerReport);
   const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -235,7 +238,7 @@ const Kundli = () => {
           additionalInfo: t('complete_career_guidance_request') || 'Complete Career Path Guidance (Kundli) Analysis Request',
           paymentDetails: {
             status: 'paid',
-            amount: 599,
+            amount: BC_PRICE_NUMBER,
             paymentId: paymentData.razorpay_payment_id,
             orderId: paymentData.razorpay_order_id
           }
@@ -289,7 +292,7 @@ const Kundli = () => {
             paymentId: paymentData.razorpay_payment_id,
             requestId: paymentData.razorpay_order_id,
             service: t('birth_chart_analysis') || 'Birth Chart Analysis',
-            amount: t('service_amount') || '₹599',
+            amount: BC_PRICE_FORMATTED,
             status: 'completed'
           });
 
@@ -305,7 +308,7 @@ const Kundli = () => {
             paymentId: paymentData.razorpay_payment_id,
             requestId: paymentData.razorpay_order_id,
             service: t('birth_chart_analysis') || 'Birth Chart Analysis',
-            amount: t('service_amount') || '₹599',
+            amount: BC_PRICE_FORMATTED,
             status: 'completed',
             emailStatus: 'pending' // Track email status
           });
@@ -434,10 +437,8 @@ const Kundli = () => {
       return;
     }
 
-
     setError(null);
     setIsGenerating(true);
-  // Form completion time tracking removed
     setPaymentInitiated(true);
 
 
@@ -448,7 +449,7 @@ const Kundli = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: 599,
+          amount: BC_PRICE_NUMBER,
           currency: 'INR',
           receipt: `career_path_${Date.now()}`,
           notes: {
@@ -867,7 +868,7 @@ const Kundli = () => {
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{t('career_path_analysis') || 'Career Path Analysis'}</h3>
                   <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
                     <span className="text-xl sm:text-2xl text-slate-500 line-through">₹1,299</span>
-                    <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">₹599</span>
+                    <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">{BC_PRICE_FORMATTED}</span>
                     <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs sm:text-sm font-bold">54% {t('off_label') || 'OFF'}</span>
                   </div>
                 </div>
@@ -910,7 +911,7 @@ const Kundli = () => {
                       <span className="text-sm sm:text-base">{t('preparing_analysis') || 'Preparing Analysis...'}</span>
                     </span>
                   ) : (
-                    <span className="text-sm sm:text-base">{t('complete_payment_get_report') || '🚀 Complete Payment & Get Report - ₹599'}</span>
+                    <span className="text-sm sm:text-base">{t('complete_payment_get_report') || `Complete Payment & Get Report`}</span>
                   )}
                 </button>
               </div>
@@ -964,7 +965,7 @@ const Kundli = () => {
         userName={formData.name}
         userEmail={formData.email}
         chartData={analysisData}
-        serviceAmount={t('service_amount') || "₹599"}
+        serviceAmount={BC_PRICE_FORMATTED}
         serviceFeatures={[
           t('detailed_career_guidance_pdf') || "Detailed Career Path Guidance (PDF)",
           t('comprehensive_astrological_analysis') || "Comprehensive Astrological Analysis",

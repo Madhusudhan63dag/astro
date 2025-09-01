@@ -28,7 +28,6 @@ import Numerology from './pages/Horoscope/Numerology';
 import LifePredictions from './pages/Predictions/LifePredictions';
 import PersonalizedReport2025 from './pages/Predictions/PersonalizedReport2025';
 import YearAnalysis from './pages/Predictions/YearAnalysis';
-import DailyHoroscope from './pages/Predictions/DailyHoroscope';
 import LoveReport from './pages/Predictions/LoveReport';
 import CareerReport from './pages/Predictions/CareerReport';
 import NatureReport from './pages/Predictions/NatureReport';
@@ -44,15 +43,14 @@ import Gemstones from './pages/Remedial/Gemstones';
 import Contact from './pages/Contact';
 
 // Pricing Page
-import Pricing from './pages/Pricing';
 import Kundli from './pages/Kundli';
 
 //policy
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
-import Cancellation from './pages/Cancellation';
-import ShippingPolicy from './pages/ShippingPolicy';
+// import Cancellation from './pages/Cancellation';
+// import ShippingPolicy from './pages/ShippingPolicy';
 
 
 function Home() {
@@ -94,7 +92,6 @@ function RouteContainer() {
           <Route path="/" element={<Home />} />
           
           {/* Existing Routes */}
-          <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
           
           {/* Core Horoscope Routes */}
@@ -109,7 +106,6 @@ function RouteContainer() {
           <Route path="/life-predictions" element={<LifePredictions />} />
           <Route path="/2025-predictions" element={<PersonalizedReport2025 />} />
           <Route path="/year-analysis" element={<YearAnalysis />} />
-          <Route path="/daily-horoscope" element={<DailyHoroscope />} />
           <Route path="/love-report" element={<LoveReport />} />
           <Route path="/career-report" element={<CareerReport />} />
           <Route path="/nature-report" element={<NatureReport />} />
@@ -117,13 +113,10 @@ function RouteContainer() {
           
           {/* Remedial Solutions Routes */}
           <Route path="/lal-kitab" element={<LalKitab />} />
-
           <Route path="/sade-sati" element={<SadeSati />} />
           <Route path="/ask-question" element={<AskQuestion />} />
           <Route path="/gemstones" element={<Gemstones />} />
-
           <Route path="/kundli" element={<Kundli />} />
-
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/disclaimer" element={<Disclaimer />} />

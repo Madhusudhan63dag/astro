@@ -1,5 +1,3 @@
-// Centralized price table. Edit this file to change prices or switch location.
-
 export const CURRENT_LOCATION = 'IN'; // Change to 'US' | 'UK' | 'AU' | 'EU' etc.
 
 const LOCATION_CURRENCY = {
@@ -22,7 +20,6 @@ const BASE_PRICES = {
   lifePredictions: 349,
   personalizedReport2025: 349,
   yearAnalysis: 349,
-  dailyHoroscope: 349,
   loveReport:  349,
   careerReport: 349,
   natureReport: 349,
