@@ -15,8 +15,8 @@ const API_URL = API_CONFIG.API_URL;
 
 
 const Kundli = () => {
-  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.careerReport);
-  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.careerReport);
+  const BC_PRICE_NUMBER = getRawPrice(PRICE_KEYS.kundli);
+  const BC_PRICE_FORMATTED = getFormattedPrice(PRICE_KEYS.kundli);
   const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
