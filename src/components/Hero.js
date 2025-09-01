@@ -110,6 +110,7 @@ const ServicesModal = ({ show, onClose }) => {
                 {/* Action Button */}
                 <a
                   href={service.href}
+                  id={service.title}
                   className="block w-full text-center bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-sm py-3 px-4 rounded-lg transition-all duration-300 transform group-hover:scale-105"
                   onClick={onClose}
                 >
@@ -215,7 +216,7 @@ const Hero = () => {
 
   // Show services modal first after 3 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setShowServicesModal(true), 13000);
+    const timer = setTimeout(() => setShowServicesModal(true), 8000);
     return () => clearTimeout(timer);
   }, []);
 
