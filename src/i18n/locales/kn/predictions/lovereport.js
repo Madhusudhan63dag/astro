@@ -67,7 +67,7 @@ export default {
     // Delivery Information
     "delivery_information": "ವಿತರಣಾ ಮಾಹಿತಿ",
     "delivery_time": "ವಿಶ್ಲೇಷಣೆ ವಿತರಣೆ",
-    "within_12_hours_delivery_note": "ನಿಮ್ಮ ವಿಸ್ತೃತ ಪ್ರೇಮ ವರದಿ ೧೨ ಗಂಟೆಗಳೊಳಗೆ ಸಿದ್ಧವಾಗುತ್ತದೆ",
+    "within_12_hours_delivery_note_love": "ನಿಮ್ಮ ವಿಸ್ತೃತ ಪ್ರೇಮ ವರದಿ ೧೨ ಗಂಟೆಗಳೊಳಗೆ ಸಿದ್ಧವಾಗುತ್ತದೆ",
     "whatsapp_notification": "WhatsApp ಅಪ್‌ಡೇಟ್‌ಗಳು",
     "whatsapp_delivery_note": "WhatsApp ನಲ್ಲಿ ತಕ್ಷಣ ಅಧಿಸೂಚನೆಗಳನ್ನು ಸ್ವೀಕರಿಸಿ",
     "email_delivery": "ಇಮೇಲ್ ವಿತರಣೆ",

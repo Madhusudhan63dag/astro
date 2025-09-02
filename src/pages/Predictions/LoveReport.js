@@ -4,9 +4,10 @@ import birthChartImage from '../../assets/services/love.webp';
 import ThankYouPage from '../../components/ThankYouPage';
 import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
-// Removed MUI imports since we're using manual inputs now
-
 const API_URL = API_CONFIG.API_URL;
+
+
+
 
 const LoveReport = () => {
   const { t } = useTranslation();
@@ -517,454 +518,346 @@ const LoveReport = () => {
           onClose={() => setShowThankYou(false)}
         />
       ) : (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 sm:top-20 left-4 sm:left-10 text-4xl sm:text-6xl text-purple-400">✦</div>
-            <div className="absolute top-20 sm:top-40 right-8 sm:right-20 text-3xl sm:text-4xl text-pink-400">✧</div>
-            <div className="absolute bottom-20 sm:bottom-40 left-8 sm:left-20 text-4xl sm:text-5xl text-purple-400">✦</div>
-            <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 text-2xl sm:text-3xl text-pink-400">✧</div>
-            <div className="absolute top-1/2 left-1/4 text-2xl sm:text-3xl text-purple-300">✦</div>
-            <div className="absolute top-1/3 right-1/3 text-xl sm:text-2xl text-pink-300">✧</div>
+        <section className="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+          {/* Live status for accessibility */}
+          <div aria-live="polite" aria-busy={isProcessingPayment || isGenerating ? 'true' : 'false'} className="sr-only">
+            {isProcessingPayment ? (t('processing_payment') || 'Processing Payment') : (isGenerating ? (t('processing_request') || 'Generating Analysis') : '')}
           </div>
 
-          <div className="relative z-10 py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
-            {/* Header Section */}
-            <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-16">
-              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                <span className="text-purple-400">{t('love_report')}</span>
-               
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-2">
-                {t('love_report_description')}
-              </p>
-            </div>
+          {/* Hero: Left content, right image */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: service copy */}
+              <div>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-300 via-rose-300 to-purple-300">
+                    {t('discover_your')} {t('love_report')}
+                  </span>
+                  <span className="block mt-3 text-purple-100/90 text-xl sm:text-2xl">
+                    {t('cosmic_love_insights')}
+                  </span>
+                </h1>
+                <p className="text-base sm:text-lg text-purple-100/90 max-w-2xl mt-5">
+                  {t('love_report_description')}
+                </p>
 
-            <div className="max-w-7xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
-                {/* Left Side - Form */}
-                <div className="space-y-6 sm:space-y-8">
-                  <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                      <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📝</span>
-                      {t('enter_birth_details')}
-                    </h2>
-
-                    {/* Error Display */}
-                    {error && (
-                      <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/50 border border-red-500/50 rounded-lg">
-                        <p className="text-red-300 flex items-center text-sm sm:text-base">
-                          <span className="mr-2">⚠️</span>
-                          {error}
-                        </p>
-                      </div>
-                    )}
-
-                    <form onSubmit={handleGenerateAnalysis} className="space-y-4 sm:space-y-6">
-                      {/* Name Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('full_name')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          placeholder={t('enter_full_name')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                      </div>
-
-                      {/* Email Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('email_address')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder={t('enter_email_address')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                      </div>
-
-                      {/* Phone Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('phone_number')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          placeholder={t('enter_phone_number')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                      </div>
-
-                      {/* Gender Field */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('gender')} <span className="text-pink-400">*</span>
-                        </label>
-                        <select
-                          name="gender"
-                          value={formData.gender}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        >
-                          <option value="male">{t('male')}</option>
-                          <option value="female">{t('female')}</option>
-                          <option value="other">{t('other')}</option>
-                        </select>
-                      </div>
-
-                      {/* Date & Time of Birth - Manual split fields */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-lg mb-3">
-                          {t('date_of_birth') || 'DATE & TIME OF BIRTH'} <span className="text-pink-400">*</span>
-                        </label>
-                        <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
-                          <div className="flex flex-wrap items-center gap-4">
-                            {/* Date: DD / MM / YYYY */}
-                            <div className="flex items-center gap-2">
-                              <input
-                                ref={ddRef}
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="DD"
-                                value={dobDay}
-                                onChange={(e) => {
-                                  onChangeDigits(setDobDay, e.target.value, 2, mmRef);
-                                }}
-                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                              />
-                              <span className="text-gray-400">/</span>
-                              <input
-                                ref={mmRef}
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="MM"
-                                value={dobMonth}
-                                onChange={(e) => {
-                                  onChangeDigits(setDobMonth, e.target.value, 2, yyyyRef);
-                                }}
-                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                              />
-                              <span className="text-gray-400">/</span>
-                              <input
-                                ref={yyyyRef}
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="YYYY"
-                                value={dobYear}
-                                onChange={(e) => {
-                                  onChangeDigits(setDobYear, e.target.value, 4, hhRef);
-                                }}
-                                onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
-                                className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                              />
-                            </div>
-
-                            {/* Time: HH : MM and AM/PM */}
-                            <div className="flex items-center gap-2">
-                              <input
-                                ref={hhRef}
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="HH"
-                                value={tobHour}
-                                onChange={(e) => {
-                                  onChangeDigits(setTobHour, e.target.value, 2, minRef);
-                                }}
-                                onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                              />
-                              <span className="text-gray-400">:</span>
-                              <input
-                                ref={minRef}
-                                type="text"
-                                inputMode="numeric"
-                                placeholder="MM"
-                                value={tobMinute}
-                                onChange={(e) => {
-                                  onChangeDigits(setTobMinute, e.target.value, 2);
-                                }}
-                                onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
-                                className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                              />
-                            </div>
-
-                            {/* AM/PM toggle */}
-                            <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40">
-                              <button
-                                type="button"
-                                onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
-                                className={`px-3 py-2 text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
-                              >
-                                {t('am') || 'AM'}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
-                                className={`px-3 py-2 text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
-                              >
-                                {t('pm') || 'PM'}
-                              </button>
-                            </div>
-                          </div>
-                          <p className="text-gray-400 text-xs mt-3">{t('date_time_hint') || 'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}</p>
-                        </div>
-                        
-                      </div>
-
-                      {/* Time Visualization */}
-                      {formData.timeOfBirth && (
-                        <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
-                          <div className="text-center">
-                            <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">
-                              {(() => {
-                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                if (hour >= 5 && hour < 12) return '🌅';
-                                if (hour >= 12 && hour < 17) return '☀️';
-                                if (hour >= 17 && hour < 21) return '🌆';
-                                return '🌙';
-                              })()}
-                            </div>
-                            <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
-                              {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true
-                              })}
-                            </div>
-                            <div className="text-xs sm:text-sm text-gray-400">
-                              {(() => {
-                                const hour = parseInt(formData.timeOfBirth.split(':')[0]);
-                                if (hour >= 5 && hour < 12) return 'Morning Birth';
-                                if (hour >= 12 && hour < 17) return 'Afternoon Birth';
-                                if (hour >= 17 && hour < 21) return 'Evening Birth';
-                                return 'Night Birth';
-                              })()}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Place of Birth */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('place_of_birth')} <span className="text-pink-400">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          name="placeOfBirth"
-                          value={formData.placeOfBirth}
-                          onChange={handleInputChange}
-                          placeholder={t('place_of_birth_placeholder')}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        />
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                          {t('place_birth_note')}
-                        </p>
-                      </div>
-
-                      {/* Language Selection */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
-                          {t('preferred_language')} <span className="text-pink-400">*</span>
-                        </label>
-                        <select
-                          name="language"
-                          value={formData.language}
-                          onChange={handleInputChange}
-                          className="w-full px-3 sm:px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                          required
-                        >
-                          <option value="en">{t('english')}</option>
-                          <option value="hi">{t('hindi')}</option>
-                          <option value="te">{t('telugu')}</option>
-                          <option value="kn">{t('kannada')}</option>
-                        </select>
-                      </div>
-
-                      {/* Pricing Information */}
-                      <div>
-                        <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-4">
-                          {t('service_price')}
-                        </label>
-                        <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
-                          <div className="text-center">
-                            <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">{t('complete_love_analysis')}</h4>
-                            <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">{BC_PRICE_FORMATTED}</div>
-                            <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('detailed_love_report')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('comprehensive_analysis')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('love_predictions')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('remedial_suggestions')}</span>
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <span className="text-purple-400 flex-shrink-0">✓</span>
-                                <span>{t('pdf_download')}</span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Generate Button */}
-                      <button
-                        type="submit"
-                        disabled={isGenerating || isProcessingPayment}
-                        className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 sm:py-4 rounded-lg text-base sm:text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100"
-                      >
-                        {isProcessingPayment ? (
-                          <span className="flex items-center justify-center">
-                            <svg className="animate-spin -ml-1 mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            {t('processing_payment')}...
-                          </span>
-                        ) : isGenerating ? (
-                          <span className="flex items-center justify-center">
-                            <svg className="animate-spin -ml-1 mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            {t('processing_request')}...
-                          </span>
-                        ) : (
-                          `${t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`
-                        )}
-                      </button>
-                    </form>
+                {/* Advantages/benefits */}
+                <div className="mt-8 grid sm:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <h3 className="text-white font-semibold mb-1">{t('delivery_time') || 'Analysis Delivery'}</h3>
+                    <p className="text-purple-100/90 text-sm">{t('within_12_hours_delivery_note_love')}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <h3 className="text-white font-semibold mb-1">{t('pdf_download')}</h3>
+                    <p className="text-purple-100/90 text-sm">{t('comprehensive_love_analysis_note')}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <h3 className="text-white font-semibold mb-1">{t('romantic_compatibility_score')}</h3>
+                    <p className="text-purple-100/90 text-sm">{t('relationship_potential_insights')}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <h3 className="text-white font-semibold mb-1">{t('marriage_timing_insights')}</h3>
+                    <p className="text-purple-100/90 text-sm">{t('marriage_timing_predictions')}</p>
                   </div>
                 </div>
+              </div>
 
-                {/* Right Side - Visual Content */}
-                <div className="space-y-6 sm:space-y-8">
-                  {!showAnalysis ? (
-                    <>
-                      {/* Sample Chart Display */}
-                      <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <div className="relative">
-                          <img
-                            src={birthChartImage}
-                            alt={t('sample_love_report')}
-                            className="w-full rounded-xl shadow-lg"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-xl"></div>
-                        </div>
-                      </div>
-
-                      {/* Astrological Symbols */}
-                      <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center">
-                          <span className="text-purple-400 mr-2 sm:mr-3 text-lg">🌟</span>
-                          {t('astrological_elements')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☉</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('sun')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☽</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('moon')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♂</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mars')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">☿</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('mercury')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♃</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('jupiter')}</div>
-                          </div>
-                          <div className="text-center p-3 sm:p-4 bg-gray-800/50 rounded-lg border border-purple-600/30">
-                            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 text-purple-400">♀</div>
-                            <div className="text-gray-300 text-xs sm:text-sm">{t('venus')}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    // Generated Chart Result
-                    <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-purple-700/50">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                        <span className="text-purple-400 mr-2 sm:mr-3 text-lg sm:text-xl">📊</span>
-                        {t('your_love_report_status')}
-                      </h3>
-                      <div className="text-center">
-                        <div className="bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-xl p-6 sm:p-8 mb-4 sm:mb-6">
-                          <div className="text-4xl sm:text-6xl text-purple-400 mb-3 sm:mb-4">⏳</div>
-                          <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">
-                            {t('processing_your_chart')}
-                          </h4>
-                          <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">
-                            {t('chart_processing_message')}
-                          </p>
-                          {analysisData && (
-                            <div className="mt-3 sm:mt-4 text-left bg-black/30 rounded-lg p-3 sm:p-4">
-                              <p className="text-gray-400 text-xs sm:text-sm mb-1">
-                                <span className="font-semibold text-white">{t('request_id')}:</span> {analysisData.requestId}
-                              </p>
-                              <p className="text-gray-400 text-xs sm:text-sm">
-                                <span className="font-semibold text-white">{t('status')}:</span> {analysisData.status === 'processing' ? t('processing') : t('pending')}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="space-y-3 sm:space-y-4">
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-blue-400 text-lg flex-shrink-0">📧</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('email_notification_sent')}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-blue-400 text-lg flex-shrink-0">📱</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('whatsapp_update_coming')}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="text-purple-400 text-lg flex-shrink-0">⏰</span>
-                            <span className="text-gray-300 text-xs sm:text-sm">{t('delivery_within_12_hours')}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
+              {/* Right: image */}
+              <div className="relative overflow-hidden rounded-2xl border border-purple-700/40 bg-black/40">
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-purple-400/10 to-pink-400/10" />
+                <img
+                  src={birthChartImage}
+                  alt={t('sample_love_analysis')}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
           </div>
-        </div>
+
+          {/* Form section below (full width) */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
+            <div className="bg-black/60 backdrop-blur-md rounded-2xl p-5 sm:p-7 border border-purple-700/40">
+              <h2 className="text-2xl font-bold text-white mb-5">
+                {t('enter_details_for_love_analysis')}
+              </h2>
+
+              {/* Error */}
+              {error && (
+                <div className="mb-5 p-4 bg-red-900/50 border border-red-500/50 rounded-lg" role="alert">
+                  <p className="text-red-200 text-sm">{error}</p>
+                </div>
+              )}
+
+              {/* Full form (unchanged handlers) */}
+              <form onSubmit={handleGenerateAnalysis} className="space-y-5">
+                {/* Name */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('full_name')} <span className="text-pink-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder={t('enter_full_name')}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('email_address')} <span className="text-pink-400">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder={t('enter_email_address')}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('phone_number')} <span className="text-pink-400">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder={t('enter_phone_number')}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+
+                {/* Gender */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('gender')} <span className="text-pink-400">*</span>
+                  </label>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  >
+                    <option value="male">{t('male')}</option>
+                    <option value="female">{t('female')}</option>
+                    <option value="other">{t('other')}</option>
+                  </select>
+                </div>
+
+                {/* Date & Time split */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-lg mb-3">
+                    {t('date_of_birth')} • {t('time_of_birth')} <span className="text-pink-400">*</span>
+                  </label>
+                  <div className="bg-gray-800/60 border border-purple-600/40 rounded-xl p-4">
+                    <div className="flex flex-wrap items-center gap-4">
+                      {/* Date: DD/MM/YYYY */}
+                      <div className="flex items-center gap-2">
+                        <input
+                          ref={ddRef}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="DD"
+                          value={dobDay}
+                          onChange={(e) => onChangeDigits(setDobDay, e.target.value, 2, mmRef)}
+                          onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                          className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <span className="text-gray-400">/</span>
+                        <input
+                          ref={mmRef}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="MM"
+                          value={dobMonth}
+                          onChange={(e) => onChangeDigits(setDobMonth, e.target.value, 2, yyyyRef)}
+                          onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                          className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <span className="text-gray-400">/</span>
+                        <input
+                          ref={yyyyRef}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="YYYY"
+                          value={dobYear}
+                          onChange={(e) => onChangeDigits(setDobYear, e.target.value, 4, hhRef)}
+                          onBlur={() => updateDateInForm(dobDay, dobMonth, dobYear)}
+                          className="w-24 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                      </div>
+
+                      {/* Time: HH:MM and AM/PM */}
+                      <div className="flex items-center gap-2">
+                        <input
+                          ref={hhRef}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="HH"
+                          value={tobHour}
+                          onChange={(e) => onChangeDigits(setTobHour, e.target.value, 2, minRef)}
+                          onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                          className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <span className="text-gray-400">:</span>
+                        <input
+                          ref={minRef}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="MM"
+                          value={tobMinute}
+                          onChange={(e) => onChangeDigits(setTobMinute, e.target.value, 2)}
+                          onBlur={() => updateTimeInForm(tobHour, tobMinute, tobMeridiem)}
+                          className="w-16 text-center px-3 py-2 rounded-lg bg-gray-900/70 border border-purple-600/40 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                      </div>
+
+                      {/* AM/PM toggle */}
+                      <div className="inline-flex rounded-md overflow-hidden border border-purple-600/40">
+                        <button
+                          type="button"
+                          onClick={() => { setTobMeridiem('AM'); updateTimeInForm(tobHour, tobMinute, 'AM'); }}
+                          className={`px-3 py-2 text-sm ${tobMeridiem === 'AM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                        >
+                          AM
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setTobMeridiem('PM'); updateTimeInForm(tobHour, tobMinute, 'PM'); }}
+                          className={`px-3 py-2 text-sm ${tobMeridiem === 'PM' ? 'bg-purple-600 text-white' : 'bg-gray-900/70 text-gray-200'}`}
+                        >
+                          PM
+                        </button>
+                      </div>
+                    </div>
+                    <p className="text-gray-400 text-xs mt-3">
+                      {'Enter DD/MM/YYYY and HH:MM (12-hour) with AM/PM'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Time visualization (text only) */}
+                {formData.timeOfBirth && (
+                  <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-400/30 rounded-xl p-4 sm:p-6">
+                    <div className="text-center">
+                      <div className="text-xl sm:text-2xl font-bold text-gray-200 mb-1 sm:mb-2">
+                        {new Date(`2000-01-01T${formData.timeOfBirth}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-400">
+                        {(() => {
+                          const hour = parseInt(formData.timeOfBirth.split(':'), 10);
+                          if (hour >= 5 && hour < 12) return 'Morning Birth';
+                          if (hour >= 12 && hour < 17) return 'Afternoon Birth';
+                          if (hour >= 17 && hour < 21) return 'Evening Birth';
+                          return 'Night Birth';
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Place of Birth */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('place_of_birth')} <span className="text-pink-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="placeOfBirth"
+                    value={formData.placeOfBirth}
+                    onChange={handleInputChange}
+                    placeholder={t('place_of_birth_placeholder')}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  />
+                  <p className="text-gray-400 text-xs sm:text-sm mt-2">{t('place_birth_note')}</p>
+                </div>
+
+                {/* Language */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-2">
+                    {t('preferred_language')} <span className="text-pink-400">*</span>
+                  </label>
+                  <select
+                    name="language"
+                    value={formData.language}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-800/80 border border-purple-600/50 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    required
+                  >
+                    <option value="en">{t('english')}</option>
+                    <option value="hi">{t('hindi')}</option>
+                    <option value="te">{t('telugu')}</option>
+                    <option value="kn">{t('kannada')}</option>
+                  </select>
+                </div>
+
+                {/* Pricing */}
+                <div>
+                  <label className="block text-gray-100 font-semibold text-base sm:text-lg mb-4">
+                    {t('service_price')}
+                  </label>
+                  <div className="bg-gradient-to-r from-purple-400/10 to-pink-400/10 border-2 border-purple-400/50 rounded-lg p-4 sm:p-6">
+                    <div className="text-center">
+                      <h4 className="text-lg sm:text-xl font-semibold text-white mb-2">
+                        {t('complete_love_analysis')}
+                      </h4>
+                      <div className="text-3xl sm:text-4xl font-bold text-purple-300 mb-3 sm:mb-4">
+                        {BC_PRICE_FORMATTED}
+                      </div>
+                      <ul className="text-gray-300 text-xs sm:text-sm space-y-2 text-left max-w-sm mx-auto">
+                        <li className="flex items-center gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-purple-400 inline-block"></span>
+                          <span>{t('detailed_love_report')}</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-purple-400 inline-block"></span>
+                          <span>{t('comprehensive_analysis') || t('comprehensive_love_analysis_note')}</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-purple-400 inline-block"></span>
+                          <span>{t('remedial_suggestions') || t('love_enhancing_remedies')}</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="h-1.5 w-1.5 rounded-full bg-purple-400 inline-block"></span>
+                          <span>{t('pdf_download')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <button
+                  type="submit"
+                  disabled={isGenerating || isProcessingPayment}
+                  className="w-full bg-gradient-to-r from-fuchsia-500 to-pink-600 hover:from-fuchsia-600 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-[1.02] disabled:scale-100 shadow-lg"
+                >
+                  {isProcessingPayment
+                    ? `${t('processing_payment')}...`
+                    : isGenerating
+                    ? `${t('processing_request')}...`
+                    : `${t('pay_and_generate_analysis') || t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`}
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
       )}
+
     </div>
   );
 };

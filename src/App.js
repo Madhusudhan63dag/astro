@@ -59,8 +59,8 @@ function Home() {
       <Hero />
       <Two />
       <Services />
-  <Three />
-  <Four />
+      <Three />
+      <Four />
       <Five />
     </div>
   );
@@ -90,7 +90,7 @@ function RouteContainer() {
       <Routes>
           {/* Home Route */}
           <Route path="/" element={<Home />} />
-          
+
           {/* Existing Routes */}
           <Route path="/contact" element={<Contact />} />
           

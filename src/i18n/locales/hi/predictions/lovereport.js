@@ -67,7 +67,7 @@ export default {
     // Delivery Information
     "delivery_information": "डिलीवरी जानकारी",
     "delivery_time": "विश्लेषण डिलीवरी",
-    "within_12_hours_delivery_note": "आपकी विस्तृत प्रेम रिपोर्ट 12 घंटों के भीतर तैयार हो जाएगी",
+    "within_12_hours_delivery_note_love": "आपकी विस्तृत प्रेम रिपोर्ट 24 घंटों के भीतर तैयार हो जाएगी",
     "whatsapp_notification": "व्हाट्सऐप अपडेट",
     "whatsapp_delivery_note": "व्हाट्सऐप पर तुरंत सूचनाएं प्राप्त करें",
     "email_delivery": "ईमेल डिलीवरी",

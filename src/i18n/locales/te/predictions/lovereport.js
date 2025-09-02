@@ -67,7 +67,7 @@ export default {
     // Delivery Information
     "delivery_information": "డెలివరీ సమాచారం",
     "delivery_time": "విశ్లేషణ డెలివరీ",
-    "within_12_hours_delivery_note": "మీ వివరణాత్మక ప్రేమ నివేదిక 12 గంటలలోపు తయారవుతుంది",
+    "within_12_hours_delivery_note_love": "మీ వివరణాత్మక ప్రేమ నివేదిక 24 గంటలలోపు తయారవుతుంది",
     "whatsapp_notification": "వాట్సాప్ అప్‌డేట్‌లు",
     "whatsapp_delivery_note": "వాట్సాప్‌లో తక్షణ నోటిఫికేషన్‌లను అందుకోండి",
     "email_delivery": "ఇమెయిల్ డెలివరీ",

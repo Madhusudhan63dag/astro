@@ -67,7 +67,7 @@ export default {
     // Delivery Information
     "delivery_information": "Delivery Information",
     "delivery_time": "Analysis Delivery",
-    "within_12_hours_delivery_note": "Your detailed love report will be ready within 12 hours",
+    "within_12_hours_delivery_note_love": "Your detailed love report will be ready within 24 hours",
     "whatsapp_notification": "WhatsApp Updates",
     "whatsapp_delivery_note": "Receive instant notifications on WhatsApp",
     "email_delivery": "Email Delivery",
