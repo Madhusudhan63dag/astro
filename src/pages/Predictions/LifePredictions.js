@@ -51,6 +51,9 @@ const LifePredictions = () => {
   const hhRef = useRef(null);
   const minRef = useRef(null);
 
+
+
+  
   // Initialize session tracking
   useEffect(() => {
     setSessionStartTime(Date.now());
@@ -80,13 +83,40 @@ const LifePredictions = () => {
     }
   };
   
+  // const updateTimeInForm = (h, m, mer) => {
+  //   if (!h || !m || h.length < 1 || m.length < 2) {
+  //     setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+  //     return;
+  //   }
+  //   let hh = parseInt(h, 10);
+  //   const mm = parseInt(m, 10);
+  //   if (Number.isNaN(hh) || Number.isNaN(mm)) {
+  //     setFormData(prev => ({ ...prev, timeOfBirth: '' }));
+  //     return;
+  //   }
+  //   // Expect 12-hour input 1-12
+  //   if (hh < 1) hh = 1;
+  //   if (hh > 12) hh = 12;
+  //   const mmClamped = clampNum(mm, 0, 59);
+  //   // Convert to 24h
+  //   let hh24 = hh;
+  //   if (mer === 'AM') {
+  //     if (hh === 12) hh24 = 0;
+  //   } else {
+  //     if (hh !== 12) hh24 = hh + 12;
+  //   }
+  //   const norm = `${String(hh24).padStart(2, '0')}:${String(mmClamped).padStart(2, '0')}`;
+  //   setFormData(prev => ({ ...prev, timeOfBirth: norm }));
+  // };
   const updateTimeInForm = (h, m, mer) => {
-    if (!h || !m || h.length < 1 || m.length < 2) {
+    const hDigits = String(h || '').replace(/\D/g, '');
+    const mDigits = String(m || '').replace(/\D/g, '');
+    if (!hDigits.length) {
       setFormData(prev => ({ ...prev, timeOfBirth: '' }));
       return;
     }
-    let hh = parseInt(h, 10);
-    const mm = parseInt(m, 10);
+    let hh = parseInt(hDigits, 10);
+    let mm = mDigits.length ? parseInt(mDigits, 10) : 0;
     if (Number.isNaN(hh) || Number.isNaN(mm)) {
       setFormData(prev => ({ ...prev, timeOfBirth: '' }));
       return;
@@ -94,7 +124,7 @@ const LifePredictions = () => {
     // Expect 12-hour input 1-12
     if (hh < 1) hh = 1;
     if (hh > 12) hh = 12;
-    const mmClamped = clampNum(mm, 0, 59);
+    const mmClamped = Math.max(0, Math.min(59, mm));
     // Convert to 24h
     let hh24 = hh;
     if (mer === 'AM') {
@@ -105,6 +135,7 @@ const LifePredictions = () => {
     const norm = `${String(hh24).padStart(2, '0')}:${String(mmClamped).padStart(2, '0')}`;
     setFormData(prev => ({ ...prev, timeOfBirth: norm }));
   };
+
 
   // Handlers for digit-only inputs with auto-advance
   const onChangeDigits = (setter, value, maxLen, nextRef) => {
@@ -173,44 +204,89 @@ const LifePredictions = () => {
     });
   };
 
-  // Send abandonment email
-  const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
-    // Prevent multiple abandonment emails
-    if (userAbandoned || paymentCompleted || showThankYou) return;
+  // // Send abandonment email
+  // const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
+  //   // Prevent multiple abandonment emails
+  //   if (userAbandoned || paymentCompleted || showThankYou) return;
     
-    setUserAbandoned(true);
+  //   setUserAbandoned(true);
     
-    try {
-      const abandonmentData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        service: 'your-life',
-        birthDetails: {
-          dateOfBirth: formData.dateOfBirth,
-          timeOfBirth: formData.timeOfBirth,
-          placeOfBirth: formData.placeOfBirth,
-          gender: formData.gender
-        },
-        language: formData.language,
-        abandonmentReason: reason,
-        sessionData: {
-          timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
-          hasUserInteracted: true
-        }
-      };
+  //   try {
+  //     const abandonmentData = {
+  //       name: formData.name,
+  //       email: formData.email,
+  //       phone: formData.phone,
+  //       service: 'your-life',
+  //       birthDetails: {
+  //         dateOfBirth: formData.dateOfBirth,
+  //         timeOfBirth: formData.timeOfBirth,
+  //         placeOfBirth: formData.placeOfBirth,
+  //         gender: formData.gender
+  //       },
+  //       language: formData.language,
+  //       abandonmentReason: reason,
+  //       sessionData: {
+  //         timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
+  //         hasUserInteracted: true
+  //       }
+  //     };
 
-      await fetch(`${API_URL}/abandoned-payment-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(abandonmentData)
-      });
-    } catch (error) {
-      console.error('Error sending abandonment email:', error);
-    }
-  }, [formData, paymentCompleted, sessionStartTime, showThankYou, userAbandoned]);
+  //     await fetch(`${API_URL}/abandoned-payment-email`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(abandonmentData)
+  //     });
+  //   } catch (error) {
+  //     console.error('Error sending abandonment email:', error);
+  //   }
+  // }, [formData, paymentCompleted, sessionStartTime, showThankYou, userAbandoned]);
+
+  // Add at top-level of component
+const abandonmentSentRef = useRef(false);
+
+// Optional: stable session/order key for idempotency
+const sessionIdRef = useRef(`lp_${Date.now()}`); // or use order id when available
+
+const sendAbandonmentEmail = useCallback(async (reason = 'Payment cancelled by user') => {
+  // Synchronous guard to prevent duplicates
+  if (abandonmentSentRef.current || paymentCompleted || showThankYou) return;
+  abandonmentSentRef.current = true; // lock immediately
+  setUserAbandoned(true);
+
+  try {
+    const abandonmentData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: 'your-life',
+      birthDetails: {
+        dateOfBirth: formData.dateOfBirth,
+        timeOfBirth: formData.timeOfBirth,
+        placeOfBirth: formData.placeOfBirth,
+        gender: formData.gender
+      },
+      language: formData.language,
+      abandonmentReason: reason,
+      sessionData: {
+        timeOnPage: sessionStartTime ? Math.floor((Date.now() - sessionStartTime) / 1000) : 0,
+        hasUserInteracted: true
+      },
+      // optional idempotency key for backend
+      idempotencyKey: sessionIdRef.current
+    };
+
+    await fetch(`${API_URL}/abandoned-payment-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(abandonmentData)
+    });
+  } catch (err) {
+    console.error('Error sending abandonment email:', err);
+  }
+}, [formData, paymentCompleted, showThankYou, sessionStartTime]);
+
 
   // Handle payment success
   const handlePaymentSuccess = async (paymentData) => {

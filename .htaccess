@@ -1,8 +1,45 @@
+# -------------------------------
+# Long-lived caching for assets
+# -------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # One year for common static types
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType audio/mpeg "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Add Cache-Control with immutable for versioned static assets
+  <FilesMatch "\.(css|js|png|jpe?g|webp|gif|svg|ico|mp4|mp3|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Revalidate the HTML shell (applies to SPA fallback via env flag below)
+  Header set Cache-Control "no-cache" env=SPA_HTML
+</IfModule>
+
+# -------------------------------
+# SPA rewrites (keep these)
+# -------------------------------
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
-    RewriteRule ^index\.html$ - [L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . /index.html [L]
+  RewriteEngine On
+  RewriteBase /
+
+  # If index.html is requested explicitly, mark it as HTML shell
+  RewriteRule ^index\.html$ - [L,E=SPA_HTML:1]
+
+  # Fallback all non-file/non-dir routes to index.html and mark as HTML shell
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L,E=SPA_HTML:1]
 </IfModule>

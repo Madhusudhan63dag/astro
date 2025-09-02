@@ -2,16 +2,16 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import one from '../assets/review/1.png'
-import two from '../assets/review/2.png'
-import three from '../assets/review/3.png'
-import four from '../assets/review/4.png'
-import five from '../assets/review/5.png'
-import six from '../assets/review/1.png'
-import seven from '../assets/review/2.png'
-import eight from '../assets/review/3.png'
-import nine from '../assets/review/4.png'
-import ten from '../assets/review/5.png'
+import one from '../assets/review/1.svg'
+import two from '../assets/review/2.svg'
+import three from '../assets/review/3.svg'
+import four from '../assets/review/4.svg'
+import five from '../assets/review/5.svg'
+import six from '../assets/review/1.svg'
+import seven from '../assets/review/2.svg'
+import eight from '../assets/review/3.svg'
+import nine from '../assets/review/4.svg'
+import ten from '../assets/review/5.svg'
 
 const testimonials = [
   {
