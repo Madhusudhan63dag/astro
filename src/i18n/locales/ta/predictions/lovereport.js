@@ -52,7 +52,7 @@ export default {
   "marriage_timing_insights": "திருமண கால நுண்ணறிவுகள்",
 
   // Actions & Buttons
-  "pay_and_generate_analysis": "என் காதல் பகுப்பாய்வை பெறவும்",
+  "pay_and_generate_analysis_love": "என் காதல் பகுப்பாய்வை பெறவும்",
   "processing_payment": "கட்டணம் செயலாக்கப்படுகிறது",
   "processing_request": "பகுப்பாய்வு உருவாக்கப்படுகிறது",
 

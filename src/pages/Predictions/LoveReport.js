@@ -839,7 +839,7 @@ const LoveReport = () => {
                     </div>
                   </div>
                 </div>
-
+ 
                 {/* CTA */}
                 <button
                   type="submit"
@@ -850,7 +850,7 @@ const LoveReport = () => {
                     ? `${t('processing_payment')}...`
                     : isGenerating
                     ? `${t('processing_request')}...`
-                    : `${t('pay_and_generate_analysis') || t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`}
+                    : `${t('pay_and_generate_analysis_love') || t('pay_and_generate_chart')} - ${BC_PRICE_FORMATTED}`}
                 </button>
               </form>
             </div>

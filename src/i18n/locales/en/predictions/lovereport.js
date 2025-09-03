@@ -52,7 +52,7 @@ export default {
     "marriage_timing_insights": "Marriage Timing Insights",
 
     // Actions & Buttons
-    "pay_and_generate_analysis": "Get My Love Analysis",
+    "pay_and_generate_analysis_love": "Get My Love Analysis",
     "processing_payment": "Processing Payment",
     "processing_request": "Generating Analysis",
 

@@ -52,7 +52,7 @@ export default {
     "marriage_timing_insights": "వివాహ సమయ అంతర్దృష్టులు",
 
     // Actions & Buttons
-    "pay_and_generate_analysis": "నా ప్రేమ విశ్లేషణ పొందండి",
+    "pay_and_generate_analysis_love": "నా ప్రేమ విశ్లేషణ పొందండి",
     "processing_payment": "చెల్లింపును ప్రాసెస్ చేస్తోంది",
     "processing_request": "విశ్లేషణను రూపొందిస్తోంది",
 

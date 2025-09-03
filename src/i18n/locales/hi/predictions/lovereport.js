@@ -52,7 +52,7 @@ export default {
     "marriage_timing_insights": "विवाह समय अंतर्दृष्टि",
 
     // Actions & Buttons
-    "pay_and_generate_analysis": "मेरा प्रेम विश्लेषण प्राप्त करें",
+    "pay_and_generate_analysis_love": "मेरा प्रेम विश्लेषण प्राप्त करें",
     "processing_payment": "भुगतान प्रसंस्करण",
     "processing_request": "विश्लेषण तैयार की जा रही है",
 

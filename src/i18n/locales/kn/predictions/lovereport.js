@@ -52,7 +52,7 @@ export default {
     "marriage_timing_insights": "ವಿವಾಹ ಸಮಯ ಒಳನೋಟಗಳು",
 
     // Actions & Buttons
-    "pay_and_generate_analysis": "ನನ್ನ ಪ್ರೇಮ ವಿಶ್ಲೇಷಣೆ ಪಡೆಯಿರಿ",
+    "pay_and_generate_analysis_love": "ನನ್ನ ಪ್ರೇಮ ವಿಶ್ಲೇಷಣೆ ಪಡೆಯಿರಿ",
     "processing_payment": "ಪಾವತಿ ಸಂಸ್ಕರಿಸುತ್ತಿದೆ",
     "processing_request": "ವಿಶ್ಲೇಷಣೆ ರಚಿಸುತ್ತಿದೆ",
 
