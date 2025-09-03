@@ -896,6 +896,7 @@ const Kundli = () => {
                 </div>
 
                 <button
+                id="completepayment"
                   onClick={handleGenerateAnalysis}
                   disabled={isGenerating || isProcessingPayment}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-xl"
@@ -1077,6 +1078,7 @@ const Kundli = () => {
                 </div>
                 
                 <button
+                  id='reviewandpay'
                   onClick={() => {
                     // Validation logic for each step
                     if (currentStep === 0 && (!formData.name || !formData.email || !formData.phone)) {
