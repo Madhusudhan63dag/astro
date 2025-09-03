@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ascendantImage from '../../assets/services/ascendant.webp';
 import ThankYouPage from '../../components/ThankYouPage';
-import API_CONFIG from '../api';
 import { getRawPrice, getFormattedPrice, PRICE_KEYS } from '../../config/prices';
-
+import API_CONFIG from '../api';
 const API_URL = API_CONFIG.API_URL;
 
 const Ascendant = () => {
