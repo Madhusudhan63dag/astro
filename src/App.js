@@ -16,6 +16,14 @@ import Two from './components/Two';
 import Three from './components/Three';
 import Loader from './components/Loader';
 
+// Contact Page
+import Contact from './pages/Contact';
+
+// Blog Page
+import Blog from './pages/Blog';
+import BlogPost from './pages/blogs/BlogPost';
+
+
 // Core Horoscope Pages
 import BirthChart from './pages/Horoscope/BirthChart';
 import MatchHoroscope from './pages/Horoscope/MatchHoroscope';
@@ -39,18 +47,15 @@ import SadeSati from './pages/Remedial/SadeSati';
 import AskQuestion from './pages/Remedial/AskQuestion';
 import Gemstones from './pages/Remedial/Gemstones';
 
-// Contact Page
-import Contact from './pages/Contact';
-
-// Pricing Page
+// Full kundli
 import Kundli from './pages/Kundli';
+
 
 //policy
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
-// import Cancellation from './pages/Cancellation';
-// import ShippingPolicy from './pages/ShippingPolicy';
+
 
 
 function Home() {
@@ -90,9 +95,9 @@ function RouteContainer() {
       <Routes>
           {/* Home Route */}
           <Route path="/" element={<Home />} />
-
-          {/* Existing Routes */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} /> 
           
           {/* Core Horoscope Routes */}
           <Route path="/birth-chart" element={<BirthChart />} />
@@ -120,8 +125,6 @@ function RouteContainer() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
-          {/* <Route path="/cancellation" element={<Cancellation />} />
-          <Route path="/shipping-policy" element={<ShippingPolicy />} /> */}
 
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
