@@ -63,7 +63,7 @@ function Home() {
     <div className="min-h-screen bg-transparent">
       <Hero />
       <Two />
-      <Services />
+      {/* <Services /> */}
       <Three />
       <Four />
       <Five />

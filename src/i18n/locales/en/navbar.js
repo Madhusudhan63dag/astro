@@ -1,7 +1,7 @@
 export default {
   // Navigation
   'home': "Home",
-  "detailed": "Detailed Life Report",
+  "detailed": "Complete Report",
   "about": "About", 
   "contact": "Contact",
   "get_reading": "Get Reading",

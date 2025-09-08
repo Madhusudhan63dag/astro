@@ -71,14 +71,22 @@ export default function Footer() {
                     {t('home')}
                   </a>
                 </li>
-                {/* <li>
+                 <li>
                   <a 
-                    href="/about" 
+                    href="/kundli" 
+                    className="hover:text-yellow-300 transition-colors duration-300 block py-1"
+                  >
+                    {t('detailed')}
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://sacredrelm.com/about" 
                     className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                   >
                     {t('about')}
                   </a>
-                </li> */}
+                </li>
                 <li>
                   <a 
                     href="https://sacredrelm.com/contact" 
@@ -91,7 +99,7 @@ export default function Footer() {
             </div>
 
             {/* Core Horoscope */}
-            <div className="text-center sm:text-left">
+            {/* <div className="text-center sm:text-left">
               <h4 className="text-slate-400 uppercase text-xs sm:text-sm font-bold mb-3 sm:mb-4 tracking-wider flex items-center justify-center sm:justify-start">
                 <span className="mr-1 sm:mr-2 text-yellow-400">✦</span> 
                 {t('core_services_footer')}
@@ -146,10 +154,10 @@ export default function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Life Predictions */}
-            <div className="text-center sm:text-left">
+            {/* <div className="text-center sm:text-left">
               <h4 className="text-slate-400 uppercase text-xs sm:text-sm font-bold mb-3 sm:mb-4 tracking-wider flex items-center justify-center sm:justify-start">
                 <span className="mr-1 sm:mr-2">🔮</span> 
                 {t('predictions_footer')}
@@ -171,14 +179,6 @@ export default function Footer() {
                     {t('2025_report_footer')}
                   </a>
                 </li>
-                {/* <li>
-                  <a 
-                    href="/daily-horoscope" 
-                    className="hover:text-yellow-300 transition-colors duration-300 block py-1"
-                  >
-                    {t('daily_horoscope_footer')}
-                  </a>
-                </li> */}
                 <li>
                   <a 
                     href="/love-report" 
@@ -204,10 +204,10 @@ export default function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Remedial Solutions */}
-            <div className="text-center sm:text-left">
+            {/* <div className="text-center sm:text-left">
               <h4 className="text-slate-400 uppercase text-xs sm:text-sm font-bold mb-3 sm:mb-4 tracking-wider flex items-center justify-center sm:justify-start">
                 <span className="mr-1 sm:mr-2">🕉️</span> 
                 {t('remedies_footer')}
@@ -246,7 +246,7 @@ export default function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
 
           {/* Support Section */}

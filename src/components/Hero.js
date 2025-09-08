@@ -6,201 +6,201 @@ import mobile_banner from '../assets/mobile_banner.webp'
 import three from '../assets/8.webp';
 import audio from '../assets/audio.mp3';
 
-const ServicesModal = ({ show, onClose }) => {
-  const { t } = useTranslation();
-  const [randomNumber, setRandomNumber] = useState(0);
+// const ServicesModal = ({ show, onClose }) => {
+//   const { t } = useTranslation();
+//   const [randomNumber, setRandomNumber] = useState(0);
   
-  // Generate random number when modal shows
-  useEffect(() => {
-    if (show) {
-      setRandomNumber(Math.floor(Math.random() * 1000) + 1);
-    }
-  }, [show]);
+//   // Generate random number when modal shows
+//   useEffect(() => {
+//     if (show) {
+//       setRandomNumber(Math.floor(Math.random() * 1000) + 1);
+//     }
+//   }, [show]);
   
-  if (!show) return null;
+//   if (!show) return null;
 
-  const topServices = [
-    {
-      title: t('birth_chart'),
-      description: "Complete birth chart analysis with planetary positions and predictions",
-      href: "/birth-chart",
-      price: "₹349", // You can change this later
-      originalPrice: "₹1999"
-    },
-    {
-      title: t('match_kundli'),
-      description: "Check marriage compatibility and kundli matching for you and your partner",
-      href: "/match-kundli",
-      price: "₹349", // You can change this later
-      originalPrice: "₹1499"
-    },
-    {
-      title: t('your_life_predictions'),
-      description: "Comprehensive life predictions covering all aspects of your future",
-      href: "/life-predictions",
-      price: "₹349", // You can change this later
-      originalPrice: "₹2499"
-    },
-    {
-      title: t('career_guidance'),
-      description: "Professional career insights and guidance for your success",
-      href: "/career-report",
-      price: "₹349", // You can change this later
-      originalPrice: "₹1799"
-    },
-    {
-      title: t('numerology'),
-      description: "Numerological analysis revealing your life path and destiny numbers",
-      href: "/numerology",
-      price: "₹349", // You can change this later
-      originalPrice: "₹1299"
-    }
-  ];
+//   const topServices = [
+//     {
+//       title: t('birth_chart'),
+//       description: "Complete birth chart analysis with planetary positions and predictions",
+//       href: "/birth-chart",
+//       price: "₹349", // You can change this later
+//       originalPrice: "₹1999"
+//     },
+//     {
+//       title: t('match_kundli'),
+//       description: "Check marriage compatibility and kundli matching for you and your partner",
+//       href: "/match-kundli",
+//       price: "₹349", // You can change this later
+//       originalPrice: "₹1499"
+//     },
+//     {
+//       title: t('your_life_predictions'),
+//       description: "Comprehensive life predictions covering all aspects of your future",
+//       href: "/life-predictions",
+//       price: "₹349", // You can change this later
+//       originalPrice: "₹2499"
+//     },
+//     {
+//       title: t('career_guidance'),
+//       description: "Professional career insights and guidance for your success",
+//       href: "/career-report",
+//       price: "₹349", // You can change this later
+//       originalPrice: "₹1799"
+//     },
+//     {
+//       title: t('numerology'),
+//       description: "Numerological analysis revealing your life path and destiny numbers",
+//       href: "/numerology",
+//       price: "₹349", // You can change this later
+//       originalPrice: "₹1299"
+//     }
+//   ];
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300 p-4">
-      <div className="bg-black backdrop-blur-md rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] border-2 border-yellow-400 relative animate-fadeIn overflow-hidden">
-        {/* Close X button */}
-        <button
-          className="absolute top-4 right-4 text-2xl text-yellow-400 hover:text-yellow-300 transition z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
-          onClick={onClose}
-          aria-label="Close"
-        >&times;</button>
+//   return (
+//     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300 p-4">
+//       <div className="bg-black backdrop-blur-md rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] border-2 border-yellow-400 relative animate-fadeIn overflow-hidden">
+//         {/* Close X button */}
+//         <button
+//           className="absolute top-4 right-4 text-2xl text-yellow-400 hover:text-yellow-300 transition z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+//           onClick={onClose}
+//           aria-label="Close"
+//         >&times;</button>
 
-        {/* Header with Random Number */}
-        <div className="text-center p-6 border-b border-yellow-400/30">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Top <span className="text-yellow-400">5 Services</span>
-          </h2>
-          {/* <p className="text-gray-300 text-sm">
-            Discover your cosmic destiny with our most popular reports
-          </p> */}
-        </div>
+//         {/* Header with Random Number */}
+//         <div className="text-center p-6 border-b border-yellow-400/30">
+//           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+//             Top <span className="text-yellow-400">5 Services</span>
+//           </h2>
+//           {/* <p className="text-gray-300 text-sm">
+//             Discover your cosmic destiny with our most popular reports
+//           </p> */}
+//         </div>
 
-        {/* Services Cards Grid */}
-        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-h-96 overflow-y-auto">
-          {topServices.map((service, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-2xl bg-black border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-400/20"
-            >
-              <div className="p-4">
-                {/* Service Title */}
-                <h3 className="text-white font-bold text-lg line-clamp-2">
-                  {service.title}
-                </h3>
+//         {/* Services Cards Grid */}
+//         <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-h-96 overflow-y-auto">
+//           {topServices.map((service, index) => (
+//             <div
+//               key={index}
+//               className="group relative overflow-hidden rounded-2xl bg-black border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-400/20"
+//             >
+//               <div className="p-4">
+//                 {/* Service Title */}
+//                 <h3 className="text-white font-bold text-lg line-clamp-2">
+//                   {service.title}
+//                 </h3>
                 
-                {/* Service Description */}
-                <p className="text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
-                  {service.description}
-                </p>
+//                 {/* Service Description */}
+//                 <p className="text-gray-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+//                   {service.description}
+//                 </p>
                 
-                {/* Price Section - Highlighted */}
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-yellow-400 font-bold text-xl">
-                      {service.price}
-                    </span>
-                    <span className="text-gray-500 text-sm line-through">
-                      {service.originalPrice}
-                    </span>
-                  </div>
-                </div>
+//                 {/* Price Section - Highlighted */}
+//                 <div className="mb-4">
+//                   <div className="flex items-center gap-2 mb-2">
+//                     <span className="text-yellow-400 font-bold text-xl">
+//                       {service.price}
+//                     </span>
+//                     <span className="text-gray-500 text-sm line-through">
+//                       {service.originalPrice}
+//                     </span>
+//                   </div>
+//                 </div>
                 
-                {/* Action Button */}
-                <a
-                  href={service.href}
-                  id={service.title}
-                  className="block w-full text-center bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-sm py-3 px-4 rounded-lg transition-all duration-300 transform group-hover:scale-105"
-                  onClick={onClose}
-                >
-                  Get Report Now
-                </a>
-              </div>
+//                 {/* Action Button */}
+//                 <a
+//                   href={service.href}
+//                   id={service.title}
+//                   className="block w-full text-center bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-sm py-3 px-4 rounded-lg transition-all duration-300 transform group-hover:scale-105"
+//                   onClick={onClose}
+//                 >
+//                   Get Report Now
+//                 </a>
+//               </div>
               
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 bg-yellow-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"></div>
-            </div>
-          ))}
-        </div>
+//               {/* Hover glow effect */}
+//               <div className="absolute inset-0 bg-yellow-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"></div>
+//             </div>
+//           ))}
+//         </div>
 
-        {/* Footer CTA */}
-        <div className="p-6 border-t border-yellow-400/30 text-center">
+//         {/* Footer CTA */}
+//         <div className="p-6 border-t border-yellow-400/30 text-center">
           
-          <div className="text-gray-300 text-sm mb-4 ">
-            <span className="text-yellow-400 font-bold text-xl">
-              Limited Time – Grab Your Detailed Kundli Now!
-            </span>
-          </div>
-          <a
-            href="/kundli"
-            className="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 text-sm"
-            onClick={onClose}
-          >
-            {t('get_my_report')} →
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
+//           <div className="text-gray-300 text-sm mb-4 ">
+//             <span className="text-yellow-400 font-bold text-xl">
+//               Limited Time – Grab Your Detailed Kundli Now!
+//             </span>
+//           </div>
+//           <a
+//             href="/kundli"
+//             className="inline-block bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 text-sm"
+//             onClick={onClose}
+//           >
+//             {t('get_my_report')} →
+//           </a>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 
 
 
-const KundliModal = ({ show, onClose }) => {
-  const { t } = useTranslation();
+// const KundliModal = ({ show, onClose }) => {
+//   const { t } = useTranslation();
   
-  if (!show) return null;
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300 p-4">
-        <div className="bg-black/95 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col lg:flex-row overflow-hidden max-w-4xl w-full max-h-[90vh] border border-gray-700/50 relative animate-fadeIn">
-          {/* Close X button */}
-          <button
-            className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-amber-300 transition z-10"
-            onClick={onClose}
-            aria-label="Close"
-          >&times;</button>
+//   if (!show) return null;
+//     return (
+//       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-all duration-300 p-4">
+//         <div className="bg-black/95 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col lg:flex-row overflow-hidden max-w-4xl w-full max-h-[90vh] border border-gray-700/50 relative animate-fadeIn">
+//           {/* Close X button */}
+//           <button
+//             className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-amber-300 transition z-10"
+//             onClick={onClose}
+//             aria-label="Close"
+//           >&times;</button>
 
-          {/* IMAGE LEFT */}
-          <div className="lg:w-[300px] w-full flex items-center justify-center p-4 lg:p-6">
-            <img
-              src={three}
-              alt="Vedic Kundli Sample"
-              className="object-contain w-full h-48 sm:h-60 lg:h-full rounded-lg max-w-[280px]"
-              style={{ boxShadow: "0 8px 28px rgba(251, 191, 36, 0.3)" }}
-              loading="lazy"
-            />
-          </div>
+//           {/* IMAGE LEFT */}
+//           <div className="lg:w-[300px] w-full flex items-center justify-center p-4 lg:p-6">
+//             <img
+//               src={three}
+//               alt="Vedic Kundli Sample"
+//               className="object-contain w-full h-48 sm:h-60 lg:h-full rounded-lg max-w-[280px]"
+//               style={{ boxShadow: "0 8px 28px rgba(251, 191, 36, 0.3)" }}
+//               loading="lazy"
+//             />
+//           </div>
 
-          {/* CONTENT RIGHT */}
-          <div className="flex-1 flex flex-col justify-between p-4 sm:p-6 lg:px-7">
-            <div>
-              <div className="mb-2 flex items-center gap-2 text-yellow-400 text-sm sm:text-base font-semibold">
-                <span>✦</span> {t('200_pages')} | {t('20_years_predictions')}
-              </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mb-2 tracking-tight">
-                {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
-              </h3>
-              <p className="text-gray-300 mb-4 text-sm sm:text-base leading-relaxed">
-                {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
-              </p>  
-            </div>
-            <a
-              href="/kundli"
-              className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-base sm:text-lg transition-all duration-300 transform hover:scale-105"
-            >
-              {t('check_sample_kundli')}
-            </a>
-          </div>
-        </div>
-      </div>
-    );
-};  
+//           {/* CONTENT RIGHT */}
+//           <div className="flex-1 flex flex-col justify-between p-4 sm:p-6 lg:px-7">
+//             <div>
+//               <div className="mb-2 flex items-center gap-2 text-yellow-400 text-sm sm:text-base font-semibold">
+//                 <span>✦</span> {t('200_pages')} | {t('20_years_predictions')}
+//               </div>
+//               <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mb-2 tracking-tight">
+//                 {t('personalized_kundli')}—<span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">{t('most_detailed_india')}</span>
+//               </h3>
+//               <p className="text-gray-300 mb-4 text-sm sm:text-base leading-relaxed">
+//                 {t('cosmic_blueprint_description')} <span className="font-semibold text-yellow-400">{t('200_pages')}</span> {t('predictions_doshas_remedies')} <b>{t('customized_for_you')}</b>.
+//               </p>  
+//             </div>
+//             <a
+//               href="/kundli"
+//               className="inline-block w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-black font-bold shadow-lg rounded-lg py-3 text-center text-base sm:text-lg transition-all duration-300 transform hover:scale-105"
+//             >
+//               {t('check_sample_kundli')}
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+//     );
+// };  
 
 const Hero = () => {
   const { t } = useTranslation();
-  const [showKundliModal, setShowKundliModal] = useState(false);
+  const [showKundliModal, setShowKundliModal] = useState(true);
   const [showServicesModal, setShowServicesModal] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -566,10 +566,10 @@ const Hero = () => {
       </section>
       
       {/* Services Modal (shows first) */}
-      <ServicesModal show={showServicesModal} onClose={handleServicesModalClose} />
+      {/* <ServicesModal show={showServicesModal} onClose={handleServicesModalClose} /> */}
       
       {/* Kundli Modal (shows after services modal is closed + 2 seconds) */}
-      <KundliModal show={showKundliModal} onClose={handleKundliModalClose} />
+      {/* <KundliModal show={showKundliModal} onClose={handleKundliModalClose} /> */}
     </div>
   );
 };

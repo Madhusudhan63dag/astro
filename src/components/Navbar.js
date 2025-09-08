@@ -97,7 +97,7 @@ const AstroNavbar = () => {
   ];
 
   return (
-    <>
+    <div>
       {/* Add custom CSS for continuous animation */}
       <style jsx>{`
         @keyframes breathe {
@@ -166,43 +166,6 @@ const AstroNavbar = () => {
               <a href="/kundli" className="text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium text-sm xl:text-sm">
                 {t('detailed')}
               </a>
-
-              {navItems.map((item) => (
-                <div 
-                  key={item.key} 
-                  className="relative group"
-                  onMouseEnter={() => handleMouseEnter(item.key)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <button className="flex items-center space-x-1 xl:space-x-2 text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium py-2 text-sm xl:text-base">
-                    <span className="text-xs xl:text-sm">{item.icon}</span>
-                    <span className="whitespace-nowrap text-sm">{item.title}</span>
-                    <svg className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 ${activeDropdown === item.key ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-
-                  {/* Desktop Dropdown Menu */}
-                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 xl:w-72 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-amber-200/50 transition-all duration-300 ${
-                    activeDropdown === item.key ? 'opacity-100 visible transform translate-y-0 -translate-x-1/2' : 'opacity-0 invisible transform -translate-y-2 -translate-x-1/2'
-                  }`}>
-                    <div className="p-3 xl:p-4 space-y-1 xl:space-y-2">
-                      {item.items.map((subItem, index) => (
-                        <a
-                          key={index}
-                          href={subItem.href}
-                          className="flex items-center justify-between px-2 xl:px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50/70 rounded-lg transition-all duration-200 group"
-                        >
-                          <span className="text-xs xl:text-sm">{subItem.name}</span>
-                          <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                          </svg>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
 
               {/* Desktop Language Selector with Continuous Animation */}
               <div 
@@ -284,7 +247,7 @@ const AstroNavbar = () => {
               </a>
 
               {/* Mobile Dropdown Items */}
-              {navItems.map((item) => (
+              {/* {navItems.map((item) => (
                 <div key={item.key} className="mx-2">
                   <button
                     onClick={() => setActiveDropdown(activeDropdown === `mobile-${item.key}` ? null : `mobile-${item.key}`)}
@@ -298,8 +261,6 @@ const AstroNavbar = () => {
                       <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </button>
-
-                  {/* Mobile Submenu */}
                   <div className={`transition-all duration-300 ease-in-out ${
                     activeDropdown === `mobile-${item.key}` 
                       ? 'max-h-96 opacity-100 mt-1' 
@@ -324,7 +285,7 @@ const AstroNavbar = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
 
               {/* Mobile Language Selector with Continuous Animation */}
               <div className="mx-2">
@@ -374,7 +335,7 @@ const AstroNavbar = () => {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 };
 
