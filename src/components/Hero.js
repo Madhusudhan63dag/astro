@@ -470,7 +470,7 @@ const Hero = () => {
       {/* Hidden audio element */}
       <audio
         ref={audioRef}
-        preload="auto"
+        preload="none"     // was "auto"
         loop
       >
         <source src={audio} type="audio/mpeg" />
