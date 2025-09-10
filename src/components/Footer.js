@@ -256,11 +256,8 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base">
               <li>
-                <a 
-                  href="mailto:sriastroveda@gmail.com" 
-                  className="hover:text-yellow-300 transition-colors duration-300 block py-1 break-all"
-                >
-                  sriastroveda@gmail.com
+                <a href="mailto:hello@sriastroveda.com"  className="hover:text-yellow-300 transition-colors duration-300 block py-1 break-all">
+                  hello@sriastroveda.com
                 </a>
               </li>
               <li>

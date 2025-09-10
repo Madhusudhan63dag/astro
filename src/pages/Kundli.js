@@ -353,55 +353,142 @@ const Kundli = () => {
 
   // Initialize Razorpay payment
   // Enhanced initializePayment with better abandonment tracking
+  // const initializePayment = async (orderData) => {
+  //   const res = await loadRazorpay();
+  //   if (!res) {
+  //     setError(t('failed_to_load_payment') || 'Failed to load payment gateway. Please try again.');
+  //     return;
+  //   }
+
+  //   setPaymentInProgress(true);
+
+  //   const options = {
+  //     key: orderData.key,
+  //     amount: orderData.order.amount,
+  //     currency: orderData.order.currency,
+  //     name: 'SriAstroVeda',
+  //     description: t('complete_kundli_report') || 'Birth Chart Analysis - Complete Kundli Report',
+  //     image: '/logo192.png',
+  //     order_id: orderData.order.id,
+  //     prefill: {
+  //       name: formData.name,
+  //       email: formData.email,
+  //       contact: formData.phone,
+  //     },
+  //     theme: {
+  //       color: '#06B6D4'
+  //     },
+  //     modal: {
+  //       ondismiss: () => {
+  //         if (paymentInProgress && !paymentCompleted) {
+  //           setPaymentInProgress(false);
+  //           setIsProcessingPayment(false);
+  //           setIsGenerating(false);
+            
+  //           // Send abandonment email when modal is dismissed
+  //           sendAbandonmentEmail(t('user_closed_payment_modal') || 'User closed payment modal without completing payment');
+  //         }
+  //       }
+  //     },
+  //     handler: handlePaymentSuccess,
+  //     timeout: 300,
+  //   };
+
+  //   const razorpay = new window.Razorpay(options);
+    
+  //   razorpay.on('payment.failed', handlePaymentFailure);
+    
+  //   try {
+  //     razorpay.open();
+  //   } catch (error) {
+  //     console.error('Error opening Razorpay:', error);
+  //     setPaymentInProgress(false);
+  //     setIsProcessingPayment(false);
+  //     setIsGenerating(false);
+  //     sendAbandonmentEmail(t('error_opening_payment_gateway') || 'Error opening payment gateway');
+  //     setError(t('failed_to_open_payment_gateway') || 'Failed to open payment gateway. Please try again.');
+  //   }
+  // };
+  // Complete, hardened version
   const initializePayment = async (orderData) => {
-    const res = await loadRazorpay();
-    if (!res) {
+    // 1) Ensure the Razorpay script is loaded
+    const loaded = await loadRazorpay();
+    if (!loaded || !window.Razorpay) {
       setError(t('failed_to_load_payment') || 'Failed to load payment gateway. Please try again.');
       return;
     }
 
     setPaymentInProgress(true);
 
-    const options = {
-      key: orderData.key,
-      amount: orderData.order.amount,
-      currency: orderData.order.currency,
-      name: 'SriAstroVeda',
-      description: t('complete_kundli_report') || 'Birth Chart Analysis - Complete Kundli Report',
-      image: '/logo192.png',
-      order_id: orderData.order.id,
-      prefill: {
-        name: formData.name,
-        email: formData.email,
-        contact: formData.phone,
-      },
-      theme: {
-        color: '#06B6D4'
-      },
-      modal: {
-        ondismiss: () => {
-          if (paymentInProgress && !paymentCompleted) {
-            setPaymentInProgress(false);
-            setIsProcessingPayment(false);
-            setIsGenerating(false);
-            
-            // Send abandonment email when modal is dismissed
-            sendAbandonmentEmail(t('user_closed_payment_modal') || 'User closed payment modal without completing payment');
-          }
-        }
-      },
-      handler: handlePaymentSuccess,
-      timeout: 300,
-    };
-
-    const razorpay = new window.Razorpay(options);
-    
-    razorpay.on('payment.failed', handlePaymentFailure);
-    
     try {
-      razorpay.open();
-    } catch (error) {
-      console.error('Error opening Razorpay:', error);
+      // 2) Normalize server response shape
+      // Expect either { success, key, order: { id, amount, currency, ... } }
+      // or directly an Order object at the top-level.
+      const key =
+        orderData?.key ??
+        orderData?.key_id ??
+        orderData?.keyId ??
+        orderData?.razorpayKeyId; // support multiple naming styles
+      const order = orderData?.order ?? orderData; // support { order } or top-level order
+      const orderId = order?.id ?? order?.order_id;
+      const amount = order?.amount;    // must be in subunits (paise) as returned by Orders API
+      const currency = order?.currency ?? 'INR';
+
+      // 3) Validate required fields
+      if (!key) {
+        throw new Error('Missing Razorpay Key ID (key/key_id) in server response');
+      }
+      if (!orderId) {
+        throw new Error('Missing Razorpay order id in server response');
+      }
+      if (typeof amount !== 'number' || !currency) {
+        throw new Error('Missing or invalid amount/currency in server response');
+      }
+
+      // 4) Optional sanity checks to catch Live/Test mismatches in production
+      if (process.env.NODE_ENV === 'production' && key.startsWith('rzp_test_')) {
+        console.warn('Razorpay: Using a Test Key in production. Switch to Live Key ID.');
+      }
+
+      // 5) Build Checkout options as per Razorpay docs
+      const options = {
+        key,                       // REQUIRED: Key ID from Dashboard
+        order_id: orderId,         // REQUIRED: id returned by Orders API
+        amount,                    // REQUIRED: amount in subunits, echoing the order.amount
+        currency,                  // REQUIRED: currency for the order
+        name: 'SriAstroVeda',
+        description: t('complete_kundli_report') || 'Birth Chart Analysis - Complete Kundli Report',
+        image: '/logo192.png',
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: { color: '#06B6D4' },
+        // Keep abandonment tracking; guarded to avoid multiple sends
+        modal: {
+          ondismiss: () => {
+            if (paymentInProgress && !paymentCompleted) {
+              setPaymentInProgress(false);
+              setIsProcessingPayment(false);
+              setIsGenerating(false);
+              sendAbandonmentEmail(
+                t('user_closed_payment_modal') || 'User closed payment modal without completing payment'
+              );
+            }
+          },
+        },
+        // On success, Razorpay returns razorpay_payment_id, razorpay_order_id, razorpay_signature
+        handler: handlePaymentSuccess,
+        timeout: 300, // seconds
+      };
+
+      // 6) Initialize and open Checkout
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', handlePaymentFailure);
+      rzp.open();
+    } catch (err) {
+      console.error('Error initializing Razorpay Checkout:', err);
       setPaymentInProgress(false);
       setIsProcessingPayment(false);
       setIsGenerating(false);
@@ -409,6 +496,7 @@ const Kundli = () => {
       setError(t('failed_to_open_payment_gateway') || 'Failed to open payment gateway. Please try again.');
     }
   };
+
 
   // Main form submission handler
   const handleGenerateAnalysis = async (e) => {
@@ -869,7 +957,6 @@ const Kundli = () => {
                   <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
                     <span className="text-xl sm:text-2xl text-slate-500 line-through">₹1,299</span>
                     <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">{BC_PRICE_FORMATTED}</span>
-                    <span className="bg-red-500 text-white px-2 py-1 rounded-full text-xs sm:text-sm font-bold">54% {t('off_label') || 'OFF'}</span>
                   </div>
                 </div>
 
