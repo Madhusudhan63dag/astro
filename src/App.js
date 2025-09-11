@@ -93,13 +93,13 @@ function RouteContainer() {
       <Loader show={loading} />
       <Navbar />
       <Routes>
-          {/* Home Route */}
+
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/kundli" element={<Kundli />} />
+          {/* <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} /> 
           
-          {/* Core Horoscope Routes */}
           <Route path="/birth-chart" element={<BirthChart />} />
           <Route path="/match-kundli" element={<MatchHoroscope />} />
           <Route path="/ascendant" element={<Ascendant />} />
@@ -107,7 +107,6 @@ function RouteContainer() {
           <Route path="/nakshatra" element={<Nakshatra />} />
           <Route path="/numerology" element={<Numerology />} />
           
-          {/* Life Predictions Routes */}
           <Route path="/life-predictions" element={<LifePredictions />} />
           <Route path="/2025-predictions" element={<PersonalizedReport2025 />} />
           <Route path="/year-analysis" element={<YearAnalysis />} />
@@ -116,17 +115,14 @@ function RouteContainer() {
           <Route path="/nature-report" element={<NatureReport />} />
           <Route path="/health-report" element={<HealthReport />} />
           
-          {/* Remedial Solutions Routes */}
           <Route path="/lal-kitab" element={<LalKitab />} />
           <Route path="/sade-sati" element={<SadeSati />} />
           <Route path="/ask-question" element={<AskQuestion />} />
           <Route path="/gemstones" element={<Gemstones />} />
-          <Route path="/kundli" element={<Kundli />} />
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms-of-service" element={<Terms />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/disclaimer" element={<Disclaimer />} /> */}
 
-          {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
