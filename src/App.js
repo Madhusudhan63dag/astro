@@ -55,6 +55,7 @@ import Kundli from './pages/Kundli';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
+import Thank from './pages/Thank';
 
 
 
@@ -97,6 +98,7 @@ function RouteContainer() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/kundli" element={<Kundli />} />
+          <Route path="/thank-you" element={<Thank />} />
           {/* <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} /> 
           
