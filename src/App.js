@@ -125,7 +125,7 @@ function RouteContainer() {
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/disclaimer" element={<Disclaimer />} /> */}
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
         </Routes>
         <Footer />
     </div>
