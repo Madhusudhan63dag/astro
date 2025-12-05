@@ -32,7 +32,7 @@ const BASE_PRICES = {
   gemstones: 349,
 
   // Other
-  kundli: 349,
+  kundli: 10,
 };
 
 

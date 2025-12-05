@@ -148,7 +148,7 @@ const AstroNavbar = () => {
             {/* Logo Section */}
             <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
               <div>
-                <a href="https://sacredrelm.com" className='flex flex-col items-center justify-center'>
+                <a href="/" className='flex flex-col items-center justify-center'>
                   <img 
                     src={logovideo} 
                     className="h-14 sm:h-14 lg:h-20 w-auto object-contain" 

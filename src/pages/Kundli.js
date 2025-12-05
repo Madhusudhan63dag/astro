@@ -360,7 +360,7 @@ const DateTimeOfBirthInput = ({ value, onChange }) => {
 const AstroFeatureSection = ({ imageUrl = services }) => {
   const { t } = useTranslation();
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-900 via-slate-900/70 to-slate-800 p-8 sm:p-12 shadow-2xl">
+    <section className="relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-900 via-slate-900/70 to-slate-800 p-0 md:p-8 lg:p-8 sm:p-12 shadow-2xl">
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-cyan-500/10 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full blur-3xl" />
       
@@ -412,12 +412,6 @@ const AstroFeatureSection = ({ imageUrl = services }) => {
             </li>
           </ul>
           
-          {/* <a href="#pay" className="inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-600 px-8 py-4 font-bold text-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/25 hover:scale-105 focus:outline-none">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            {t('get_my_report', { defaultValue: 'Get My Report' })}
-          </a> */}
         </div>
         
         <div className="relative">
@@ -782,13 +776,13 @@ const BrandNeutralKundli = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 py-10 px-3">
-      <div className="max-w-6xl mx-auto space-y-12">
-        <AstroFeatureSection />
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-cyan-950 to-slate-900 py-10 px-0 md:px-3 lg:px-3">
+      <div className=" space-y-12">
+        {/* <AstroFeatureSection /> */}
         
         <section id="pay" className="bg-slate-900/80 backdrop-blur-xl border border-cyan-500/15 rounded-3xl p-8 sm:p-10 shadow-2xl">
           {/* Header */}
-          <div className="text-center mb-10">
+          {/* <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 mb-4">
               <svg className="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -809,10 +803,10 @@ const BrandNeutralKundli = () => {
                 defaultValue: 'Personalized Vedic astrology report covering career, relationships, health, and remedies — delivered within 24 hours.'
               })}
             </p>
-          </div>
+          </div> */}
 
-          <WhatYoullGetSection />
-          <ReportFormatSection />
+          {/* <WhatYoullGetSection />
+          <ReportFormatSection /> */}
 
           {error && (
             <div className="mb-6 p-4 rounded-xl bg-red-900/50 border border-red-500/50 text-red-200 flex items-center gap-3">
@@ -972,7 +966,7 @@ const BrandNeutralKundli = () => {
 
             {/* Enhanced Price Summary */}
             <div className="bg-gradient-to-r from-orange-900/20 to-red-900/20 border-2 border-orange-500/30 rounded-2xl p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-col md:flex-row lg:flex-row">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
                     <svg className="w-6 h-6 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
@@ -981,15 +975,15 @@ const BrandNeutralKundli = () => {
                   </div>
                   <div>
                     <h4 className="text-white font-bold text-lg">{t('career_path_analysis', { defaultValue: 'Complete Life Analysis Report' })}</h4>
-                    <p className="text-slate-300 text-sm">200+ pages • Digital PDF • 24-hour delivery</p>
+                    <p className="text-slate-300 text-sm">• Digital PDF • 24-hour delivery</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="flex items-center gap-3">
-                    <span className="text-slate-400 line-through text-lg">₹1,299</span>
+                    <span className="text-slate-400 line-through text-lg">₹990</span>
                     <span className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">{PRICE_FORMATTED}</span>
                   </div>
-                  <div className="text-green-400 text-sm font-medium">Save ₹700 Today!</div>
+                  <div className="text-green-400 text-sm font-medium">Save ₹541 Today!</div>
                 </div>
               </div>
             </div>

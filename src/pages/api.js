@@ -1,7 +1,7 @@
 export default {
-    API_URL: 'https://astro-api-2wkr.onrender.com'
+    API_URL: 'https://astro-api-lovat.vercel.app'
 }
 
-// https://astro-api-2wkr.onrender.com
+// https://astro-api-lovat.vercel.app
 
 

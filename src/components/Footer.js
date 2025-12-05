@@ -14,7 +14,7 @@ export default function Footer() {
           
           {/* Brand and tagline */}
           <div className="flex flex-col items-center lg:items-start lg:max-w-xs">
-            <a href="https://sacredrelm.com" className="flex flex-col items-center justify-center mb-3 sm:mb-4">
+            <a href="/" className="flex flex-col items-center justify-center mb-3 sm:mb-4">
               <img 
                 src={logo} 
                 alt="SriAstroVeda Logo" 
@@ -79,7 +79,7 @@ export default function Footer() {
                     {t('detailed')}
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a 
                     href="https://sacredrelm.com/about" 
                     className="hover:text-yellow-300 transition-colors duration-300 block py-1"
@@ -94,7 +94,7 @@ export default function Footer() {
                   >
                     {t('contact')}
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
 
@@ -262,10 +262,10 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="tel:+919392277389" 
+                  href="tel:+919908030444" 
                   className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                 >
-                  +91 93922 77389
+                  +91 99080 30444
                 </a>
               </li>
               <li>

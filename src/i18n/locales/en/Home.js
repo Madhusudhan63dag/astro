@@ -7,9 +7,9 @@ const translations = {
   "view_sample": "View Sample Report",
 
   // Features
-  "detailed_reports": "2025 Personalized Life Report",
-  "horoscope_matching": "Kundli Matching",
-  "astrology_systems": "Birth Chart, Numerology, Dasha & More",
+  "detailed_reports": "2026 Personalized Life Report",
+  // "horoscope_matching": "Kundli Matching",
+  // "astrology_systems": "Birth Chart, Numerology, Dasha & More",
  
   // Modal
   "200_pages": "200+ Insightful Pages",
@@ -72,9 +72,9 @@ const translations = {
     "love_desc": "Understand your love life, relationship compatibility, and future romance.",
     "check_love_life": "Check Love Life",
 
-    "2025_personalized_report": "2025 Personalized Report",
-    "2025_report_desc": "Detailed yearly forecast tailored to your birth details.",
-    "get_2025_report": "Get 2025 Report",
+    "2026_personalized_report": "2026 Personalized Report",
+    "2026_report_desc": "Detailed yearly forecast tailored to your birth details.",
+    "get_2026_report": "Get 2026 Report",
 
     "dasha_phal_analysis": "Dasha Phal Analysis",
     "dasha_analysis_desc": "Understand the impact of planetary periods (Dashas) on your life.",
@@ -312,7 +312,7 @@ const translations = {
     "unlimited_kundlis_answer": "Yes! You can submit details for as many individuals as you like. Each request will be carefully prepared and delivered as a personalized PDF report.",
 
     "kundli_reports_question": "What’s included in the Kundli reports?",
-    "kundli_reports_answer": "Each report is a **professionally prepared 200+ page PDF** covering Birth Chart, Ascendant Analysis, Dasha, Gochar, Nakshatra, Numerology, Love & Career Guidance, Health Index, Lal Kitab Remedies, and more.",
+    "kundli_reports_answer": "Each report is a **professionally prepared PDF** covering Birth Chart, Ascendant Analysis, Dasha, Gochar, Nakshatra, Numerology, Love & Career Guidance, Health Index, Lal Kitab Remedies, and more.",
 
     "saving_notes_question": "Can I get session notes or remedies added?",
     "saving_notes_answer": "Absolutely. If you want specific remedies, follow-up notes, or additional observations included, simply mention them during your request.",

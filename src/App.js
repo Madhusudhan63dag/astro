@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import routesSchema from "./config/routesSchema";
 import './i18n'
 
 // Navigation Components
@@ -56,6 +57,8 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
 import Thank from './pages/Thank';
+import KundliFillupForm from './pages/Form';
+import ThankYouPage from './pages/Thankyou';
 
 
 
@@ -94,12 +97,25 @@ function RouteContainer() {
       <Loader show={loading} />
       <Navbar />
       <Routes>
-
+          {routesSchema.core.map((route, i) => (
+            <Route
+              key={i}
+              path={route.path}
+              element={
+                route.component === "Home" ? <Home /> :
+                route.component === "Contact" ? <Contact /> :
+                route.component === "Kundli" ? <Kundli /> :
+                route.component === "Thank" ? <Thank /> :
+                null
+              }
+            />
+          ))}
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/kundli" element={<Kundli />} />
           <Route path="/thank-you" element={<Thank />} />
-          {/* <Route path="/blog" element={<Blog />} />
+          <Route path="/form" element={<KundliFillupForm />} />
+          <Route path="/thank" element={<ThankYouPage />} />          {/* <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} /> 
           
           <Route path="/birth-chart" element={<BirthChart />} />

@@ -8,7 +8,7 @@ const enKundli = {
   // Header & hero
   "cosmic_career": "Personalized Kundli Report",
   "journey": "Your Complete Life Prediction",
-  "discover_professional_destiny": "200+ page detailed astrology report with everything about your life path — delivered as PDF via WhatsApp or Email within 24 hours.",
+  "discover_professional_destiny": "detailed astrology report with everything about your life path — delivered as PDF via WhatsApp or Email within 24 hours.",
 
   // Form labels
   "full_name": "Full Name",
@@ -36,7 +36,7 @@ const enKundli = {
 
   // Benefits (what you'll receive)
   "what_youll_receive": "✨ What You'll Get in Your Report",
-  "life_kundali_20_years": "A 200+ page detailed astrology report with everything about your life path.",
+  "life_kundali_20_years": "A detailed astrology report with everything about your life path.",
   "detailed_career_path_analysis": "Covers career, health, relationships, wealth, and remedies in detail.",
   "planetary_position_interpretations": "Includes charts, yogas, dashas, timelines, transits, and planetary positions explained clearly.",
   "dasha_system_predictions": "Easy-to-read sections with structured guidance and visual tables.",
@@ -52,7 +52,7 @@ const enKundli = {
 
   // Pricing/checkout
   "unlock_your_destiny_title": "Unlock Your Destiny",
-  "complete_cosmic_journey_desc": "Fill your details & receive your personalized 200+ page astrology report.",
+  "complete_cosmic_journey_desc": "Fill your details & receive your personalized detailed astrology report.",
   "premium": "Premium Kundli Report",
   "career_path_analysis": "Complete Life Prediction Report",
   "processing_payment": "Processing payment...",
@@ -72,7 +72,7 @@ const enKundli = {
 
   // Service details
   "birth_chart_analysis": "Personalized Life Report",
-  "complete_kundli_report": "200+ Page Vedic Astrology Report - All Life Areas Covered",
+  "complete_kundli_report": " Vedic Astrology Report - All Life Areas Covered",
   "service_amount": "₹599",
 
   "advanced_astrology_suite": "Advanced Kundli Suite",
@@ -97,7 +97,7 @@ export default enKundli;
 //   // Header & hero
 //   "cosmic_career": "Personalized Kundli Report",
 //   "journey": "Your Complete Life Prediction",
-//   "discover_professional_destiny": "200+ page Vedic astrology report covering career, health, relationships, wealth & remedies — delivered in 24 hours.",
+//   "discover_professional_destiny": " Vedic astrology report covering career, health, relationships, wealth & remedies — delivered in 24 hours.",
 
 //   // Form labels
 //   "full_name": "Full Name",
@@ -125,7 +125,7 @@ export default enKundli;
 
 //   // Benefits (what you'll receive)
 //   "what_youll_receive": "What’s Inside Your Report",
-//   "life_kundali_20_years": "Comprehensive Kundli with 200+ pages of life analysis covering career, health, wealth & relationships.",
+//   "life_kundali_20_years": "Comprehensive Kundli with  of life analysis covering career, health, wealth & relationships.",
 //   "detailed_career_path_analysis": "Detailed charts, yogas, dashas, timelines & transits explained clearly.",
 //   "planetary_position_interpretations": "Accurate planetary interpretations with structured & easy-to-read sections.",
 //   "dasha_system_predictions": "Dasha & transit-based predictions to plan decisions with right timing.",
@@ -134,7 +134,7 @@ export default enKundli;
 
 //   // Pricing/checkout
 //   "unlock_your_destiny_title": "Unlock Your Destiny",
-//   "complete_cosmic_journey_desc": "Fill your details & receive your personalized 200+ page astrology report.",
+//   "complete_cosmic_journey_desc": "Fill your details & receive your personalized  astrology report.",
 //   "premium": "Premium Kundli Report",
 //   "career_path_analysis": "Complete Life Prediction Report",
 //   "processing_payment": "Processing payment...",
@@ -154,7 +154,7 @@ export default enKundli;
 
 //   // Service details
 //   "birth_chart_analysis": "Personalized Life Report",
-//   "complete_kundli_report": "200+ Page Vedic Astrology Report - All Life Areas Covered",
+//   "complete_kundli_report": " Vedic Astrology Report - All Life Areas Covered",
 //   "service_amount": "₹599",
 
 //   "advanced_astrology_suite": "Advanced Kundli Suite",
@@ -176,7 +176,7 @@ export default enKundli;
 //   "payment_failed_message": "Payment failed. Please try again or contact support.",
 
 //   // Header & hero
-//   "cosmic_career": "200+ Page Kundli Report",
+//   "cosmic_career": " Kundli Report",
 //   "journey": "Your Complete Life Analysis",
 //   "discover_professional_destiny": "Personalized Vedic astrology report covering career, relationships, health, and remedies — delivered within 24 hours.",
 
@@ -207,7 +207,7 @@ export default enKundli;
 //   // Benefits (what you'll receive)
 //   "what_youll_receive": "What You'll Receive",
 //   "life_kundali_20_years": "Comprehensive Kundli with multi‑year timelines and guidance for career, relationships, health, and finances.",
-//   "detailed_career_path_analysis": "200+ page PDF with charts, yogas, dashas, transits, and visual explanations.",
+//   "detailed_career_path_analysis": " PDF with charts, yogas, dashas, transits, and visual explanations.",
 //   "planetary_position_interpretations": "Clear interpretations of planetary positions and houses with structured, easy‑to‑read sections.",
 //   "dasha_system_predictions": "Dasha and transit‑based predictions to plan decisions with timing insights.",
 //   "personalized_remedial_suggestions": "Personalized remedies and gemstone suggestions to balance challenging periods.",
@@ -215,11 +215,11 @@ export default enKundli;
 
 //   // Pricing/checkout
 //   "unlock_your_destiny_title": "Get Your Full Report",
-//   "complete_cosmic_journey_desc": "Complete the form and receive your personalized 200+ page astrology report.",
+//   "complete_cosmic_journey_desc": "Complete the form and receive your personalized  astrology report.",
 //   "premium": "Premium Report",
 //   "career_path_analysis": "Complete Life Analysis Report",
 //   "processing_payment": "Processing Payment...",
-//   "preparing_analysis": "Generating Your 200+ Page Report...",
+//   "preparing_analysis": "Generating Your  Report...",
 //   "complete_payment_get_report": "🚀 Complete Payment & Get Report",
 
 //   // Trust indicators
@@ -235,7 +235,7 @@ export default enKundli;
 
 //   // Service details
 //   "birth_chart_analysis": "Personalized Astrology Report",
-//   "complete_kundli_report": "200+ Page Vedic Kundli Report - All Life Areas Covered",
+//   "complete_kundli_report": " Vedic Kundli Report - All Life Areas Covered",
 //   "service_amount": "₹599",
 
 //   "advanced_astrology_suite": "Advanced Astrology Suite",
@@ -266,7 +266,7 @@ export default enKundli;
 //   "when_and_where_arrived": "When and where were you born?",
 //   "your_preferences": "Language Preference",
 //   "customize_experience": "Select your preferred language for the report",
-//   "unlock_your_destiny": "Get Your 200+ Page Kundli",
+//   "unlock_your_destiny": "Get Your  Kundli",
 //   "complete_cosmic_journey": "Complete your details to receive the full report",
 
 //   // Step 0: Personal Details
@@ -312,7 +312,7 @@ export default enKundli;
 //   "bengali": "🇮🇳 বাংলা",
 //   "what_youll_receive": "What You'll Receive",
 //   "life_kundali_20_years": "Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance for Career, Love, Health & Wealth",
-//   "detailed_career_path_analysis": "200+ Page PDF Kundli Report",
+//   "detailed_career_path_analysis": " PDF Kundli Report",
 //   "planetary_position_interpretations": "Covers 20+ astrological systems",
 //   "dasha_system_predictions": "Includes Career, Marriage, Health & Life Predictions",
 //   "personalized_remedial_suggestions": "Personalized Remedies & Gemstone Suggestions",
@@ -320,7 +320,7 @@ export default enKundli;
 
 //   // Step 4: Payment
 //   "unlock_your_destiny_title": "Get Your Full Report",
-//   "complete_cosmic_journey_desc": "Complete the form and receive your personalized 200+ page astrology report",
+//   "complete_cosmic_journey_desc": "Complete the form and receive your personalized  astrology report",
 //   "premium": "Premium Report",
 //   "career_path_analysis": "Complete Life Analysis Report",
 //   "off_label": "OFF",
@@ -330,7 +330,7 @@ export default enKundli;
 //   "birth_time_label": "Birth Time:",
 //   "birth_place_label": "Birth Place:",
 //   "processing_payment": "Processing Payment...",
-//   "preparing_analysis": "Generating Your 200+ Page Report...",
+//   "preparing_analysis": "Generating Your  Report...",
 //   "complete_payment_get_report": "🚀 Complete Payment & Get Report",
 
 //   // Navigation
@@ -346,7 +346,7 @@ export default enKundli;
 //   "provide_birth_time_place": "Please provide accurate birth time and place",
 
 //   // Header
-//   "cosmic_career": "200+ Page Kundli Report",
+//   "cosmic_career": " Kundli Report",
 //   "journey": "Your Complete Life Analysis",
 //   "discover_professional_destiny": "Get your personalized Vedic astrology report with career, love, health and remedies—delivered in 24 hours.Life Kundali with 20 Years of Future Predictions — Year-by-Year Guidance for Career, Love, Health & Wealth",
 
@@ -370,7 +370,7 @@ export default enKundli;
 
 //   // Service Details
 //   "birth_chart_analysis": "Personalized Astrology Report",
-//   "complete_kundli_report": "200+ Page Vedic Kundli Report - All Life Areas Covered",
+//   "complete_kundli_report": " Vedic Kundli Report - All Life Areas Covered",
 //   "service_amount": "₹599",
 
 //   // Time of Day Indicators (for emoji display)
