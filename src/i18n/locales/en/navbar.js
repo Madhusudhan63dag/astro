@@ -2,7 +2,7 @@ export default {
   // Navigation
   'home': "Home",
   "detailed": "Complete Report",
-  "goshala_charity": "Includes Goshala Donation",
+  "goshala_charity": "Goshala Donation",
   "about": "About", 
   "contact": "Contact",
   "get_reading": "Get Reading",
