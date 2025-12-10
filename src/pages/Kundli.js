@@ -987,6 +987,9 @@ const BrandNeutralKundli = () => {
                 </div>
               </div>
             </div>
+            <a href="/GoshalaCharitySection" className="text-white block font-medium mb-4 text-lg">
+              Support Goshala Seva with Every Purchase
+            </a>
 
             {/* Form Completion Status */}
             {!isFormComplete && (

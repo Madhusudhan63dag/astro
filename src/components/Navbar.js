@@ -163,8 +163,11 @@ const AstroNavbar = () => {
               <a href="/" className="text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium text-sm xl:text-sm">
                 {t('home')}
               </a>
-              <a href="/kundli" className="text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium text-sm xl:text-sm">
-                {t('detailed')}
+                <a href="/kundli" className="text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium text-sm xl:text-sm">
+                  {t('detailed')}
+              </a>
+              <a href="/GoshalaCharitySection" className="text-gray-800 hover:text-amber-600 transition-colors duration-300 font-medium text-sm xl:text-sm">
+                  {t('goshala_charity')}
               </a>
 
               {/* Desktop Language Selector with Continuous Animation */}
@@ -244,6 +247,13 @@ const AstroNavbar = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t('detailed')}
+              </a>
+              <a 
+                href="/GoshalaCharitySection" 
+                className="block px-3 sm:px-4 py-2 sm:py-3 text-gray-800 hover:text-amber-600 hover:bg-amber-100/40 rounded-lg mx-2 transition-colors duration-300 text-sm sm:text-base"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('goshala_charity')}
               </a>
 
               {/* Mobile Dropdown Items */}

@@ -59,6 +59,7 @@ import Disclaimer from './pages/Disclaimer';
 import Thank from './pages/Thank';
 import KundliFillupForm from './pages/Form';
 import ThankYouPage from './pages/Thankyou';
+import GoshalaCharitySection from './pages/GoshalaCharitySection';
 
 
 
@@ -115,7 +116,9 @@ function RouteContainer() {
           <Route path="/kundli" element={<Kundli />} />
           <Route path="/thank-you" element={<Thank />} />
           <Route path="/form" element={<KundliFillupForm />} />
-          <Route path="/thank" element={<ThankYouPage />} />          {/* <Route path="/blog" element={<Blog />} />
+          <Route path="/thank" element={<ThankYouPage />} />          
+          <Route path="/GoshalaCharitySection" element= {<GoshalaCharitySection />} />
+          {/* <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} /> 
           
           <Route path="/birth-chart" element={<BirthChart />} />
