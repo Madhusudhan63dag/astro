@@ -1,7 +1,7 @@
 const translations = {
     // Hero Section
-  "unlock_cosmic": "Sri Astro Veda",
-  "personalized_predictions": "From Zodiac Signs to Life’s Big Answers",
+  "unlock_cosmic": "Your offering",
+  "personalized_predictions": "Your offering directly supports the Goshala and spiritual missions. This simple action weaves good fortune into your life.",
   "hero_description": "Where ancient wisdom meets your modern life — explore Birth Charts, Numerology, Your Love Life, and Dasha Phal readings, all crafted by certified Jyotish experts to guide your path with clarity and purpose.",
   "get_my_report": "Get Full Report",
   "view_sample": "View Sample Report",

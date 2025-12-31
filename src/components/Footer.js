@@ -25,7 +25,7 @@ export default function Footer() {
             {/* Social Media Icons */}
             <div className="flex space-x-4 sm:space-x-5">
               <a 
-                href="https://www.instagram.com/sriastroveda" 
+                href="https://www.instagram.com/sacredrelm" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram" 
@@ -34,7 +34,16 @@ export default function Footer() {
                 <FaInstagram />
               </a>
               <a 
-                href="https://www.facebook.com/profile.php?id=61578760447472" 
+                href="https://www.youtube.com/@sacredrelm" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Facebook" 
+                className="text-slate-400 hover:text-blue-400 transition-colors duration-300 text-lg sm:text-xl"
+              >
+                <FaYoutube />
+              </a>
+              <a 
+                href="https://www.facebook.com/profile.php?id=61574827475508" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Facebook" 
@@ -42,7 +51,7 @@ export default function Footer() {
               >
                 <FaFacebookF />
               </a>
-              <a 
+              {/* <a 
                 href="https://wa.me/919059821555" 
                 target="_blank" 
                 rel="noopener noreferrer" 
@@ -50,7 +59,7 @@ export default function Footer() {
                 className="text-slate-400 hover:text-green-400 transition-colors duration-300 text-lg sm:text-xl"
               >
                 <FaWhatsapp />
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -260,15 +269,15 @@ export default function Footer() {
                   hello@sriastroveda.com
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a 
                   href="tel:+919908030444" 
                   className="hover:text-yellow-300 transition-colors duration-300 block py-1"
                 >
                   +91 99080 30444
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a 
                   href="https://wa.me/919059821555" 
                   className="hover:text-green-300 transition-colors duration-300 block py-1" 
@@ -277,7 +286,7 @@ export default function Footer() {
                 >
                   {t('whatsapp_support')}
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
